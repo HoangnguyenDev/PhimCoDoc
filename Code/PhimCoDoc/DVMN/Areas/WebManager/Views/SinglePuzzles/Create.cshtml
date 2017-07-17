@@ -1,0 +1,181 @@
+@model DVMN.Models.SSinglePuzzle
+
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>SSinglePuzzle</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Title" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea class="ckeditor" id="Description"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Slug" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Slug" class="form-control" />
+                <span asp-validation-for="Slug" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ImageID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="ImageID" class ="form-control" asp-items="ViewBag.ImageID"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <input asp-for="IsYesNo" />
+                    <label asp-for="IsYesNo"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="AnswerA" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="AnswerA" class="form-control" />
+                <span asp-validation-for="AnswerA" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="AnswerB" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="AnswerB" class="form-control" />
+                <span asp-validation-for="AnswerB" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="AnswerC" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="AnswerC" class="form-control" />
+                <span asp-validation-for="AnswerC" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="AnswerD" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="AnswerD" class="form-control" />
+                <span asp-validation-for="AnswerD" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Correct" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Correct" class="form-control" />
+                <span asp-validation-for="Correct" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Reason" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Reason" class="form-control" />
+                <span asp-validation-for="Reason" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Like" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Like" class="form-control" />
+                <span asp-validation-for="Like" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Level" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Level" class="form-control" />
+                <span asp-validation-for="Level" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreateDT" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CreateDT" class="form-control" />
+                <span asp-validation-for="CreateDT" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UpdateDT" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="UpdateDT" class="form-control" />
+                <span asp-validation-for="UpdateDT" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="MemberID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="MemberID" class="form-control" />
+                <span asp-validation-for="MemberID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Approved" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Approved" class="form-control" />
+                <span asp-validation-for="Approved" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Active" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Active" class="form-control" />
+                <span asp-validation-for="Active" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <input asp-for="IsDeleted" />
+                    <label asp-for="IsDeleted"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Note" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Note" class="form-control" />
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Css {
+}
+@section Scripts{
+    <script src="~/plugins/iCheck/icheck.min.js"></script>
+    <script src="~/lib/ckeditor/ckeditor.js"></script>
+    <script src="~/lib/ckeditor/adapters/jquery.js"></script>
+    <script type="text/javascript">
+        $(".ckeditor").ckeditor(
+            
+        );
+        //CKEDITOR.config.customConfig = "~/plugins/"
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+    </script>
+
+    }

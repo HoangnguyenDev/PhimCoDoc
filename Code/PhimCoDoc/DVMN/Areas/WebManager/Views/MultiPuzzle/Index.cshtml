@@ -1,0 +1,104 @@
+@model IEnumerable<DVMN.Models.MMultiPuzzle>
+    @{
+        ViewData["Title"] = "Danh sách câu đố";
+        ViewData["H1"] = "Danh sách các câu đố hiện có";
+        ViewData["Breadcrumb1"] = "Quản lý";
+        ViewData["Breadcrumb2"] = "Đố theo kỳ";
+        ViewData["Breadcrumb3"] = "Danh sách câu đố";
+    }
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title pull-left">Danh mục sách</h3>
+            <p>
+                <a asp-action="Create" class="btn btn-success pull-right">Tạo mới</a>
+            </p>
+        </div>
+        <div class="box-body">
+            @if (!Model.Any())
+            {
+                <label>Chưa có dữ liệu</label>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Title)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Slug)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NumberQuestion)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Image)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Like)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Level)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AuthorID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Approved)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Active)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Note)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Slug)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NumberQuestion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Image)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Like)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Level)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AuthorID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Approved)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Active)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Note)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>

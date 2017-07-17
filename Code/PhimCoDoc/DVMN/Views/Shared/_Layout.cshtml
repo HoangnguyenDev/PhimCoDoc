@@ -1,0 +1,89 @@
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>@ViewData["Title"]</title>
+    <meta name="description" content="@ViewData["Desciption"]" />
+    <meta name="keywords" content="@ViewData["Keyword"]" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-language" content="vi">
+    <meta itemprop="homeLocation" content="Vietnam">
+    <meta name="robots" content="noodp">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="@ViewData["Title"]">
+    <meta property="og:description" content="@ViewData["Desciption"]">
+    <meta property="og:url" content="http://nguyenit.net/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:description" content="@ViewData["Desciption"]">
+    <meta name="twitter:title" content="@ViewData["Title"]">
+    <link rel="dns-prefetch" href="//s.w.org/">
+    <link rel="alternate" type="application/rss+xml" href="feed/">
+    <link rel="alternate" type="application/rss+xml" href="comments/feed/">
+    <link rel="https://api.w.org/" href="wp-json/">
+    <link rel="alternate" href="/" hreflang="vi-vn">
+    <link rel="profile" href="//gmpg.org/xfn/11">
+    <link rel="canonical" href="http://nguyenit.net/">
+    <link rel="apple-touch-icon" href="/favicon.192.png" />
+    <link rel="icon" sizes="192x192" href="/favicon.192.png" />
+    <!-- Bai viet-->
+    <meta property="og:image" content="https://img.quantrimang.com/photos/image/042015/22/seo2.jpg" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Cấu tr&#250;c của 1 website chuẩn SEO Google" />
+
+    <environment names="Development">
+
+        <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link href="~/assets/css/animate.css" rel="stylesheet" />
+        <link href="~/assets/css/font.css" rel="stylesheet" />
+        <link href="~/assets/css/li-scroller.css" rel="stylesheet" />
+        <link href="~/assets/css/slick.css" rel="stylesheet" />
+        <link href="~/assets/css/jquery.fancybox.css" rel="stylesheet" />
+        <link href="~/assets/css/theme.css" rel="stylesheet" />
+        <link href="~/assets/css/style.css" rel="stylesheet" />
+    </environment>
+    <environment names="Staging,Production">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/assets/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/assets/css/animate.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/assets/css/font.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/assets/css/li-scroller.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/assets/css/slick.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/assets/css/jquery.fancybox.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/assets/css/theme.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/assets/css/style.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+    <!--[if lt IE 9]>
+    <script src="assets/js/html5shiv.min.js"></script>
+    <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+    @RenderSection("Style", required: false)
+    @Html.Raw(JavaScriptSnippet.FullScript)
+</head>
+<body>
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
+    <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+    <div class="container">
+        @await Html.PartialAsync("_HeaderPartial")
+        @RenderBody()
+        <footer id="footer">
+            @await Html.PartialAsync("_FooterPartial")
+        </footer>
+    </div>
+    <script src="~/assets/js/jquery.min.js" asp-append-version="true" ></script>
+    <script src="~/assets/js/wow.min.js" asp-append-version="true" ></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true" ></script>
+    @*<script src="assets/js/bootstrap.min.js"></script>*@
+    <script src="~/assets/js/slick.min.js" asp-append-version="true" ></script>
+    <script src="~/assets/js/jquery.li-scroller.1.0.js" asp-append-version="true" ></script>
+    <script src="~/assets/js/jquery.newsTicker.min.js" asp-append-version="true" ></script>
+    <script src="~/assets/js/jquery.fancybox.pack.js" asp-append-version="true" ></script>
+    <script src="~/assets/js/custom.js" asp-append-version="true" ></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
