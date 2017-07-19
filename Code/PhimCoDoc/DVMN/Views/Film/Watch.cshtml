@@ -1,0 +1,77 @@
+﻿@{
+    Film item = ViewData["FilmDetials"] as Film;
+    IEnumerable<Film> bannerBottomFilm = ViewData["bannerBottomFilm"] as IEnumerable<Film>;
+    string scheme = Context.Request.Scheme;
+    string host = Context.Request.Host.Host;
+    string port = Context.Request.Host.Port.ToString();
+    string path = Context.Request.Path;
+    string url = string.Format("{0}://{1}:{2}{3}", scheme, host, port, Context.Request.Path);
+}
+
+<div class="general_social_icons">
+    @await Html.PartialAsync("_SocialPartial")
+</div>
+<!-- single -->
+<div class="single-page-agile-main">
+    <div class="container">
+        <!-- /w3l-medile-movies-grids -->
+        <div class="agileits-single-top">
+            <ol class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Single</li>
+            </ol>
+        </div>
+        <div class="single-page-agile-info">
+
+            <div onclick="this.nextElementSibling.style.display='block'; this.style.display='none'">
+                <img src="@item.Image.Pic1140x641" class="img-responsive" style="cursor:pointer" />
+            </div>
+            <div class="embed-responsive embed-responsive-16by9" @*style="display:none"*@>
+                @{
+                    var src = "https://drive.google.com/file/d/";
+                    src += item.Video;
+                    src += "/preview?autoplay=0";
+                }
+                <iframe src="@src" frameborder="0" allowfullscreen="1"></iframe>
+            </div>
+            <iframe allowfullscreen="1" src="https://drive.google.com/file/d/0B4fdHuC5huA7WExvc0pGYlpRME0/preview?rel=0&start=1&loop=1&autoplay=1" width="640" height="480"></iframe>
+            <br />
+            <div class="like-share-video-backup">
+                <div class="pull-left">
+                </div>
+                <div class="pull-right">
+                    <div class="fb-like" data-href="@string.Format("{0}",@url)" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                </div>
+            </div>
+            <br />
+            <div class="info-video" >
+                    <h2 class="text-primary" style="padding: 10px">@item.Title</h2>
+                    <h4 class="text-white" style="padding: 10px">@item.OrtherTitle</h4>
+            </div>
+            <div class="send-and-rating">
+                <div class="pull-left">
+                    <div class="fb-send" data-href="https://developers.facebook.com/apps"></div>
+                    Bấm vào đây để gửi phim cho bạn bè cùng xem
+                </div>
+                <div class="pull-right">
+                    Đánh giá phim (Sắp ra mắt)
+                </div>
+            </div>
+
+            <div class="fb-comments" data-width="100%" data-href="@string.Format("{0}",@url)" data-numposts="7"></div>
+            @await Html.PartialAsync("_BannerBottomPartial", bannerBottomFilm)
+        </div>
+    </div>
+</div>
+@section ScriptsTop {
+    <div id="fb-root"></div>
+    <script async>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.10&appId=846411685524427";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+}

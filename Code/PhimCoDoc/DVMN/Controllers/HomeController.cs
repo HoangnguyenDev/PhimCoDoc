@@ -21,8 +21,16 @@ namespace DVMN.Controllers
         [ResponseCache(CacheProfileName = "Default")]
         public async Task<IActionResult> Index()
         {
-            ViewData["listPuzzleNormal"] = await _context.MultiPuzzle.ToListAsync();
-            ViewData["listSinglePuzzle"] = await _context.SSinglePuzzle.ToListAsync();
+            ViewData["generalFilm"] = await _context.Film
+                .Include(p => p.Image)
+                .ToListAsync();
+            ViewData["bannerFilm"] = await _context.Film
+                .Include(p => p.Image)
+                .ToListAsync();
+            ViewData["bannerBottomFilm"] = await _context.Film
+               .Include(p => p.Image)
+               .ToListAsync();
+            // ViewData["listSinglePuzzle"] = await _context.SSinglePuzzle.ToListAsync();
             return View();
         }
         

@@ -1,0 +1,115 @@
+@model DVMN.Models.Film
+
+@{
+    
+}
+<div class="box box-success">
+    <div class="box-header with-border">
+        <h3 class="box-title">Đặt câu hỏi</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+    </div>
+
+    <form asp-action="Create" class="form-horizontal">
+        @*<div class="form-horizontal">*@
+          <div class="box-body">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="Description" class="ckeditor"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateofRease" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="DateofRease" class="form-control" />
+                    <span asp-validation-for="DateofRease" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="StarRating" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="StarRating" class="form-control" />
+                    <span asp-validation-for="StarRating" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Video" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="Video" class="ckeditor"></textarea>
+                    <span asp-validation-for="Video" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Slug" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Slug" class="form-control" />
+                    <span asp-validation-for="Slug" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageID" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <select asp-for="ImageID" class="form-control" asp-items="ViewBag.ImageID"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="SerieID" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <select asp-for="SerieID" class="form-control" asp-items="ViewBag.SerieID"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Genres" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Genres" class="form-control" />
+                    <span asp-validation-for="Genres" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Note" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Note" class="form-control" />
+                    <span asp-validation-for="Note" class="text-danger"></span>
+                </div>
+            </div>
+         </div>   
+         <div class="box-footer clearfix">
+            <input type="submit" value="Tiếp tục" class="btn btn-success pull-right" />
+        </div>
+    </form>
+</div>
+
+    @section Scripts{
+        <script src="~/plugins/iCheck/icheck.min.js"></script>
+        <script src="~/lib/ckeditor/ckeditor.js"></script>
+        <script src="~/lib/ckeditor/adapters/jquery.js"></script>
+        <script type="text/javascript">
+            $(".ckeditor").ckeditor(
+
+            );
+            //CKEDITOR.config.customConfig = "~/plugins/"
+            $(function () {
+                $('input').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue',
+                    increaseArea: '20%' // optional
+                });
+            });
+        </script>
+
+    }

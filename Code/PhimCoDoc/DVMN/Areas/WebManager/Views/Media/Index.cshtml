@@ -1,112 +1,53 @@
-@using Kendo.Mvc.UI
+@model IEnumerable<DVMN.Models.Images>
 
-<div class="demo-section k-content wide">
-    <div class="wrapper">
-        <div id="products"></div>
-        <div class="dropZoneElement">
-            <div class="textWrapper">
-                <p><span>+</span>Add Image</p>
-                <p class="dropImageHereText">Drop image here to upload</p>
-            </div>
-        </div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pic182x268)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member.FullName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    <img src="@Html.DisplayFor(modelItem => item.Pic182x268)" class="img-responsive" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Member.FullName)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<div class="box box-primary">
+    <div class="box-header">
+        <h2 class="box-title">Ghi chú</h2>
+    </div>
+    <div class="box-body">
+        <p>Hiện tại có kích thước hình ảnh tương ứng với đường dẫn</p>
+        <p>/images</p>
+        <p>/images/1300x500</p>
+        <p>/images/182x268</p>
+        <p>/images/115x175</p>
     </div>
 </div>
-
-<script type="text/x-kendo-template" id="template">
-    <div class="product">
-        <img src="../shared/web/foods/#= name #" alt="#: name # image" />
-    </div>
-</script>
-
-@(Html.Kendo().Upload()
-        .Name("files")
-        .Async(a => a
-            .Save("Save", "Media")
-            .Remove("Remove", "Media")
-            .AutoUpload(true)
-        )
-        .Events(e => e.Success("onSuccess"))
-        .ShowFileList(false)
-        .DropZone(".dropZoneElement")
-        .Validation(validation =>
-        {
-            validation.AllowedExtensions(new string[] { ".jpg", ".jpeg", ".png", ".bmp", ".gif" });
-            validation.MinFileSize(500);
-        })
-)
-
-<script>
-    $(function () {
-        var template = kendo.template($("#template").html());
-        //var initialFiles = [{ name: "1.jpg" }, { name: "2.jpg" }, { name: "3.jpg" }, { name: "4.jpg" }, { name: "5.jpg" }, { name: "6.jpg" }];
-
-        $("#products").html(kendo.render(template));
-    });
-
-    function onSuccess(e) {
-        if (e.operation == "upload") {
-            for (var i = 0; i < e.files.length; i++) {
-                var file = e.files[i].rawFile;
-
-                if (file) {
-                    var reader = new FileReader();
-
-                    reader.onloadend = function () {
-                        $("<div class='product'><img src=" + this.result + " /></div>").appendTo($("#products"));
-                    };
-
-                    reader.readAsDataURL(file);
-                }
-            }
-        }
-    }
-</script>
-
-<style>
-    .dropZoneElement {
-        position: relative;
-        display: inline-block;
-        background-color: #f8f8f8;
-        border: 1px solid #c7c7c7;
-        width: 230px;
-        height: 110px;
-        text-align: center;
-    }
-
-    .textWrapper {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        font-size: 24px;
-        line-height: 1.2em;
-        font-family: Arial,Helvetica,sans-serif;
-        color: #000;
-    }
-
-    .dropImageHereText {
-        color: #c7c7c7;
-        text-transform: uppercase;
-        font-size: 12px;
-    }
-
-    .product {
-        float: left;
-        position: relative;
-        margin: 0 10px 10px 0;
-        padding: 0;
-    }
-
-        .product img {
-            width: 110px;
-            height: 110px;
-        }
-
-    .wrapper:after {
-        content: ".";
-        display: block;
-        height: 0;
-        clear: both;
-        visibility: hidden;
-    }
-</style>

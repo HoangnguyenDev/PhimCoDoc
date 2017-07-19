@@ -8,7 +8,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-language" content="vi">
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+               function hideURLbar(){ window.scrollTo(0,1); } </script>
     <meta itemprop="homeLocation" content="Vietnam">
     <meta name="robots" content="noodp">
     <meta property="og:locale" content="vi_VN">
@@ -34,56 +38,144 @@
     <meta property="og:title" content="Cấu tr&#250;c của 1 website chuẩn SEO Google" />
 
     <environment names="Development">
-
         <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link href="~/assets/css/animate.css" rel="stylesheet" />
-        <link href="~/assets/css/font.css" rel="stylesheet" />
-        <link href="~/assets/css/li-scroller.css" rel="stylesheet" />
-        <link href="~/assets/css/slick.css" rel="stylesheet" />
-        <link href="~/assets/css/jquery.fancybox.css" rel="stylesheet" />
-        <link href="~/assets/css/theme.css" rel="stylesheet" />
-        <link href="~/assets/css/style.css" rel="stylesheet" />
+        <link href="~/movie/css/style.css" rel="stylesheet" type="text/css" media="all" />
+        <link rel="stylesheet" href="~/movie/css/contactstyle.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="~/movie/css/faqstyle.css" type="text/css" media="all" />
+        <link href="~/movie/css/single.css" rel='stylesheet' type='text/css' />
+        <link href="~/movie/css/medile.css" rel='stylesheet' type='text/css' />
+        <!-- banner-slider -->
+        <link href="~/movie/css/jquery.slidey.min.css" rel="stylesheet">
+        <!-- //banner-slider -->
+        <!-- pop-up -->
+        <link href="~/movie/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+        <!-- //pop-up -->
+        <!-- banner-bottom-plugin -->
+        <link href="~/movie/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
+        <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
     </environment>
-    <environment names="Staging,Production">
-        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/assets/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/assets/css/animate.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/assets/css/font.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/assets/css/li-scroller.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/assets/css/slick.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/assets/css/jquery.fancybox.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/assets/css/theme.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/assets/css/style.css" rel="stylesheet" asp-append-version="true" />
-    </environment>
-    <!--[if lt IE 9]>
-    <script src="assets/js/html5shiv.min.js"></script>
-    <script src="assets/js/respond.min.js"></script>
-    <![endif]-->
-    @RenderSection("Style", required: false)
-    @Html.Raw(JavaScriptSnippet.FullScript)
+<environment names="Staging,Production">
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet"  asp-append-version="true"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"  asp-append-version="true" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="~/movie/css/style.css" rel="stylesheet" type="text/css" media="all"  asp-append-version="true" />
+    <link rel="stylesheet" href="~/movie/css/contactstyle.css" type="text/css" media="all"  asp-append-version="true" />
+    <link rel="stylesheet" href="~/movie/css/faqstyle.css" type="text/css" media="all"  asp-append-version="true" />
+    <link href="~/movie/css/single.css" rel='stylesheet' type='text/css'  asp-append-version="true" />
+    <link href="~/movie/css/medile.css" rel='stylesheet' type='text/css'  asp-append-version="true" />
+    <!-- banner-slider -->
+    <link href="~/movie/css/jquery.slidey.min.css" rel="stylesheet"  asp-append-version="true">
+    <!-- //banner-slider -->
+    <!-- pop-up -->
+    <link href="~/movie/css/popuo-box.css" rel="stylesheet" type="text/css" media="all"  asp-append-version="true"/>
+    <!-- //pop-up -->
+    <!-- banner-bottom-plugin -->
+    <link href="~/movie/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all"  asp-append-version="true">
+    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'  asp-append-version="true"> 
+</environment>
+<!--[if lt IE 9]>
+<script src="assets/js/html5shiv.min.js"></script>
+<script src="assets/js/respond.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="~/movie/js/jquery-2.1.4.min.js" asp-append-version="true"></script>
+@RenderSection("Style", required: false)
+@Html.Raw(JavaScriptSnippet.FullScript)
 </head>
 <body>
-    <div id="preloader">
-        <div id="status">&nbsp;</div>
-    </div>
-    <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
-    <div class="container">
+    @RenderSection("ScriptsTop", required: false)
+    <!-- header -->
+	<div class="header">
         @await Html.PartialAsync("_HeaderPartial")
-        @RenderBody()
-        <footer id="footer">
-            @await Html.PartialAsync("_FooterPartial")
-        </footer>
     </div>
-    <script src="~/assets/js/jquery.min.js" asp-append-version="true" ></script>
-    <script src="~/assets/js/wow.min.js" asp-append-version="true" ></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true" ></script>
-    @*<script src="assets/js/bootstrap.min.js"></script>*@
-    <script src="~/assets/js/slick.min.js" asp-append-version="true" ></script>
-    <script src="~/assets/js/jquery.li-scroller.1.0.js" asp-append-version="true" ></script>
-    <script src="~/assets/js/jquery.newsTicker.min.js" asp-append-version="true" ></script>
-    <script src="~/assets/js/jquery.fancybox.pack.js" asp-append-version="true" ></script>
-    <script src="~/assets/js/custom.js" asp-append-version="true" ></script>
+    @await Html.PartialAsync("_LoginPopupPartial")
+    <!-- nav -->
+   <div class="movies_nav">
+       @await Html.PartialAsync("_MovieNarPartial")
+   </div>
+    <!-- //nav -->
+    @RenderBody()
+    <!-- footer -->
+    <div class="footer">
+        @await Html.PartialAsync("_FooterPartial")
+    </div>
+    <!-- //footer -->
+    
+    <!-- //js -->
+    <!-- banner-bottom-plugin -->
+    <script src="~/movie/js/owl.carousel.js"></script>
+    <script async>
+        $(document).ready(function () {
+            $("#owl-demo").owlCarousel({
+
+                autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+                items: 5,
+                itemsDesktop: [640, 4],
+                itemsDesktopSmall: [414, 3]
+
+            });
+
+        });
+    </script>
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript" src="~/movie/js/move-top.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/movie/js/easing.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+            $('.toggle').click(function(){
+                // Switches the Icon
+                $(this).children('i').toggleClass('fa-pencil');
+            // Switches the forms
+            $('.form').animate({
+                height: "toggle",
+			'padding-top': 'toggle',
+			'padding-bottom': 'toggle',
+			opacity: "toggle"
+		  }, "slow");
+		});
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>
+   
+    <!-- start-smoth-scrolling -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/movie/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".dropdown").hover(
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                    $(this).toggleClass('open');
+                },
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                    $(this).toggleClass('open');
+                }
+            );
+        });
+    </script>
+    <!-- //Bootstrap Core JavaScript -->
+    <!-- here stars scrolling icon -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+				};
+			*/
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>
+    <!-- //here ends scrolling icon -->
     @RenderSection("Scripts", required: false)
 </body>
 </html>

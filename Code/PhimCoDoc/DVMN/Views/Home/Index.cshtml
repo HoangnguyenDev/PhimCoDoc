@@ -1,26 +1,88 @@
-﻿@{
-    var listPuzzleNormal = ViewData["listPuzzleNormal"] as IEnumerable<MMultiPuzzle>;
-    var listSinglePuzzle = ViewData["listSinglePuzzle"] as IEnumerable<SSinglePuzzle>;
+﻿@{ 
+    IEnumerable<Film> generalFilm = ViewData["generalFilm"] as IEnumerable<Film>;
+    IEnumerable<Film> bannerFilm = ViewData["bannerFilm"] as IEnumerable<Film>;
+    IEnumerable<Film> bannerBottomFilm = ViewData["bannerBottomFilm"] as IEnumerable<Film>;
 }
-
-<section id="sliderSection">
-    @await Html.PartialAsync("_SliderPartial")
-</section>
-<section id="contentSection">
-
-
-    <div class="row">
-        <div class="col-lg-8 col-md-8 col-sm-8">
-            <div class="left_content">
-                <div class="single_post_content">
-                    @Html.PartialAsync("_EverydayPuzzlePartial", listSinglePuzzle)
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <aside class="right_content">
-                @Html.PartialAsync("_SidebarPartial")
-            </aside>
-        </div>
+ <!-- banner -->
+<div id="slidey" style="display:none;">
+    @await Html.PartialAsync("_BannerPartial", bannerFilm)
+</div>
+<!-- banner-bottom -->
+<div class="banner-bottom">
+    <div class="container">
+        @await Html.PartialAsync("_BannerBottomPartial", bannerBottomFilm)
     </div>
-</section>
+</div>
+<!-- //banner-bottom -->
+<div class="general_social_icons">
+    @await Html.PartialAsync("_SocialPartial")
+</div>
+<!-- general -->
+<div class="general">
+    @await Html.PartialAsync("GeneralHomePartial", generalFilm)
+</div>
+<!-- //general -->
+<!-- Latest-tv-series -->
+<div class="Latest-tv-series">
+    @*@await Html.PartialAsync("TvSeriesHomePartial")*@
+</div>
+@section Style{
+    <link rel="stylesheet" href="~/movie/css/flexslider.css" type="text/css" media="screen" property="" />
+}
+@section Scripts {
+<!-- pop-up-box -->
+<script src="~/movie/js/jquery.magnific-popup.js" type="text/javascript"></script>
+<!--//pop-up-box -->
+<div id="small-dialog" class="mfp-hide">
+    <iframe src="https://player.vimeo.com/video/164819130?title=0&byline=0"></iframe>
+</div>
+<div id="small-dialog1" class="mfp-hide">
+    <iframe src="https://player.vimeo.com/video/148284736"></iframe>
+</div>
+<div id="small-dialog2" class="mfp-hide">
+    <iframe src="https://player.vimeo.com/video/165197924?color=ffffff&title=0&byline=0&portrait=0"></iframe>
+</div>
+<script>
+		$(document).ready(function() {
+		$('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
+			type: 'inline',
+			fixedContentPos: false,
+			fixedBgPos: true,
+			overflowY: 'auto',
+			closeBtnInside: true,
+			preloader: false,
+			midClick: true,
+			removalDelay: 300,
+			mainClass: 'my-mfp-zoom-in'
+		});
+
+		});
+</script>
+<!-- //Latest-tv-series -->
+
+<script src="~/movie/js/jquery.slidey.js"></script>
+<script src="~/movie/js/jquery.dotdotdot.min.js"></script>
+
+<script type="text/javascript">
+        $("#slidey").slidey({
+            interval: 8000,
+            listCount: 5,
+            autoplay: false,
+            showList: true
+        });
+        $(".slidey-list-description").dotdotdot();
+</script>
+    <!-- flexSlider -->
+<script defer src="~/movie/js/jquery.flexslider.js"></script>
+<script type="text/javascript">
+				$(window).load(function(){
+				  $('.flexslider').flexslider({
+					animation: "slide",
+					start: function(slider){
+					  $('body').removeClass('loading');
+					}
+				  });
+				});
+</script>
+<!-- //flexSlider -->
+}

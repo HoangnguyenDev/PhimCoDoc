@@ -32,23 +32,30 @@ namespace DVMN
                 // For more details on using the user secret store see https://go.microsoft.com/fwlink/?LinkID=532709
                 builder.AddUserSecrets<Startup>();
             }
-
+            CurrentEnvironment = env;
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
         public IConfigurationRoot Configuration { get; }
+        private IHostingEnvironment CurrentEnvironment { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
             services.AddMemoryCache();
-           
-            //services.AddResponseCaching();
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            if (CurrentEnvironment.IsDevelopment())
+            {
+                //services.AddResponseCaching();
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            }
+            else
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                   options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
+            }
             services.AddIdentity<Member, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -74,7 +81,8 @@ namespace DVMN
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
-            services.AddScoped<IMultiPuzzle, MultiPuzzleRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IFilmRepository, FilmRepository>();
             // Add Kendo UI services to the services container
             services.AddKendo();
         }
@@ -128,11 +136,25 @@ namespace DVMN
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true
             });
-            app.UseFacebookAuthentication(new FacebookOptions()
+            if (env.IsDevelopment())
             {
-                AppId = "283779168758487",
-                AppSecret = "16cbd9eafd6d2b5f6c1fb8b2fda3b1c6"
-            });
+                app.UseFacebookAuthentication(new FacebookOptions()
+                {
+                    AppId = "112552656061422",
+                    AppSecret = "a333bd5281e44e09f25f5234e3e86cf8"
+                });
+
+                //http://phimcodoc.azurewebsites.net/signin-facebook
+            }
+            else
+            {
+                app.UseFacebookAuthentication(new FacebookOptions()
+                {
+                    AppId = "846411685524427",
+                    AppSecret = "61d17546384e1772e1f998f53a7bc89a"
+                });
+
+            }
             app.UseMvc(routes =>
             {
                 routes.MapRoute(name: "areaRoute",

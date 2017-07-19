@@ -1,0 +1,55 @@
+@{
+    IEnumerable<Film> generalFilm = ViewData["generalFilm"] as IEnumerable<Film>;
+    Film filmDetails = ViewData["FilmDetials"] as Film;
+    IEnumerable<Film> bannerBottomFilm = ViewData["bannerBottomFilm"] as IEnumerable<Film>;
+}
+
+<div class="general_social_icons">
+    @await Html.PartialAsync("_SocialPartial")
+</div>
+<!-- single -->
+<div class="single-page-agile-main">
+    <div class="container">
+        <!-- /w3l-medile-movies-grids -->
+        <div class="agileits-single-top">
+            <ol class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Single</li>
+            </ol>
+        </div>
+        <div class="single-page-agile-info">
+            <!-- /movie-browse-agile -->
+            <div class="show-top-grids-w3lagile">
+                <div class="col-sm-8 single-left">
+                   @await Html.PartialAsync("_SingleLeftPartial", filmDetails)
+                </div>
+                <div class="col-md-4 single-right">
+                   @await Html.PartialAsync("_SingleRightPartial")
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <!-- //movie-browse-agile -->
+            <!--body wrapper start-->
+            @await Html.PartialAsync("_BannerBottomPartial", bannerBottomFilm)
+            <!--body wrapper end-->
+        </div>
+        <!-- //w3l-latest-movies-grids -->
+    </div>
+</div>
+@section Style {
+<link rel="stylesheet" href="~/lib/kendo-ui/styles/kendo.common-nova.min.css" />
+<link rel="stylesheet" href="~/lib/kendo-ui/styles/kendo.nova.min.css" />
+@*<script src="https://kendo.cdn.telerik.com/2017.2.621/js/jquery.min.js"></script>*@
+<script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.aspnetmvc.min.js"></script>
+}
+@section Scripts {
+
+    @*<script src="/movie/js/simplePlayer.js"></script>
+    <script>
+         $("document").ready(function () {
+                 $("#video").simplePlayer();
+         });
+    </script>*@
+}

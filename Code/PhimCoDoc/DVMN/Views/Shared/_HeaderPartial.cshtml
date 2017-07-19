@@ -1,81 +1,18 @@
-﻿<header id="header">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="header_top">
-                <div class="header_top_left">
-                    <ul class="top_nav">
-                        <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
-                        <li><a asp-controller="Home" asp-action="About">Giới thiệu</a></li>
-                        <li><a asp-controller="Home" asp-action="Contact">Liên hệ</a></li>
-                    </ul>
-                </div>
-                <div class="header_top_right">
-                    <p>@DateTime.Now.ToString("F")</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="header_bottom">
-                <div class="logo_area"><a href="index.html" class="logo"><img src="images/logo.jpg" title="" alt="" asp-append-version="true"></a></div>
-                <div class="add_banner"><a href="#"><img src="images/addbanner_728x90_V1.jpg" title="" alt="" asp-append-version="true"></a></div>
-            </div>
-        </div>
+<div class="container">
+    <div class="w3layouts_logo">
+        <a asp-controller="Home" asp-action="Index"><h1>Phim<span>Cơ Đốc</span></h1></a>
     </div>
-</header>
-<section id="navArea">
-    <nav class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav main_nav">
-                <li class="active"><a asp-controller="Home" asp-action="Index"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
-                <li><a href="#">Technology</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mobile</a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Android</a></li>
-                        <li><a href="#">Samsung</a></li>
-                        <li><a href="#">Nokia</a></li>
-                        <li><a href="#">Walton Mobile</a></li>
-                        <li><a href="#">Sympony</a></li>
-                    </ul>
-                </li>
-                <li><a asp-controller="Home" asp-action="Contact">Liên hệ</a></li>
-            </ul>
-            @await Html.PartialAsync("_LoginPartial")
-        </div>
-    </nav>
-</section>
-<section id="newsSection">
-    <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <div class="latest_newsarea">
-                <span>Tin mới</span>
-                <ul id="ticker01" class="news_sticker">
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" title="" alt="" asp-append-version="true">My First News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" title="" alt="" asp-append-version="true">My Second News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" title="" alt="" asp-append-version="true">My Third News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" title="" alt="" asp-append-version="true">My Four News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" title="" alt="" asp-append-version="true">My Five News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" title="" alt="" asp-append-version="true">My Six News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" title="" alt="" asp-append-version="true">My Seven News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" title="" alt="" asp-append-version="true">My Eight News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail2.jpg" title="" alt="" asp-append-version="true">My Nine News Item</a></li>
-                </ul>
-                <div class="social_area">
-                    <ul class="social_nav">
-                        <li class="facebook"><a href="#"></a></li>
-                        <li class="twitter"><a href="#"></a></li>
-                        <li class="flickr"><a href="#"></a></li>
-                        <li class="pinterest"><a href="#"></a></li>
-                        <li class="googleplus"><a href="#"></a></li>
-                        <li class="vimeo"><a href="#"></a></li>
-                        <li class="youtube"><a href="#"></a></li>
-                        <li class="mail"><a href="#"></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="w3_search">
+        <form action="#" method="post">
+            <input type="text" name="Search" placeholder="Tìm kiếm" required="">
+            <input type="submit" value="Go">
+        </form>
     </div>
-</section>
+    <div class="w3l_sign_in_register">
+        <ul>
+            @*<li><i class="fa fa-phone" aria-hidden="true"></i> (+000) 123 345 653</li>*@
+            <li><a href="#" data-toggle="modal" data-target="#myModal">Đăng nhập</a></li>
+        </ul>
+    </div>
+    <div class="clearfix"> </div>
+</div>
