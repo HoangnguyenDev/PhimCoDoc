@@ -1,8 +1,14 @@
+@{
+    string scheme = Context.Request.Scheme;
+    string host = Context.Request.Host.Host;
+    string port = Context.Request.Host.Port.ToString();
+    string path = Context.Request.Path;
+    string url = string.Format("{0}://{1}:{2}{3}", scheme, host, port, Context.Request.Path);
+}
 <nav class="social">
     <ul>
-        <li class="w3_twitter"><a href="#">Twitter <i class="fa fa-twitter"></i></a></li>
-        <li class="w3_facebook"><a href="#">Facebook <i class="fa fa-facebook"></i></a></li>
-        <li class="w3_dribbble"><a href="#">Dribbble <i class="fa fa-dribbble"></i></a></li>
-        <li class="w3_g_plus"><a href="#">Google+ <i class="fa fa-google-plus"></i></a></li>
+        <li class="w3_twitter"><a href="https://twitter.com/home?status=@url">Twitter <i class="fa fa-twitter"></i></a></li>
+        <li class="w3_facebook"><a  href="https://www.facebook.com/sharer/sharer.php?u=@url">Facebook <i class="fa fa-facebook"></i></a></li>
+        <li class="w3_g_plus"><a href="https://plus.google.com/share?url=@url">Google+ <i class="fa fa-google-plus"></i></a></li>
     </ul>
 </nav>

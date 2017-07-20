@@ -62,15 +62,17 @@ namespace DVMN.Areas.WebManager.Controllers
         [HttpPost]
         [Route("/quan-ly-web/phim/tao-moi")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,OrtherTitle,Description, DescriptionShort,DateofRease,Info,Length,Watch,StarRating,Video2160,Video360,Video480,Video720,Video1080,Video1440,VideoTrailer,Slug,ImageID,SerieID,Genres,CreateDT,UpdateDT,AuthorID,Approved,Active,IsDeleted,Note")] Film film)
+        public async Task<IActionResult> Create([Bind("ID,Title,OrtherTitle,Description, DescriptionShort,DateofRease,Info,Length,Watch,StarRating,Video, VideoBackUp1, VideoBackUp2,VideoTrailer,Slug,ImageID,SerieID,Genres,CreateDT,UpdateDT,AuthorID,Approved,Active,IsDeleted,Note")] Film film)
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                film.AuthorID = user.Id;
                 await _repository.Create(film);
                 return RedirectToAction("Index");
             }
-            ViewData["ImageID"] = new SelectList(_repository.GetImages(), "ID", "ID", film.ImageID);
-            ViewData["AuthorID"] = new SelectList(_repository.GetMembers(), "Id", "Id", film.AuthorID);
+            ViewData["ImageID"] = new SelectList(_repository.GetImages(), "ID", "Name", film.ImageID);
+            ViewData["AuthorID"] = new SelectList(_repository.GetMembers(), "Id", "FullName", film.AuthorID);
             ViewData["SerieID"] = new SelectList(_repository.GetSeries(), "ID", "ID", film.SerieID);
             return View(film);
         }
@@ -89,8 +91,8 @@ namespace DVMN.Areas.WebManager.Controllers
             {
                 return NotFound();
             }
-            ViewData["ImageID"] = new SelectList(_repository.GetImages(), "ID", "ID");
-            ViewData["AuthorID"] = new SelectList(_repository.GetMembers(), "Id", "Id");
+            ViewData["ImageID"] = new SelectList(_repository.GetImages(), "ID", "Name");
+            ViewData["AuthorID"] = new SelectList(_repository.GetMembers(), "Id", "FullName");
             ViewData["SerieID"] = new SelectList(_repository.GetSeries(), "ID", "ID");
             return View(film);
         }

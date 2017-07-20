@@ -1,7 +1,10 @@
+﻿@using DVMN.Models.FilmViewModels
 @{
     IEnumerable<Film> generalFilm = ViewData["generalFilm"] as IEnumerable<Film>;
-    Film filmDetails = ViewData["FilmDetials"] as Film;
+    WatchFilmViewModel filmDetails = ViewData["FilmDetials"] as WatchFilmViewModel;
     IEnumerable<Film> bannerBottomFilm = ViewData["bannerBottomFilm"] as IEnumerable<Film>;
+    IEnumerable<SingleRightPartialFilmViewModel> singleRightFilm = ViewData["SingleRightFilm"] as IEnumerable<SingleRightPartialFilmViewModel>;
+    ViewData["Title"] = "Thông tin phim " + filmDetails.Title + " | Phim cơ đốc";
 }
 
 <div class="general_social_icons">
@@ -13,8 +16,9 @@
         <!-- /w3l-medile-movies-grids -->
         <div class="agileits-single-top">
             <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Single</li>
+                <li><a asp-controller="Home" asp-action="index">Trang chủ</a></li>
+                <li><a asp-controller="Home" asp-action="Index">Phim</a></li>
+                <li class="active">@filmDetails.Title</li>
             </ol>
         </div>
         <div class="single-page-agile-info">
@@ -24,7 +28,7 @@
                    @await Html.PartialAsync("_SingleLeftPartial", filmDetails)
                 </div>
                 <div class="col-md-4 single-right">
-                   @await Html.PartialAsync("_SingleRightPartial")
+                   @await Html.PartialAsync("_SingleRightPartial", singleRightFilm)
                 </div>
                 <div class="clearfix"> </div>
             </div>

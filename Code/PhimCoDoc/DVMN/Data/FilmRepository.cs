@@ -4,17 +4,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using DVMN.Models;
 using Microsoft.EntityFrameworkCore;
+using DVMN.Models.FilmViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace DVMN.Data
 {
     public class FilmRepository : IFilmRepository
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<Member> _userManager; 
 
-        public FilmRepository(ApplicationDbContext context)
+        public FilmRepository(ApplicationDbContext context, UserManager<Member> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+       
+
         public async Task Create(Film model)
         {
             var post = _context.Film.SingleOrDefault(p => p.ID == model.ID);
@@ -23,7 +29,10 @@ namespace DVMN.Data
             {
                 throw new ArgumentException("A post with the id of " + model.ID + " already exists.");
             }
-
+            model.CreateDT = DateTime.Now;
+            model.Approved = "A";
+            model.Active = "A";
+            model.UpdateDT = DateTime.Now;
             _context.Film.Add(model);
             await _context.SaveChangesAsync();
         }
@@ -85,13 +94,31 @@ namespace DVMN.Data
                 .SingleOrDefaultAsync(post => post.ID == id);
         }
 
-        public async Task<Film> Get(string slug)
+        public async Task<WatchFilmViewModel> Get(string slug, string server)
         {
-            return await _context.Film
+
+            var film = await _context.Film
                .Include(p => p.Member)
                .Include(f => f.Image)
                .Include(f => f.Serie)
                .SingleOrDefaultAsync(post => post.Slug == slug);
+            WatchFilmViewModel model = new WatchFilmViewModel(film.Image,film.Member,film.Serie);
+            model.Video = film.Video;
+            model.VideoBackUp1 = film.VideoBackUp1;
+            model.Title = film.Title;
+            model.OrtherTitle = film.OrtherTitle;
+            model.Info = film.Info;
+            model.DateofRease = film.DateofRease;
+            model.Description = film.Description;
+            model.DescriptionShort = film.DescriptionShort;
+            model.Genres = film.Genres;
+            model.Length = film.Length;
+            model.StarRating = film.StarRating;
+            model.VideoTrailer = film.VideoTrailer;
+            model.Watch = film.Watch;
+            model.Slug = film.Slug;
+            model.SelectSever = Int32.Parse(server);
+            return model;
         }
 
         public async Task<IEnumerable<Film>> GetAll()
@@ -99,6 +126,27 @@ namespace DVMN.Data
             return await _context.Film.Include(f => f.Image).Include(f => f.Member).Include(f => f.Serie)
                      .OrderByDescending(post => post.CreateDT).ToListAsync();
         }
+
+        public async Task<IEnumerable<BannerFilmViewModel>> GetBannerFilm()
+        {
+            var listFilmDB = await _context.Film.Include(f => f.Image).Include(f => f.Member).Include(f => f.Serie)
+                     .OrderByDescending(post => post.CreateDT).Take(8).ToListAsync();
+            int leng = listFilmDB.Capacity;
+            List<BannerFilmViewModel> model = new List<BannerFilmViewModel>(leng);
+            foreach (var item in listFilmDB)
+            {
+                BannerFilmViewModel tempItem = new BannerFilmViewModel(item.Image);
+                tempItem.Title = item.Title;
+                if(!String.IsNullOrEmpty(item.Description))
+                { 
+                    tempItem.Descriptions = item.DescriptionShort.Substring(0, 160);
+                }
+                tempItem.Slug = item.Slug;
+                model.Add(tempItem);
+            }
+            return model;
+        }
+
         public DbSet<Images> GetImages()
         {
             return _context.Images;
@@ -110,6 +158,28 @@ namespace DVMN.Data
         public DbSet<Serie> GetSeries()
         {
             return _context.Serie;
+        }
+
+        public async Task<IEnumerable<SingleRightPartialFilmViewModel>> GetSingleRightFilms()
+        {
+            var listFilmDB = await _context.Film.Include(f => f.Image)
+                .Include(f => f.Serie)
+                .OrderByDescending(post => post.Watch).Take(8).ToListAsync();
+            int leng = listFilmDB.Capacity;
+            List<SingleRightPartialFilmViewModel> model = new List<SingleRightPartialFilmViewModel>(leng);
+            foreach (var item in listFilmDB)
+            {
+                SingleRightPartialFilmViewModel tempItem = new SingleRightPartialFilmViewModel(item.Image);
+                tempItem.Title = item.Title;
+                if (!String.IsNullOrEmpty(item.Description))
+                {
+                    tempItem.Description = item.DescriptionShort.Substring(0, 160);
+                }
+                tempItem.Watch = item.Watch;
+                tempItem.Slug = item.Slug;
+                model.Add(tempItem);
+            }
+            return model;
         }
     }
 }

@@ -1,9 +1,10 @@
-﻿@model IEnumerable<Film>
+﻿@using DVMN.Models.FilmViewModels
+@model IEnumerable<BannerFilmViewModel>
+
 <ul>
     @foreach(var item in Model)
     { 
-        <li><img src="~/images/1300x500/@item.Image.Name" alt=" "><p class='title'><a asp-controller="Film" asp-action="Single" asp-route-slug="@item.Slug">@item.Title</a></p><p class='description'> .</p></li>
+        <li><img src="~/images/1300x500/@item.Image.Name" alt=" "><p class='title'><a style="color: white" asp-controller="Film" asp-action="Single" asp-route-slug="@item.Slug">@item.Title</a></p><p class='description'>@item.Descriptions...</p></li>
     }
-    
 </ul> 
 	

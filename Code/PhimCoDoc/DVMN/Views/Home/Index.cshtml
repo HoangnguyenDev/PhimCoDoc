@@ -1,7 +1,9 @@
-﻿@{ 
+﻿@using DVMN.Models.FilmViewModels
+@{ 
     IEnumerable<Film> generalFilm = ViewData["generalFilm"] as IEnumerable<Film>;
-    IEnumerable<Film> bannerFilm = ViewData["bannerFilm"] as IEnumerable<Film>;
+    List<BannerFilmViewModel> bannerFilm = ViewData["bannerFilm"] as List<BannerFilmViewModel>;
     IEnumerable<Film> bannerBottomFilm = ViewData["bannerBottomFilm"] as IEnumerable<Film>;
+    ViewData["Title"] = "Website Phim Cơ Đốc dành cho người Việt Nam | Kích lê đức tin qua phim";
 }
  <!-- banner -->
 <div id="slidey" style="display:none;">

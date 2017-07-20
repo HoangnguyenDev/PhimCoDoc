@@ -23,16 +23,19 @@ namespace DVMN.Controllers
         [Route("/{slug}")]
         public async Task<IActionResult> Single(string slug)
         {
-            ViewData["FilmDetials"] = await _repository.Get(slug);
+            ViewData["FilmDetials"] = await _repository.Get(slug,"1");
+            ViewData["SingleRightFilm"] = await _repository.GetSingleRightFilms();
             ViewData["bannerBottomFilm"] = await _context.Film
                .Include(p => p.Image)
                .ToListAsync();
             return View();
         }
         [Route("/xem-phim/{slug}")]
-        public async Task<IActionResult> Watch(string slug)
+        public async Task<IActionResult> Watch(string server,string slug)
         {
-            ViewData["FilmDetials"] = await _repository.Get(slug);
+            if (String.IsNullOrEmpty(server))
+                server = "1";
+            ViewData["FilmDetials"] = await _repository.Get(slug, server);
             ViewData["bannerBottomFilm"] = await _context.Film
                .Include(p => p.Image)
                .ToListAsync();

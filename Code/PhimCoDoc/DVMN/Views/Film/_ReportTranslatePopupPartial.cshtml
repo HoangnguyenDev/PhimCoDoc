@@ -1,0 +1,59 @@
+﻿<!-- bootstrap-pop-up -->
+<div class="modal video-modal fade" id="reportTranslate" tabindex="-1" role="dialog" aria-labelledby="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Góp ý bản dịch & đề xuất phim
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <section>
+                <div class="modal-body">
+                    <div class="w3_login_module">
+                        <div class="module form-module">
+                            <div class="toggle">
+                                <i class="fa fa-times fa-pencil"></i>
+                                <div class="tooltip">Chuyển đổi</div>
+                            </div>
+                            <div class="form">
+                                <h3 class="sendFeedBackTranslate">Góp ý bản dịch</h3>
+                                @{ 
+                                    string path = Context.Request.Path;
+                                    path = path.Substring(path.IndexOf("/")+1);
+                                    path = path.Substring(path.IndexOf("/") + 1);
+                                }
+                                <form id="@path" method="post">
+                                    <p class="sendFeedBackTranslate">Phút, giây trong phim bị lỗi</p>
+                                    <input name="TimeError" id="timeError" type="number" class="form-control input-small sendFeedBackTranslate">
+                                    <p class="sendFeedBackTranslate">Nội dung bị lỗi</p>
+                                    <textarea id="name" name="Name" class="form-control sendFeedBackTranslate" value="Nội dung bị lỗi" required="" title="Nội dung bị lỗi"></textarea>
+                                    <br />
+                                    <input id="@path" class="sendingFeedBackTranslate" type="submit" value="Gửi">
+                                    <h3 id="success" style="display: none" class="text-center">Chân thành cám ơn góp ý bản dịch của bạn. Chúng tôi sẽ sửa chữa lại sớm</h3>
+                                </form>
+
+                            </div>
+
+                            <div class="form">
+                                <h3 class="Proposals">Đề xuất phim</h3>
+                                <form id="Proposals" method="post">
+                                    <p class="Proposals">Tên phim</p>
+                                    <input name="TimeError" id="pName" type="number" class="form-control input-small Proposals">
+                                    <p class="Proposals">Lý do</p>
+                                    <textarea id="pReson" name="Name" class="form-control Proposals" value="Nội dung bị lỗi" required="" title="Nội dung bị lỗi"></textarea>
+                                    <br />
+                                    <input id="Proposals" class="sendingProposals" type="submit" value="Gửi">
+                                    <h3 id="success1" style="display: none" class="text-center">Chân thành cám ơn đề xuất phim của bạn. Nếu số lượng bỏ phiếu cao thì sẽ có phim này</h3>
+                                </form>
+
+                            </div>
+                            <div class="cta"><a href="#">Bỏ phiếu đề xuất phim</a></div>
+                        </div>
+                    </div>
+                </div>
+              
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- //bootstrap-pop-up -->

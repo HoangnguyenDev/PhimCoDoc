@@ -1,4 +1,5 @@
 ﻿using DVMN.Models;
+using DVMN.Models.FilmViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,10 @@ namespace DVMN.Data
 {
     public interface IFilmRepository
     {
+        Task<IEnumerable<BannerFilmViewModel>> GetBannerFilm();
+        Task<IEnumerable<SingleRightPartialFilmViewModel>> GetSingleRightFilms();
         Task<Film> Get(int? id);
-        Task<Film> Get(string slug);
+        Task<WatchFilmViewModel> Get(string slug, string server);
         Task Edit(int id, Film updatedItem);
         Task Create(Film model);
         Task Delete(int id);

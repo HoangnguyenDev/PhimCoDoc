@@ -1559,7 +1559,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\Film\" />
     <Folder Include="Views\TestCache\" />
     <Folder Include="wwwroot\lib\kendo-ui\" />
     <Folder Include="wwwroot\movie\" />

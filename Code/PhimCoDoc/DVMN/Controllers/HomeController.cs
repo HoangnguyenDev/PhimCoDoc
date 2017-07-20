@@ -13,9 +13,12 @@ namespace DVMN.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public HomeController(ApplicationDbContext context)
+        private readonly IFilmRepository _repository;
+
+        public HomeController(ApplicationDbContext context, IFilmRepository repository)
         {
             _context = context;
+            _repository = repository;
         }
 
         [ResponseCache(CacheProfileName = "Default")]
@@ -24,9 +27,7 @@ namespace DVMN.Controllers
             ViewData["generalFilm"] = await _context.Film
                 .Include(p => p.Image)
                 .ToListAsync();
-            ViewData["bannerFilm"] = await _context.Film
-                .Include(p => p.Image)
-                .ToListAsync();
+            ViewData["bannerFilm"] = await _repository.GetBannerFilm();
             ViewData["bannerBottomFilm"] = await _context.Film
                .Include(p => p.Image)
                .ToListAsync();

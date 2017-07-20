@@ -8,6 +8,7 @@
     "jquery-validation-unobtrusive": "3.2.6",
     "font-awesome": "Font-Awesome#v4.7.0",
     "Ionicons": "ionicons#v2.0.1",
-    "wow": "WOW#1.1.2"
+    "wow": "WOW#1.1.2",
+    "bootstrap-timepicker": "v0.5.2"
   }
 }

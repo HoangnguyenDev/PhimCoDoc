@@ -1,52 +1,90 @@
-﻿@{
-    Film item = ViewData["FilmDetials"] as Film;
+﻿@using DVMN.Models.FilmViewModels;
+@{
+    WatchFilmViewModel item = ViewData["FilmDetials"] as WatchFilmViewModel;
     IEnumerable<Film> bannerBottomFilm = ViewData["bannerBottomFilm"] as IEnumerable<Film>;
     string scheme = Context.Request.Scheme;
     string host = Context.Request.Host.Host;
     string port = Context.Request.Host.Port.ToString();
     string path = Context.Request.Path;
     string url = string.Format("{0}://{1}:{2}{3}", scheme, host, port, Context.Request.Path);
+    ViewData["Title"] = "Xem phim " + item.Title + " | Phim cơ đốc";
 }
 
 <div class="general_social_icons">
     @await Html.PartialAsync("_SocialPartial")
 </div>
+
 <!-- single -->
 <div class="single-page-agile-main">
     <div class="container">
         <!-- /w3l-medile-movies-grids -->
         <div class="agileits-single-top">
             <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Single</li>
+                <li><a asp-controller="Home" asp-action="index">Trang chủ</a></li>
+                <li><a asp-controller="Home" asp-action="Index">Xem phim</a></li>
+                <li class="active">@item.Title</li>
             </ol>
         </div>
         <div class="single-page-agile-info">
+            @switch (item.SelectSever)
+            {
 
-            <div onclick="this.nextElementSibling.style.display='block'; this.style.display='none'">
-                <img src="@item.Image.Pic1140x641" class="img-responsive" style="cursor:pointer" />
-            </div>
-            <div class="embed-responsive embed-responsive-16by9" @*style="display:none"*@>
-                @{
-                    var src = "https://drive.google.com/file/d/";
-                    src += item.Video;
-                    src += "/preview?autoplay=0";
-                }
-                <iframe src="@src" frameborder="0" allowfullscreen="1"></iframe>
-            </div>
-            <iframe allowfullscreen="1" src="https://drive.google.com/file/d/0B4fdHuC5huA7WExvc0pGYlpRME0/preview?rel=0&start=1&loop=1&autoplay=1" width="640" height="480"></iframe>
+                case 1:
+
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <div class="embed-responsive embed-responsive-16by9" @*style="display:none" *@>
+                            @{
+                                var Video1 = "https://drive.google.com/file/d/";
+                                Video1 += item.Video;
+                                Video1 += "/preview?autoplay=1";
+                            }
+                            <iframe src="@Video1" frameborder="0" allowfullscreen="1"></iframe>
+                        </div>
+                    </div>
+                                    break;
+                                case 2:
+                                    @*<div onclick="this.nextElementSibling.style.display='block'; this.style.display='none'">
+                                            <img src="@item.Image.Pic1140x641" class="img-responsive" style="cursor:pointer" />
+                                        </div>*@
+                                    <div class="embed-responsive embed-responsive-16by9" @*style="display:none" *@>
+                                        @{
+                                            var Video2 = "https://drive.google.com/file/d/";
+                                            Video2 += item.Video;
+                                            Video2 += "/preview?autoplay=1";
+                                        }
+                                        <iframe src="@Video2" frameborder="0" allowfullscreen="1"></iframe>
+                                    </div>
+                                                    break;
+                                                case 3:
+                                                    break;
+                                            }
             <br />
             <div class="like-share-video-backup">
                 <div class="pull-left">
+                    @if (!String.IsNullOrEmpty(item.Video))
+                    {
+                        <a asp-action="Watch" class="btn btn-default" asp-controller="Film" asp-route-server="1"><i class="icon glyphicon-move"></i> VIP1 @item.Info</a>
+                    }
+                    @if (!String.IsNullOrEmpty(item.VideoBackUp1))
+                    {
+                        <a asp-action="Watch" asp-controller="Film" class="btn btn-success" asp-route-server="2"><i class="icon glyphicon-move"></i> VIP2 @item.Info</a>
+                    }
+                    @if (!String.IsNullOrEmpty(item.VideoBackUp2))
+                    {
+
+                        <a asp-action="Watch" asp-controller="Film" class="btn btn-primary" asp-route-server="3"><i class="icon glyphicon-move"></i> VIP3 @item.Info</a>
+                    }
+                    <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#reportTranslate"><i class="fa fa-smile-o"></i> Góp ý bản dịch & đề xuất film</a>
                 </div>
                 <div class="pull-right">
                     <div class="fb-like" data-href="@string.Format("{0}",@url)" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
                 </div>
             </div>
-            <br />
-            <div class="info-video" >
-                    <h2 class="text-primary" style="padding: 10px">@item.Title</h2>
-                    <h4 class="text-white" style="padding: 10px">@item.OrtherTitle</h4>
+            <br /><br />
+            <div class="info-video">
+                <h2 class="text-primary" style="padding: 10px">@item.Title</h2>
+                <h4 class="text-white" style="padding: 10px">@item.OrtherTitle</h4>
+                <p>@item.DescriptionShort</p>
             </div>
             <div class="send-and-rating">
                 <div class="pull-left">
@@ -63,15 +101,109 @@
         </div>
     </div>
 </div>
-@section ScriptsTop {
-    <div id="fb-root"></div>
-    <script async>
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.10&appId=846411685524427";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
+@Html.Partial("_ReportTranslatePopupPartial")
+@section Scripts {
+<script src="~/lib/ckeditor/ckeditor.js"></script>
+<script src="~/lib/ckeditor/adapters/jquery.js"></script>
+    <script src="~/plugins/timepicker/bootstrap-timepicker.js"></script>
+    <script>
+        //function onClose() {
+        //    $("#undo").show();
+        //}
+
+        //$(document).ready(function () {
+        //    $("#undo").bind("click", function () {
+        //        $("#window").data("kendoWindow").open();
+        //        $("#undo").hide();
+        //    });
+        //});
+        $(".ckeditor").ckeditor(
+
+        );
+        $(".timepicker2").timepicker({
+            minuteStep: 1,
+            template: 'modal',
+            appendWidgetTo: 'body',
+            showSeconds: true,
+            showMeridian: false,
+            defaultTime: false
+        });
+
+        $(".sendingFeedBackTranslate").click(function (e) { // changed.
+            e.preventDefault();
+            var element = $(this);
+            var slug = element.attr("id");
+            var name = $('#name').val();
+            var timeError = $('#timeError').val();
+
+            $.ajax({
+                type: "POST",
+                url: "@(Url.Action("Send", "FeedBackTranslate"))",
+                data: {
+                    slug: slug, name: name, timeError: timeError
+                    },
+                dataType: "json",
+                success: function () {
+                    //$('#name').hide();
+                    //$('#timeError').hide();
+                    //$('#id').hide();
+                    //$('#name').hide();
+                    //$('#pName').hide();
+                    //$('#pTimeError').hide();
+                    $('.sendFeedBackTranslate').hide();
+                    $(".sendingFeedBackTranslate").hide();
+                    $('#success').show();
+                    //setTimeout(function () {
+                    //    alert("Boom!");
+                    //}, 2000);
+                    setTimeout(function () {
+                        $('#name').val("");
+                        $('#timeError').val("");
+                        $('.sendFeedBackTranslate').show();
+                        $('#success').hide();
+                        $(".sendingFeedBackTranslate").show();
+                    }, 10000);
+                    }
+            });
+            $(".sendingProposals").click(function (e) { // changed.
+        e.preventDefault();
+        var pName = $('#pName').val();
+        var pReson = $('#pReson').val();
+            $.ajax({
+                type: "POST",
+                url: "@(Url.Action("Send", "ProposalsFilm"))",
+                data: {
+                    name: pName, reson: pReson
+                    },
+                dataType: "json",
+                success: function () {
+                    
+                    $('.Proposals').hide();
+                    $(".sendingProposals").hide();
+                    $('#success1').show();
+                    //setTimeout(function () {
+                    //    alert("Boom!");
+                    //}, 2000);
+                    setTimeout(function () {
+                        $('#pName').val("");
+                        $('#pReson').val("");
+                        $('.Proposals').show();
+                        $('#success1').hide();
+                        $(".sendingProposals").show();
+                    }, 10000);
+                    }
+            });
+            
+
+    });
     </script>
+}
+@section Style {
+    <link href="~/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet" />
+
+    @*<link rel="stylesheet" href="~/lib/kendo-ui/styles/kendo.common-nova.min.css" />
+        <link rel="stylesheet" href="~/lib/kendo-ui/styles/kendo.nova.min.css" />
+        <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.aspnetmvc.min.js"></script>*@
 }
