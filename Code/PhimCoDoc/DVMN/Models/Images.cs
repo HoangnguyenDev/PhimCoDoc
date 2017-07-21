@@ -18,6 +18,8 @@ namespace DVMN.Models
         public string Pic115x175 { get; set; }
         public string Pic182x268 { get; set; }
         public string Pic268x268 { get; set; }
+
+        public string Pic640x351 { get; set; }
         public string Pic1140x641 { get; set; }
         public string Pic1300x500 { get; set; }
     }

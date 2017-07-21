@@ -81,6 +81,14 @@
 <script type="text/javascript" src="~/movie/js/jquery-2.1.4.min.js" asp-append-version="true"></script>
 @RenderSection("Style", required: false)
 @Html.Raw(JavaScriptSnippet.FullScript)
+    <style type="text/css">
+        .w3layouts_logo a h1 {
+            background: none;
+        }
+        .w3ls_footer_grid_right a h2 {
+            background: none;
+        }
+    </style>
 </head>
 <body>
     @RenderSection("ScriptsTop", required: false)

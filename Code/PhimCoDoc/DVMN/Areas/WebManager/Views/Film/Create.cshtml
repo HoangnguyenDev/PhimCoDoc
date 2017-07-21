@@ -2,7 +2,7 @@
 
 <div class="box box-success">
     <div class="box-header with-border">
-        <h3 class="box-title">Đặt câu hỏi</h3>
+        <h3 class="box-title">Thêm phim mới</h3>
         <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse">
                 <i class="fa fa-minus"></i>
@@ -121,7 +121,28 @@
                     <span asp-validation-for="Genres" class="text-danger"></span>
                 </div>
             </div>
-            
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <input asp-for="IsProposed" />
+                        <label asp-for="IsProposed"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Actor" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Actor" class="form-control" />
+                    <span asp-validation-for="Actor" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Director" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Director" class="form-control" />
+                    <span asp-validation-for="Director" class="text-danger"></span>
+                </div>
+            </div>
             <div class="form-group">
                 <label asp-for="Note" class="col-md-2 control-label"></label>
                 <div class="col-md-10">

@@ -83,6 +83,9 @@ namespace DVMN.Areas.WebManager.Controllers
                             folderSave = Path.Combine(HostingEnvironment.WebRootPath, DIR_IMAGE + "\\268x268", fileName);
                             image.Resize(268, 268)
                                  .Save(folderSave);
+                            folderSave = Path.Combine(HostingEnvironment.WebRootPath, DIR_IMAGE + "\\640x351", fileName);
+                            image.Resize(640,351)
+                                 .Save(folderSave);
                             var user = await GetCurrentUserAsync();
                             _context.Add(new Images
                             {
@@ -93,6 +96,7 @@ namespace DVMN.Areas.WebManager.Controllers
                                 Pic115x175 = "\\" + DIR_IMAGE + "\\115x175\\" + fileName,
                                 Pic1140x641= "\\" + DIR_IMAGE + "\\1140x641\\" + fileName,
                                 Pic268x268 = "\\" + DIR_IMAGE + "\\268x268\\" + fileName,
+                                Pic640x351 = "\\" + DIR_IMAGE + "\\640x351\\" + fileName,
                                 Active = "A",
                                 Approved = "A",
                                 AuthorID = user.Id,

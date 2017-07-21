@@ -1,18 +1,19 @@
 ﻿@using DVMN.Models.FilmViewModels
 @{ 
-    IEnumerable<Film> generalFilm = ViewData["generalFilm"] as IEnumerable<Film>;
-    List<BannerFilmViewModel> bannerFilm = ViewData["bannerFilm"] as List<BannerFilmViewModel>;
-    IEnumerable<Film> bannerBottomFilm = ViewData["bannerBottomFilm"] as IEnumerable<Film>;
+    IEnumerable<GeneralFilmViewModel> generalFilms = ViewData["generalFilm"] as IEnumerable<GeneralFilmViewModel>;
+    List<BannerFilmViewModel> bannerFilms = ViewData["bannerFilm"] as List<BannerFilmViewModel>;
+    IEnumerable<BannerBottomFilmViewModel> bannerBottomFilms = ViewData["bannerBottomFilm"] as IEnumerable<BannerBottomFilmViewModel>;
+    IEnumerable<ProposalFilmViewModel> proposalFilms = ViewData["proposalFilm"] as IEnumerable<ProposalFilmViewModel>;
     ViewData["Title"] = "Website Phim Cơ Đốc dành cho người Việt Nam | Kích lê đức tin qua phim";
 }
  <!-- banner -->
 <div id="slidey" style="display:none;">
-    @await Html.PartialAsync("_BannerPartial", bannerFilm)
+    @await Html.PartialAsync("_BannerPartial", bannerFilms)
 </div>
 <!-- banner-bottom -->
 <div class="banner-bottom">
     <div class="container">
-        @await Html.PartialAsync("_BannerBottomPartial", bannerBottomFilm)
+        @await Html.PartialAsync("_BannerBottomPartial", bannerBottomFilms)
     </div>
 </div>
 <!-- //banner-bottom -->
@@ -21,12 +22,12 @@
 </div>
 <!-- general -->
 <div class="general">
-    @await Html.PartialAsync("GeneralHomePartial", generalFilm)
+    @await Html.PartialAsync("GeneralHomePartial", generalFilms)
 </div>
 <!-- //general -->
 <!-- Latest-tv-series -->
 <div class="Latest-tv-series">
-    @*@await Html.PartialAsync("TvSeriesHomePartial")*@
+    @await Html.PartialAsync("TvSeriesHomePartial", proposalFilms)
 </div>
 @section Style{
     <link rel="stylesheet" href="~/movie/css/flexslider.css" type="text/css" media="screen" property="" />

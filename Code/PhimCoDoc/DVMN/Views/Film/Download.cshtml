@@ -1,1 +1,80 @@
-https://drive.google.com/uc?export=download&id=0B4fdHuC5huA7eHEtajdKVXVUMGc
+﻿
+@using DVMN.Models.FilmViewModels
+@{
+    IEnumerable<GeneralFilmViewModel> generalFilm = ViewData["generalFilm"] as IEnumerable<GeneralFilmViewModel>;
+    DownloadFilmViewModel filmDetails = ViewData["FilmDetials"] as DownloadFilmViewModel;
+    IEnumerable<BannerBottomFilmViewModel> bannerBottomFilm = ViewData["bannerBottomFilm"] as IEnumerable<BannerBottomFilmViewModel>;
+    IEnumerable<SingleRightPartialFilmViewModel> singleRightFilm = ViewData["SingleRightFilm"] as IEnumerable<SingleRightPartialFilmViewModel>;
+    ViewData["Title"] = "Thông tin phim " + filmDetails.Title + " | Phim Cơ Đốc";
+}
+
+<div class="general_social_icons">
+    @await Html.PartialAsync("_SocialPartial")
+</div>
+<!-- single -->
+<div class="single-page-agile-main">
+    <div class="container">
+        <!-- /w3l-medile-movies-grids -->
+        <div class="agileits-single-top">
+            <ol class="breadcrumb">
+                <li><a asp-controller="Home" asp-action="index">Trang chủ</a></li>
+                <li><a asp-controller="Home" asp-action="Index">Phim</a></li>
+                <li class="active">@filmDetails.Title</li>
+            </ol>
+        </div>
+        <div class="single-page-agile-info">
+            <!-- /movie-browse-agile -->
+            <div class="show-top-grids-w3lagile">
+                <div class="col-sm-8 single-left">
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <img src="@filmDetails.Image.Pic268x268" class="img-responsive" />
+                                </div>
+                                <div class="col-md-7" style="color: black">
+                                    <h3 class="text-primary">@filmDetails.Title</h3>
+                                    <p class="">@filmDetails.OrtherTitle</p>
+                                    <p>@filmDetails.DescriptionShort</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <p>
+                                @{
+                                    var Video = "https://drive.google.com/uc?export=download&id=";
+                                    Video += filmDetails.Video;
+                                }
+                                <label> Sever 1</label>
+                                <a href="@Video" class="btn btn-success"><i class="fa fa-download"></i> Tải về</a>
+                            </p>
+                           </div>
+                    </div>
+                </div>
+                <div class="col-md-4 single-right">
+                    @await Html.PartialAsync("_SingleRightPartial", singleRightFilm)
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <!-- //movie-browse-agile -->
+            <!--body wrapper start-->
+            @*@await Html.PartialAsync("_BannerBottomPartial", bannerBottomFilm)*@
+            <!--body wrapper end-->
+        </div>
+        <!-- //w3l-latest-movies-grids -->
+    </div>
+</div>
+@section Style {
+    @*<link rel="stylesheet" href="~/lib/kendo-ui/styles/kendo.common-nova.min.css" />
+    <link rel="stylesheet" href="~/lib/kendo-ui/styles/kendo.nova.min.css" />
+    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.aspnetmvc.min.js"></script>*@
+}
+@section Scripts {
+
+}

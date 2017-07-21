@@ -1,0 +1,236 @@
+﻿@using DVMN.Models.FilmViewModels
+@{
+    IEnumerable<ListSelectorFilmViewModel> allFilms = ViewData["All"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> aFilms = ViewData["A"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> bFilms = ViewData["B"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> cFilms = ViewData["C"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> dFilms = ViewData["D"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> eFilms = ViewData["E"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> fFilms = ViewData["F"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> gFilms = ViewData["G"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> hFilms = ViewData["H"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> iFilms = ViewData["I"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> jFilms = ViewData["J"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> kFilms = ViewData["K"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> lFilms = ViewData["L"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> mFilms = ViewData["M"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> nFilms = ViewData["N"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> oFilms = ViewData["O"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> pFilms = ViewData["P"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> qFilms = ViewData["Q"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> rFilms = ViewData["R"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> sFilms = ViewData["S"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> tFilms = ViewData["T"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> uFilms = ViewData["U"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> vFilms = ViewData["V"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> wFilms = ViewData["W"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> xFilms = ViewData["X"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> yFilms = ViewData["Y"] as IEnumerable<ListSelectorFilmViewModel>;
+    IEnumerable<ListSelectorFilmViewModel> zFilms = ViewData["Z"] as IEnumerable<ListSelectorFilmViewModel>;
+}
+<div class="general_social_icons">
+    @await Html.PartialAsync("_SocialPartial")
+</div>
+<div class="faq">
+    <h4 class="latest-text w3_faq_latest_text w3_latest_text">Movies List</h4>
+    <div class="container">
+        <div class="agileits-news-top">
+            <ol class="breadcrumb">
+                <li>
+                    <a asp-controller="Home" asp-action="Index">Trang chủ</a>
+                </li>
+                <li class="active">Danh sách phim</li>
+            </ol>
+        </div>
+        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">0 - 9</a>
+                </li>
+                <li role="presentation">
+                    <a href="#a" role="tab" id="a-tab" data-toggle="tab" aria-controls="a">A</a>
+                </li>
+                <li role="presentation">
+                    <a href="#b" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">B</a>
+                </li>
+                <li role="presentation">
+                    <a href="#c" role="tab" id="c-tab" data-toggle="tab" aria-controls="c">C</a>
+                </li>
+                <li role="presentation">
+                    <a href="#d" role="tab" id="d-tab" data-toggle="tab" aria-controls="d">D</a>
+                </li>
+                <li role="presentation">
+                    <a href="#e" role="tab" id="e-tab" data-toggle="tab" aria-controls="e">E</a>
+                </li>
+                <li role="presentation">
+                    <a href="#f" role="tab" id="f-tab" data-toggle="tab" aria-controls="f">F</a>
+                </li>
+                <li role="presentation">
+                    <a href="#g" role="tab" id="g-tab" data-toggle="tab" aria-controls="g">G</a>
+                </li>
+                <li role="presentation">
+                    <a href="#h" role="tab" id="h-tab" data-toggle="tab" aria-controls="h">H</a>
+                </li>
+                <li role="presentation">
+                    <a href="#i" role="tab" id="i-tab" data-toggle="tab" aria-controls="i">I</a>
+                </li>
+                <li role="presentation">
+                    <a href="#j" role="tab" id="j-tab" data-toggle="tab" aria-controls="j">J</a>
+                </li>
+                <li role="presentation">
+                    <a href="#k" role="tab" id="k-tab" data-toggle="tab" aria-controls="k">K</a>
+                </li>
+                <li role="presentation">
+                    <a href="#l" role="tab" id="l-tab" data-toggle="tab" aria-controls="l">L</a>
+                </li>
+                <li role="presentation">
+                    <a href="#m" role="tab" id="m-tab" data-toggle="tab" aria-controls="m">M</a>
+                </li>
+                <li role="presentation">
+                    <a href="#n" role="tab" id="n-tab" data-toggle="tab" aria-controls="n">N</a>
+                </li>
+                <li role="presentation">
+                    <a href="#o" role="tab" id="o-tab" data-toggle="tab" aria-controls="o">O</a>
+                </li>
+                <li role="presentation">
+                    <a href="#p" role="tab" id="p-tab" data-toggle="tab" aria-controls="p">P</a>
+                </li>
+                <li role="presentation">
+                    <a href="#q" role="tab" id="q-tab" data-toggle="tab" aria-controls="q">Q</a>
+                </li>
+                <li role="presentation">
+                    <a href="#r" role="tab" id="r-tab" data-toggle="tab" aria-controls="r">R</a>
+                </li>
+                <li role="presentation">
+                    <a href="#s" role="tab" id="s-tab" data-toggle="tab" aria-controls="s">S</a>
+                </li>
+                <li role="presentation">
+                    <a href="#t" role="tab" id="t-tab" data-toggle="tab" aria-controls="t">T</a>
+                </li>
+                <li role="presentation">
+                    <a href="#u" role="tab" id="u-tab" data-toggle="tab" aria-controls="u">U</a>
+                </li>
+                <li role="presentation">
+                    <a href="#v" role="tab" id="v-tab" data-toggle="tab" aria-controls="v">V</a>
+                </li>
+                <li role="presentation">
+                    <a href="#w" role="tab" id="w-tab" data-toggle="tab" aria-controls="w">W</a>
+                </li>
+                <li role="presentation">
+                    <a href="#x" role="tab" id="x-tab" data-toggle="tab" aria-controls="x">X</a>
+                </li>
+                <li role="presentation">
+                    <a href="#y" role="tab" id="y-tab" data-toggle="tab" aria-controls="y">Y</a>
+                </li>
+                <li role="presentation">
+                    <a href="#z" role="tab" id="z-tab" data-toggle="tab" aria-controls="z">Z</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                    @await Html.PartialAsync("ItemInList", allFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="a" aria-labelledby="a-tab">
+                    @await Html.PartialAsync("ItemInList",aFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="b" aria-labelledby="b-tab">
+                    @await Html.PartialAsync("ItemInList", bFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="c" aria-labelledby="c-tab">
+                    @await Html.PartialAsync("ItemInList", cFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="d" aria-labelledby="d-tab">
+                    @await Html.PartialAsync("ItemInList", dFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="e" aria-labelledby="e-tab">
+                    @await Html.PartialAsync("ItemInList", eFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="f" aria-labelledby="f-tab">
+                    @await Html.PartialAsync("ItemInList", fFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="g" aria-labelledby="g-tab">
+                    @await Html.PartialAsync("ItemInList", gFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="h" aria-labelledby="h-tab">
+                    @await Html.PartialAsync("ItemInList", hFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="i" aria-labelledby="i-tab">
+                    @await Html.PartialAsync("ItemInList", iFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="j" aria-labelledby="j-tab">
+                    @await Html.PartialAsync("ItemInList", jFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="k" aria-labelledby="k-tab">
+                    @await Html.PartialAsync("ItemInList", kFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="l" aria-labelledby="l-tab">
+                    @await Html.PartialAsync("ItemInList", lFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="m" aria-labelledby="m-tab">
+                    @await Html.PartialAsync("ItemInList", mFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="n" aria-labelledby="n-tab">
+                    @await Html.PartialAsync("ItemInList", nFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="o" aria-labelledby="o-tab">
+                    @await Html.PartialAsync("ItemInList", oFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="p" aria-labelledby="p-tab">
+                    @await Html.PartialAsync("ItemInList", pFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="q" aria-labelledby="q-tab">
+                   @await Html.PartialAsync("ItemInList", qFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="r" aria-labelledby="r-tab">
+                    @await Html.PartialAsync("ItemInList", rFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="s" aria-labelledby="s-tab">
+                    @await Html.PartialAsync("ItemInList", sFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="t" aria-labelledby="t-tab">
+                    @await Html.PartialAsync("ItemInList", tFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="u" aria-labelledby="u-tab">
+                    @await Html.PartialAsync("ItemInList", uFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="v" aria-labelledby="v-tab">
+                    @await Html.PartialAsync("ItemInList", vFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="w" aria-labelledby="w-tab">
+                    @await Html.PartialAsync("ItemInList", wFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="x" aria-labelledby="x-tab">
+                    @await Html.PartialAsync("ItemInList", xFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="y" aria-labelledby="y-tab">
+                    @await Html.PartialAsync("ItemInList", yFilms)
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="z" aria-labelledby="z-tab">
+                    @await Html.PartialAsync("ItemInList", zFilms)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Style {
+    <!-- list-css -->
+<link rel="stylesheet" href="/movie/list-css/list.css" type="text/css" media="all" />
+<!-- //list-css -->
+    <!-- tables -->
+<link rel="stylesheet" type="text/css" href="/movie/list-css/table-style.css" />
+<link rel="stylesheet" type="text/css" href="/movie/list-css/basictable.css" />
+
+<!-- //tables -->
+}
+@section Scripts {
+<script type="text/javascript" src="/movie/list-js/jquery.basictable.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#table').basictable();
+
+        $('.table-breakpoint').basictable({
+            breakpoint: 768
+        });
+    });
+</script>
+}

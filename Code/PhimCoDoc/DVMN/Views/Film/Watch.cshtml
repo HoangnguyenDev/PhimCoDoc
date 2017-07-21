@@ -1,7 +1,7 @@
 ﻿@using DVMN.Models.FilmViewModels;
 @{
     WatchFilmViewModel item = ViewData["FilmDetials"] as WatchFilmViewModel;
-    IEnumerable<Film> bannerBottomFilm = ViewData["bannerBottomFilm"] as IEnumerable<Film>;
+    IEnumerable<BannerBottomFilmViewModel> bannerBottomFilm = ViewData["bannerBottomFilm"] as IEnumerable<BannerBottomFilmViewModel>;
     string scheme = Context.Request.Scheme;
     string host = Context.Request.Host.Host;
     string port = Context.Request.Host.Port.ToString();
@@ -97,7 +97,7 @@
             </div>
 
             <div class="fb-comments" data-width="100%" data-href="@string.Format("{0}",@url)" data-numposts="7"></div>
-            @await Html.PartialAsync("_BannerBottomPartial", bannerBottomFilm)
+            @*@await Html.PartialAsync("_BannerBottomPartial", bannerBottomFilm)*@
         </div>
     </div>
 </div>

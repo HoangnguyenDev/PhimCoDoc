@@ -45,17 +45,17 @@ namespace DVMN
         {
             // Add framework services.
             services.AddMemoryCache();
-            if (CurrentEnvironment.IsDevelopment())
-            {
-                //services.AddResponseCaching();
-                services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            }
-            else
-            {
+            //if (CurrentEnvironment.IsDevelopment())
+            //{
+            //    //services.AddResponseCaching();
+            //    services.AddDbContext<ApplicationDbContext>(options =>
+            //        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //}
+            //else
+            //{
                 services.AddDbContext<ApplicationDbContext>(options =>
                    options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
-            }
+            //}
             services.AddIdentity<Member, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();

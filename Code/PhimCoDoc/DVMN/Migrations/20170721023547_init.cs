@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DVMN.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -87,6 +87,7 @@ namespace DVMN.Migrations
                     Pic1300x500 = table.Column<string>(nullable: true),
                     Pic182x268 = table.Column<string>(nullable: true),
                     Pic268x268 = table.Column<string>(nullable: true),
+                    Pic640x351 = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     UpdateDT = table.Column<DateTime>(nullable: true)
                 },
@@ -220,20 +221,33 @@ namespace DVMN.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ImageID = table.Column<int>(nullable: false),
+                    Active = table.Column<string>(nullable: true),
+                    Approved = table.Column<string>(nullable: true),
+                    AuthorID = table.Column<string>(nullable: true),
+                    CreateDT = table.Column<DateTime>(nullable: true),
+                    ImageID = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
+                    Note = table.Column<string>(nullable: true),
                     Reason = table.Column<string>(nullable: true),
+                    UpdateDT = table.Column<DateTime>(nullable: true),
                     Vote = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProposalsFilm", x => x.ID);
                     table.ForeignKey(
+                        name: "FK_ProposalsFilm_AspNetUsers_AuthorID",
+                        column: x => x.AuthorID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_ProposalsFilm_Images_ImageID",
                         column: x => x.ImageID,
                         principalTable: "Images",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -243,16 +257,19 @@ namespace DVMN.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Active = table.Column<string>(nullable: true),
+                    Actor = table.Column<string>(nullable: true),
                     Approved = table.Column<string>(nullable: true),
                     AuthorID = table.Column<string>(nullable: true),
                     CreateDT = table.Column<DateTime>(nullable: true),
                     DateofRease = table.Column<DateTime>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     DescriptionShort = table.Column<string>(nullable: true),
+                    Director = table.Column<string>(nullable: true),
                     Genres = table.Column<string>(nullable: true),
                     ImageID = table.Column<int>(nullable: true),
                     Info = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
+                    IsProposed = table.Column<bool>(nullable: false),
                     Length = table.Column<string>(nullable: true),
                     Note = table.Column<string>(nullable: true),
                     OrtherTitle = table.Column<string>(nullable: true),
@@ -265,6 +282,7 @@ namespace DVMN.Migrations
                     VideoBackUp1 = table.Column<string>(nullable: true),
                     VideoBackUp2 = table.Column<string>(nullable: true),
                     VideoTrailer = table.Column<string>(nullable: true),
+                    Vote = table.Column<int>(nullable: false),
                     Watch = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -364,6 +382,11 @@ namespace DVMN.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProposalsFilm_AuthorID",
+                table: "ProposalsFilm",
+                column: "AuthorID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProposalsFilm_ImageID",

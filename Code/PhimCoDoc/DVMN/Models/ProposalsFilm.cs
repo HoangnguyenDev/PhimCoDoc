@@ -16,7 +16,6 @@ namespace DVMN.Models
         public string Reason { get; set; }
         public int? ImageID { get; set; }
         public Images Image { get; set; }
-
         public int Vote { get; set; }
     }
 }

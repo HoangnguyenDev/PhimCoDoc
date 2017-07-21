@@ -1,0 +1,54 @@
+﻿@using DVMN.Models.FilmViewModels
+@model IEnumerable<ListSelectorFilmViewModel>
+
+<div class="agile-news-table">
+    <div class="w3ls-news-result">
+        <h4>
+            Kết quả tìm kiếm :
+            <span>@Model.Count()</span>
+        </h4>
+    </div>
+    <table class="table-breakpoint">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên phim</th>
+                <th>Tên khác</th>
+                <th>Trạng thái</th>
+                <th>Năm xuất bản</th>
+                <th>Thể loại</th>
+                <th>Lượt xem</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int STT = 0;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @{
+                        STT++;
+                    }
+                    <td>@STT</td>
+                    <td class="w3-list-img">
+                        <a asp-controller="film" asp-action="single" asp-route-slug="@item.Slug">
+                            <img src="@item.Image.Pic115x175" alt="@item.Image.ALT" /> <span>@item.Title</span>
+                        </a>
+                    </td>
+                    <td class="w3-list-info">
+                        <a href="#">@item.OrtherTitle</a>
+                    </td>
+                    <td class="w3-list-info">
+                        <a href="#">@item.Status</a>
+                    </td>
+                    <td>@item.DateOfRelease.Value.Year</td>
+                    <td class="w3-list-info">
+                        <a href="#">@item.Genre</a>
+                    </td>
+                    <td>@item.Watch</td>
+                </tr>
+                        }
+        </tbody>
+    </table>
+</div>

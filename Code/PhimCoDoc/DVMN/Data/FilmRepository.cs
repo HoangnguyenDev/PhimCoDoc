@@ -32,6 +32,7 @@ namespace DVMN.Data
             model.CreateDT = DateTime.Now;
             model.Approved = "A";
             model.Active = "A";
+            model.IsDeleted = false;
             model.UpdateDT = DateTime.Now;
             _context.Film.Add(model);
             await _context.SaveChangesAsync();
@@ -69,6 +70,10 @@ namespace DVMN.Data
             post.DescriptionShort = updatedItem.DescriptionShort;
             post.Description = updatedItem.Description;
             post.Length = updatedItem.Length;
+            post.Vote = updatedItem.Vote;
+            post.Actor = updatedItem.Actor;
+            post.Director = updatedItem.Director;
+            post.IsProposed = updatedItem.IsProposed;
             post.SerieID = updatedItem.SerieID;
             post.Slug = updatedItem.Slug;
             post.StarRating = updatedItem.StarRating;
@@ -127,10 +132,34 @@ namespace DVMN.Data
                      .OrderByDescending(post => post.CreateDT).ToListAsync();
         }
 
+        public async Task<IEnumerable<BannerBottomFilmViewModel>> GetBannerBottomFilm()
+        {
+            var listFilmDB = await _context.Film.Include(f => f.Image)
+               .Include(f => f.Serie)
+               .Where(p => !p.IsProposed && p.Approved == "A")
+               .OrderByDescending(post => post.CreateDT).Take(10).ToListAsync();
+            int leng = listFilmDB.Capacity;
+            List<BannerBottomFilmViewModel> model = new List<BannerBottomFilmViewModel>(leng);
+            foreach (var item in listFilmDB)
+            {
+                BannerBottomFilmViewModel tempItem = new BannerBottomFilmViewModel(item.Image);
+                tempItem.Title = item.Title;
+                tempItem.OrtherTitle = item.OrtherTitle;
+                tempItem.Slug = item.Slug;
+                tempItem.DateOfRelease = item.DateofRease;
+                model.Add(tempItem);
+            }
+            return model;
+        }
+
         public async Task<IEnumerable<BannerFilmViewModel>> GetBannerFilm()
         {
-            var listFilmDB = await _context.Film.Include(f => f.Image).Include(f => f.Member).Include(f => f.Serie)
-                     .OrderByDescending(post => post.CreateDT).Take(8).ToListAsync();
+            var listFilmDB = await _context.Film
+                .Include(f => f.Image)
+                .Include(f => f.Member)
+                .Include(f => f.Serie)
+                .Where(p => p.Approved == "A" && !p.IsProposed)
+                .OrderByDescending(post => post.CreateDT).Take(8).ToListAsync();
             int leng = listFilmDB.Capacity;
             List<BannerFilmViewModel> model = new List<BannerFilmViewModel>(leng);
             foreach (var item in listFilmDB)
@@ -147,14 +176,136 @@ namespace DVMN.Data
             return model;
         }
 
+        public async Task<DownloadFilmViewModel> GetDownloadFilm(string Slug)
+        {
+            var item = await _context.Film.Include(f => f.Image)
+                .Where(p => p.Slug == Slug && !p.IsProposed && p.Approved == "A").SingleOrDefaultAsync();
+            return new DownloadFilmViewModel
+            {
+                Slug = item.Slug,
+                DescriptionShort = item.DescriptionShort,
+                OrtherTitle = item.OrtherTitle,
+                Title = item.Title
+            ,
+                Video = item.Video,
+                VideoBackUp1 = item.VideoBackUp1,
+                VideoBackUp2 = item.VideoBackUp2,
+                Image = item.Image
+            };
+        }
+
+        public async Task<IEnumerable<GeneralFilmViewModel>> GetGeneralFilm()
+        {
+            var listFilmDB = await _context.Film.Include(f => f.Image)
+               .Include(f => f.Serie)
+               .Where(p => !p.IsProposed && p.Approved == "A")
+               .OrderByDescending(post => post.Watch).Take(10).ToListAsync();
+            int leng = listFilmDB.Capacity;
+            List<GeneralFilmViewModel> model = new List<GeneralFilmViewModel>(leng);
+            foreach (var item in listFilmDB)
+            {
+                GeneralFilmViewModel tempItem = new GeneralFilmViewModel(item.Image);
+                tempItem.Title = item.Title;
+                tempItem.OrtherTitle = item.OrtherTitle;
+                tempItem.Watch = item.Watch;
+                tempItem.Slug = item.Slug;
+                tempItem.Info = item.Info;
+                tempItem.DateOfRelease = item.DateofRease;
+                model.Add(tempItem);
+            }
+            return model;
+        }
+
         public DbSet<Images> GetImages()
         {
             return _context.Images;
         }
+
+        public async Task<IEnumerable<ListProposalFilmViewModel>> GetListProposalFilm()
+        {
+            var listFilmDB = await _context.Film.Include(f => f.Image)
+                .Include(f => f.Serie)
+                .Where(p => p.Approved == "A" && p.IsProposed)
+                .OrderByDescending(post => post.Vote).Take(8).ToListAsync();
+            int leng = listFilmDB.Capacity;
+            List<ListProposalFilmViewModel> model = new List<ListProposalFilmViewModel>(leng);
+            foreach (var item in listFilmDB)
+            {
+                ListProposalFilmViewModel tempItem = new ListProposalFilmViewModel(item.Image);
+                tempItem.Title = item.Title;
+                tempItem.OrtherTitle = item.OrtherTitle;
+                tempItem.Vote = item.Vote;
+                tempItem.ID = item.ID;
+                model.Add(tempItem);
+            }
+            return model;
+        }
+
+        public async Task<IEnumerable<ListSelectorFilmViewModel>> GetListSelectorFilm(string key)
+        {
+            List<Film> listFilmDb;
+            if (key == "Full")
+            {
+                listFilmDb = await _context.Film.Include(f => f.Image)
+              .Include(f => f.Serie)
+              .Where(p => p.Approved == "A" && !p.IsProposed)
+              .OrderByDescending(post => post.DateofRease.Value.Year).ToListAsync();
+            }
+            else
+            {
+                listFilmDb = await _context.Film.Include(f => f.Image)
+                .Include(f => f.Serie)
+                .Where(p => p.Approved == "A" && !p.IsProposed && p.Title.Contains(key))
+                .OrderByDescending(post => post.DateofRease.Value.Year).ToListAsync();
+            }
+
+            int leng = listFilmDb.Count;
+            List<ListSelectorFilmViewModel> model = new List<ListSelectorFilmViewModel>(leng);
+            foreach (var item in listFilmDb)
+            {
+                ListSelectorFilmViewModel tempItem = new ListSelectorFilmViewModel(item.Image);
+                tempItem.Title = item.Title;
+                tempItem.Slug = item.Slug;
+                tempItem.DateOfRelease = item.DateofRease;
+                tempItem.Genre = item.Genres;
+                tempItem.OrtherTitle = item.OrtherTitle;
+                tempItem.Status = item.Info;
+                tempItem.Watch = item.Watch;
+                model.Add(tempItem);
+            }
+            return model;
+        }
+
         public DbSet<Member> GetMembers()
         {
             return _context.Users;
         }
+
+        public async Task<IEnumerable<ProposalFilmViewModel>> GetProposalFilm()
+        {
+            var listFilmDB = await _context.Film.Include(f => f.Image)
+                .Include(f => f.Serie)
+                .Where(p => p.IsProposed && p.Approved == "A")
+                .OrderByDescending(post => post.Watch).Take(10).ToListAsync();
+            int leng = listFilmDB.Capacity;
+            List<ProposalFilmViewModel> model = new List<ProposalFilmViewModel>(leng);
+            foreach (var item in listFilmDB)
+            {
+                ProposalFilmViewModel tempItem = new ProposalFilmViewModel(item.Image);
+                tempItem.Title = item.Title;
+                if (!String.IsNullOrEmpty(item.Description))
+                {
+                    tempItem.Description = item.DescriptionShort.Substring(0, 160);
+                }
+                tempItem.Vote = item.Vote;
+                tempItem.ID = item.ID;
+                tempItem.DateOfRelease = item.DateofRease;
+                tempItem.Genres = item.Genres;
+                model.Add(tempItem);
+            }
+            return model;
+        }
+
         public DbSet<Serie> GetSeries()
         {
             return _context.Serie;
@@ -164,6 +315,7 @@ namespace DVMN.Data
         {
             var listFilmDB = await _context.Film.Include(f => f.Image)
                 .Include(f => f.Serie)
+                .Where(p => p.Approved == "A" && !p.IsProposed)
                 .OrderByDescending(post => post.Watch).Take(8).ToListAsync();
             int leng = listFilmDB.Capacity;
             List<SingleRightPartialFilmViewModel> model = new List<SingleRightPartialFilmViewModel>(leng);

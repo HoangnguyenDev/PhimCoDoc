@@ -50,9 +50,9 @@ namespace DVMN.Areas.WebManager.Controllers
         [Route("/quan-ly-web/phim/tao-moi")]
         public IActionResult Create()
         {
-            ViewData["ImageID"] = new SelectList(_repository.GetImages(), "ID", "ID");
-            ViewData["AuthorID"] = new SelectList(_repository.GetMembers(), "Id", "Id");
-            ViewData["SerieID"] = new SelectList(_repository.GetSeries(), "ID", "ID");
+            ViewData["ImageID"] = new SelectList(_repository.GetImages(), "ID", "Name");
+            ViewData["AuthorID"] = new SelectList(_repository.GetMembers(), "Id", "FullName");
+            ViewData["SerieID"] = new SelectList(_repository.GetSeries(), "ID", "Name");
             return View();
         }
 
@@ -62,7 +62,7 @@ namespace DVMN.Areas.WebManager.Controllers
         [HttpPost]
         [Route("/quan-ly-web/phim/tao-moi")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,OrtherTitle,Description, DescriptionShort,DateofRease,Info,Length,Watch,StarRating,Video, VideoBackUp1, VideoBackUp2,VideoTrailer,Slug,ImageID,SerieID,Genres,CreateDT,UpdateDT,AuthorID,Approved,Active,IsDeleted,Note")] Film film)
+        public async Task<IActionResult> Create([Bind("ID,Title,OrtherTitle,Description, DescriptionShort,DateofRease,Info,Length,Watch,StarRating,Video, VideoBackUp1, VideoBackUp2,VideoTrailer,Slug,ImageID,SerieID,Genres,CreateDT,UpdateDT,AuthorID,Approved,Active,IsDeleted,Note,IsProposed,Actor,Director")] Film film)
         {
             if (ModelState.IsValid)
             {
@@ -103,7 +103,7 @@ namespace DVMN.Areas.WebManager.Controllers
         [HttpPost]
         [Route("/quan-ly-web/phim/chinh-sua/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Description,DateofRease,StarRating,Video,Slug,ImageID,SerieID,Genres,CreateDT,UpdateDT,AuthorID,Approved,Active,IsDeleted,Note")] Film film)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,OrtherTitle,Description, DescriptionShort,DateofRease,Info,Length,Watch,StarRating,Video, VideoBackUp1, VideoBackUp2,VideoTrailer,Slug,ImageID,SerieID,Genres,CreateDT,UpdateDT,AuthorID,Approved,Active,IsDeleted,Note,IsProposed,Actor,Director")] Film film)
         {
             if (id != film.ID)
             {

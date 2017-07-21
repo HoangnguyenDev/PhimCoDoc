@@ -1,10 +1,10 @@
 ﻿@using DVMN.Models.FilmViewModels
 @{
-    IEnumerable<Film> generalFilm = ViewData["generalFilm"] as IEnumerable<Film>;
+    IEnumerable<GeneralFilmViewModel> generalFilm = ViewData["generalFilm"] as IEnumerable<GeneralFilmViewModel>;
     WatchFilmViewModel filmDetails = ViewData["FilmDetials"] as WatchFilmViewModel;
-    IEnumerable<Film> bannerBottomFilm = ViewData["bannerBottomFilm"] as IEnumerable<Film>;
+    IEnumerable<BannerBottomFilmViewModel> bannerBottomFilm = ViewData["bannerBottomFilm"] as IEnumerable<BannerBottomFilmViewModel>;
     IEnumerable<SingleRightPartialFilmViewModel> singleRightFilm = ViewData["SingleRightFilm"] as IEnumerable<SingleRightPartialFilmViewModel>;
-    ViewData["Title"] = "Thông tin phim " + filmDetails.Title + " | Phim cơ đốc";
+    ViewData["Title"] = "Thông tin phim " + filmDetails.Title + " | Phim Cơ Đốc";
 }
 
 <div class="general_social_icons">
@@ -34,26 +34,15 @@
             </div>
             <!-- //movie-browse-agile -->
             <!--body wrapper start-->
-            @await Html.PartialAsync("_BannerBottomPartial", bannerBottomFilm)
+            @*@await Html.PartialAsync("_BannerBottomPartial", bannerBottomFilm)*@
             <!--body wrapper end-->
         </div>
         <!-- //w3l-latest-movies-grids -->
     </div>
 </div>
 @section Style {
-<link rel="stylesheet" href="~/lib/kendo-ui/styles/kendo.common-nova.min.css" />
-<link rel="stylesheet" href="~/lib/kendo-ui/styles/kendo.nova.min.css" />
-@*<script src="https://kendo.cdn.telerik.com/2017.2.621/js/jquery.min.js"></script>*@
-<script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
-<script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
-<script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.aspnetmvc.min.js"></script>
+
 }
 @section Scripts {
 
-    @*<script src="/movie/js/simplePlayer.js"></script>
-    <script>
-         $("document").ready(function () {
-                 $("#video").simplePlayer();
-         });
-    </script>*@
 }

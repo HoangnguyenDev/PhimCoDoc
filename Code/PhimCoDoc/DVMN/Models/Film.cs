@@ -23,6 +23,13 @@ namespace DVMN.Models
 
         [DisplayName("Ngày xuất bản")]
         public DateTime? DateofRease { get; set; }
+        public string Actor { get; set; }
+        
+        public string Director { get; set; }
+
+        public int Vote { get; set; }
+
+        public bool IsProposed { get; set; }
         public string Info { get; set; }
         public string Length { get; set; }
         public int Watch { get; set; }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,9 +25,7 @@ namespace DVMN.Controllers
         {
             ViewData["FilmDetials"] = await _repository.Get(slug,"1");
             ViewData["SingleRightFilm"] = await _repository.GetSingleRightFilms();
-            ViewData["bannerBottomFilm"] = await _context.Film
-               .Include(p => p.Image)
-               .ToListAsync();
+            ViewData["bannerBottomFilm"] = _repository.GetBannerBottomFilm();
             return View();
         }
         [Route("/xem-phim/{slug}")]
@@ -36,10 +34,22 @@ namespace DVMN.Controllers
             if (String.IsNullOrEmpty(server))
                 server = "1";
             ViewData["FilmDetials"] = await _repository.Get(slug, server);
-            ViewData["bannerBottomFilm"] = await _context.Film
-               .Include(p => p.Image)
-               .ToListAsync();
+            ViewData["bannerBottomFilm"] = await _repository.GetBannerBottomFilm();
             return View();
         }
+        [Route("/sap-ra-mat")]
+        public async Task<IActionResult> ProposalFilm()
+        {
+            return View(await _repository.GetListProposalFilm());
+        }
+        [Route("/tai-phim/{slug}")]
+        public async Task<IActionResult> Download(string slug)
+        {
+            ViewData["FilmDetials"] = await _repository.GetDownloadFilm(slug);
+            ViewData["SingleRightFilm"] = await _repository.GetSingleRightFilms();
+            ViewData["bannerBottomFilm"] = await _repository.GetBannerBottomFilm();
+            return View();
+        }
+
     }
 }

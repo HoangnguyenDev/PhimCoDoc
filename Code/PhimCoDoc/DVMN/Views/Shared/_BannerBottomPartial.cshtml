@@ -1,8 +1,11 @@
-@model IEnumerable<Film>
+@using DVMN.Models.FilmViewModels
+@model IEnumerable<BannerBottomFilmViewModel>
 
 <div class="w3_agile_banner_bottom_grid">
     <div id="owl-demo" class="owl-carousel owl-theme">
         <!-- Max 10 item films -->
+        @if(!Model.Any())
+        { 
         @foreach (var item in Model)
             {
             <div class="item">
@@ -17,7 +20,7 @@
                         </div>
                         <div class="mid-2 agile_mid_2_home">
                             <p>@item.OrtherTitle </p>
-                            @item.DateofRease.Value.Year
+                            @item.DateOfRelease.Value.Year
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -26,6 +29,7 @@
                     </div>
                 </div>
             </div>
+        }
         }
     </div>
 </div>

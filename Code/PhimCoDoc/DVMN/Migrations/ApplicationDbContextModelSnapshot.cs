@@ -57,6 +57,8 @@ namespace DVMN.Migrations
 
                     b.Property<string>("Active");
 
+                    b.Property<string>("Actor");
+
                     b.Property<string>("Approved");
 
                     b.Property<string>("AuthorID");
@@ -69,6 +71,8 @@ namespace DVMN.Migrations
 
                     b.Property<string>("DescriptionShort");
 
+                    b.Property<string>("Director");
+
                     b.Property<string>("Genres");
 
                     b.Property<int?>("ImageID");
@@ -76,6 +80,8 @@ namespace DVMN.Migrations
                     b.Property<string>("Info");
 
                     b.Property<bool>("IsDeleted");
+
+                    b.Property<bool>("IsProposed");
 
                     b.Property<string>("Length");
 
@@ -100,6 +106,8 @@ namespace DVMN.Migrations
                     b.Property<string>("VideoBackUp2");
 
                     b.Property<string>("VideoTrailer");
+
+                    b.Property<int>("Vote");
 
                     b.Property<int>("Watch");
 
@@ -144,6 +152,8 @@ namespace DVMN.Migrations
                     b.Property<string>("Pic182x268");
 
                     b.Property<string>("Pic268x268");
+
+                    b.Property<string>("Pic640x351");
 
                     b.Property<string>("Title");
 
@@ -223,15 +233,31 @@ namespace DVMN.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ImageID");
+                    b.Property<string>("Active");
+
+                    b.Property<string>("Approved");
+
+                    b.Property<string>("AuthorID");
+
+                    b.Property<DateTime?>("CreateDT");
+
+                    b.Property<int?>("ImageID");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("Note");
+
                     b.Property<string>("Reason");
+
+                    b.Property<DateTime?>("UpdateDT");
 
                     b.Property<int>("Vote");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("AuthorID");
 
                     b.HasIndex("ImageID");
 
@@ -411,10 +437,13 @@ namespace DVMN.Migrations
 
             modelBuilder.Entity("DVMN.Models.ProposalsFilm", b =>
                 {
+                    b.HasOne("DVMN.Models.Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("AuthorID");
+
                     b.HasOne("DVMN.Models.Images", "Image")
                         .WithMany()
-                        .HasForeignKey("ImageID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ImageID");
                 });
 
             modelBuilder.Entity("DVMN.Models.Serie", b =>
