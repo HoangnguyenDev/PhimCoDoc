@@ -26,6 +26,7 @@ namespace DVMN.Models.FilmViewModels
         [DisplayName("Nội dung ngắn")]
         public string DescriptionShort { get; set; }
         public string Description { get; set; }
+        public Boolean IsProposed { get; set; }
 
         public int SelectSever { get; set; }
 

@@ -5,19 +5,17 @@ using System.Threading.Tasks;
 
 namespace DVMN.Models.FilmViewModels
 {
-    public class ListProposalFilmViewModel
+    public class WatchALotFilmViewModel
     {
-        public ListProposalFilmViewModel(Images image)
+        public WatchALotFilmViewModel(Images image)
         {
             Image = image;
         }
-        public int ID { get; set; }
         public Images Image { get; set; }
         public string Title { get; set; }
-        public string Slug { get; set; }
         public string OrtherTitle { get; set; }
-
+        public string Slug { get; set; }
         public string Info { get; set; }
-        public int Vote { get; set; }
+        public int Watch { get; set; }
     }
 }

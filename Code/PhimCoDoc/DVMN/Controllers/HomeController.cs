@@ -21,13 +21,13 @@ namespace DVMN.Controllers
         [ResponseCache(CacheProfileName = "Default")]
         public async Task<IActionResult> Index()
         {
-            ViewData["generalFilm"] = await _repository.GetGeneralFilm();
             ViewData["bannerFilm"] = await _repository.GetBannerFilm();
             ViewData["bannerBottomFilm"] = await _repository.GetBannerBottomFilm();
+            ViewData["generalFilm"] = await _repository.GetGeneralFilm();
             ViewData["proposalFilm"] = await _repository.GetProposalFilm();
             return View();
         }
-        
+
 
         public IActionResult About()
         {
@@ -80,6 +80,18 @@ namespace DVMN.Controllers
             ViewData["Z"] = await _repository.GetListSelectorFilm("Z");
 
             return View();
+        }
+
+        [Route("/phim-xem-nhieu")]
+        public async Task<IActionResult> WatchALot()
+        {
+            return View(await _repository.GetWatchALotFilm());
+        }
+
+        [Route("/sap-ra-mat")]
+        public async Task<IActionResult> ProposalFilm()
+        {
+            return View(await _repository.GetListProposalFilm());
         }
     }
 }

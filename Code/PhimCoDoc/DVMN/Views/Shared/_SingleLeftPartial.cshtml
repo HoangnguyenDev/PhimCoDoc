@@ -10,22 +10,55 @@
         <div class="row">
             <div class="col-md-5">
                 <img src="@Model.Image.Pic268x268" class="img-responsive" />
+                <div>
+                   
+                </div>
             </div>
-            <div class="col-md-7" style="color: black">
+            <div class="col-md-7" style="color: black" >
                 <h3 class="text-primary">@Model.Title</h3>
-                <p class="">@Model.OrtherTitle</p>
-                <p>Trạng thái @Model.Info</p>
-                <p>Thời lượng: @Model.Length</p>
-                <p>Diễn viên: </p>
-                <p>Đạo diễn: </p>
-                <p>Lượt xem: @Model.Watch</p>
-                <p>Năm xuất bản: @Model.DateofRease.Value.Year</p>
+                <p class=""><strong>@Model.OrtherTitle</strong></p>
+                <p><strong>Trạng thái:</strong> @Model.Info</p>
+                <p><strong>Thời lượng:</strong> @Model.Length</p>
+                <p><strong>Lượt xem:</strong> @Model.Watch</p>
+                <p><strong>Đạo diễn:</strong> </p>
+                <p><strong>Năm xuất bản:</strong> @Model.DateofRease.Value.Year</p>
                 @if(!String.IsNullOrEmpty(Model.AuthorID))
                 { 
                 <p>Đăng bởi: @Model.Member.FullName</p>
                 }
-                <a asp-action="watch" asp-controller="film" asp-route-slug="@Model.Slug" class="btn btn-success"><i class="fa fa-file-movie-o"></i> Xem phim</a>
-                <a asp-action="download" asp-controller="film" asp-route-slug="@Model.Slug" class="btn btn-danger"><i class="fa fa-download"></i> Tải về</a>
+                @{
+                    string scheme = Context.Request.Scheme;
+                    string host = Context.Request.Host.Host;
+                    string port = Context.Request.Host.Port.ToString();
+                    string slug = "/xem-phim/" + Model.Slug;
+                    string url = string.Format("{0}://{1}:{2}{3}", scheme, host, port, slug);
+                }
+                <div class="fb-like" data-href="@url" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                @if (!Model.IsProposed)
+                {
+                    @*<style type="text/css">
+                        .sub-heading-img-left {
+                            position: absolute;
+                            font-size: 15px;
+                            bottom: 2%;
+                            left: 7%;
+                            font-weight: normal;
+                        }
+
+                        .sub-heading-img-right {
+                            position: absolute;
+                            font-size: 15px;
+                            bottom: 2%;
+                            right: 7%;
+                            font-weight: normal;
+                        }
+                    </style>*@
+                    <div class="" style="margin-top: 10px;">
+                        <a asp-action="watch" asp-controller="film" asp-route-slug="@Model.Slug" class="btn btn-success sub-heading-img-left" style="margin-right: 10px;"><i class="fa fa-file-movie-o"></i> Xem phim</a>
+                        <a asp-action="download" asp-controller="film" asp-route-slug="@Model.Slug" class="btn btn-danger sub-heading-img-right"><i class="fa fa-download"></i> Tải về</a>
+                    </div>
+                }
+                
             </div>
         </div>
       
@@ -36,7 +69,20 @@
     @*<div class="panel-heading" style="padding: 10px 15px">
         <h3 class="panel-title">Nội dung film</h3>
     </div>*@
-    <div class="panel-body">
+    <div class="panel-body" style="color:black; text-align: justify;">
         @Html.Raw(Model.Description)
     </div>
+    <script type="text/javascript">
+        $("img").addClass("img-responsive");
+
+
+        //var imgs = $document.getElementsByTagName('img');
+        //foreach(imgs as $img) {           
+        //    img.setAttribute('class', 'img-responsive');
+        //}
+
+    </script>
 </div>
+@section Style {
+
+}

@@ -35,13 +35,10 @@ namespace DVMN.Controllers
                 server = "1";
             ViewData["FilmDetials"] = await _repository.Get(slug, server);
             ViewData["bannerBottomFilm"] = await _repository.GetBannerBottomFilm();
+            await _repository.IsWatched(slug);
             return View();
         }
-        [Route("/sap-ra-mat")]
-        public async Task<IActionResult> ProposalFilm()
-        {
-            return View(await _repository.GetListProposalFilm());
-        }
+        
         [Route("/tai-phim/{slug}")]
         public async Task<IActionResult> Download(string slug)
         {

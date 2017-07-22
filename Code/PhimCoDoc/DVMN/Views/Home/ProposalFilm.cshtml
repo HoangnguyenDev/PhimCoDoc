@@ -11,7 +11,14 @@
 <div class="general">
     <h4 class="latest-text w3_latest_text">Đề cử phim mới</h4>
     <div class="container">
-
+        <div class="agileits-news-top">
+            <ol class="breadcrumb">
+                <li>
+                    <a asp-controller="Home" asp-action="Index">Trang chủ</a>
+                </li>
+                <li class="active">Phim đề cử</li>
+            </ol>
+        </div>
             <!--Max 12 film-->
             @if (!Model.Any())
             {
@@ -31,7 +38,15 @@
                         </div>
                         <div class="mid-2 agile_mid_2_home">
                             <p>@item.OrtherTitle </p>
-                            <i class="glyphicon glyphicon-heart"> </i> @item.Vote
+                            @{
+                                string scheme = Context.Request.Scheme;
+                                string host = Context.Request.Host.Host;
+                                string port = Context.Request.Host.Port.ToString();
+                                string slug = "/xem-phim/" + item.Slug;
+                                string url = string.Format("{0}://{1}:{2}{3}", scheme, host, port, slug);
+                            }
+                            <p><div class="fb-like" data-href="@url" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+                            </p>
                             <div class="clearfix"></div>
                         </div>
                     </div>

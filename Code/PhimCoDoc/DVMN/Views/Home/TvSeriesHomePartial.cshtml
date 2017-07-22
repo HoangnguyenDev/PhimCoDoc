@@ -6,23 +6,23 @@
     <section class="slider">
         <div class="flexslider">
             <ul class="slides">
-                @foreach(var item in Model)
-                { 
+                @foreach (var item in Model)
+                {
                 <li>
                     <div class="agile_tv_series_grid">
                         <div class="col-md-6 agile_tv_series_grid_left">
                             <div class="w3ls_market_video_grid1">
                                 <img src="@item.Image.Pic640x351" alt="@item.Image.ALT" title="@item.Image.Title" class="img-responsive" />
-                                <a class="w3_play_icon" href="#small-dialog">
+                                <a class="w3_play_icon" href="#small-dialog_@item.ID">
                                     <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
                                 </a>
                             </div>
                         </div>
                         <div class="col-md-6 agile_tv_series_grid_right">
-                            <p class="fexi_header">@item.Title</p>
+                            <a asp-controller="Film" asp-action="Single" asp-route-slug="@item.Slug"><p class="fexi_header" style="color:#337ab7;">@item.Title</p></a>
                             <p class="fexi_header_para"><span class="conjuring_w3">Nội dung<label>:</label></span> @item.Description...</p>
                             @if (item.DateOfRelease != null) {
-                            <p class="fexi_header_para"><span>Ngày xuất bản<label>:</label></span> @item.DateOfRelease.Value.Date}</p>
+                            <p class="fexi_header_para"><span>Ngày xuất bản<label>:</label></span> @item.DateOfRelease.Value.Date</p>
                             }
                             @*<p class="fexi_header_para">
                                 <span>Genres<label>:</label> </span>
@@ -38,27 +38,26 @@
                                 <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
                                 <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
                             </p>*@
-                             <p class="fexi_header_para"><span>Bỏ phiếu<label>:</label></span>
-                                 <button type="button"
-                                         id="testBtn"
-                                         class="btn btn-success glyphicon glyphicon-thumbs-up"
-                                         value="@item.Vote">
-                                     0
-                                 </button>
-                                 <script type="text/javascript">
-                                 $('#testBtn').click(function () {
-    
-                                     var btn = $(this);
-                                     var cong = $('#testBtn').val();
-                                     cong++;
-                                     setTimeout(function () {
-                                         $('#testBtn').val(cong);
-                                         $('#submit4').val(cong);
-                                }, 1000);
- });
+                             <p class="fexi_header_para"><span><label></label></span>
 
-                                 </script>
-                            </p>
+                            @{
+                                string scheme = Context.Request.Scheme;
+                                string host = Context.Request.Host.Host;
+                                string port = Context.Request.Host.Port.ToString();
+                                string slug = "/xem-phim/" + item.Slug;
+                                string url = string.Format("{0}://{1}:{2}{3}", scheme, host, port,slug);
+                                }
+                                 <div class="fb-like" data-href="@url" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+                                 <div id="small-dialog_@item.ID" class="mfp-hide">
+                                     <div class="col-md-3"></div>
+                                     <div class="col-md-6">
+                                         <div class="embed-responsive embed-responsive-4by3">
+                                             <iframe src="@item.VideoTrailler"></iframe>
+                                         </div>
+                                     </div>
+                                 </div>
+
+                            @*</p>*@
                             
                         </div>
                         <div class="clearfix"> </div>

@@ -1,8 +1,9 @@
 ﻿@using DVMN.Models.FilmViewModels
 @{ 
-    IEnumerable<GeneralFilmViewModel> generalFilms = ViewData["generalFilm"] as IEnumerable<GeneralFilmViewModel>;
-    List<BannerFilmViewModel> bannerFilms = ViewData["bannerFilm"] as List<BannerFilmViewModel>;
+
+    IEnumerable<BannerFilmViewModel> bannerFilms = ViewData["bannerFilm"] as IEnumerable<BannerFilmViewModel>;
     IEnumerable<BannerBottomFilmViewModel> bannerBottomFilms = ViewData["bannerBottomFilm"] as IEnumerable<BannerBottomFilmViewModel>;
+    IEnumerable<GeneralFilmViewModel> generalFilms = ViewData["generalFilm"] as IEnumerable<GeneralFilmViewModel>;
     IEnumerable<ProposalFilmViewModel> proposalFilms = ViewData["proposalFilm"] as IEnumerable<ProposalFilmViewModel>;
     ViewData["Title"] = "Website Phim Cơ Đốc dành cho người Việt Nam | Kích lê đức tin qua phim";
 }
@@ -36,15 +37,7 @@
 <!-- pop-up-box -->
 <script src="~/movie/js/jquery.magnific-popup.js" type="text/javascript"></script>
 <!--//pop-up-box -->
-<div id="small-dialog" class="mfp-hide">
-    <iframe src="https://player.vimeo.com/video/164819130?title=0&byline=0"></iframe>
-</div>
-<div id="small-dialog1" class="mfp-hide">
-    <iframe src="https://player.vimeo.com/video/148284736"></iframe>
-</div>
-<div id="small-dialog2" class="mfp-hide">
-    <iframe src="https://player.vimeo.com/video/165197924?color=ffffff&title=0&byline=0&portrait=0"></iframe>
-</div>
+
 <script>
 		$(document).ready(function() {
 		$('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
@@ -87,5 +80,6 @@
 				  });
 				});
 </script>
+
 <!-- //flexSlider -->
-}
+    }

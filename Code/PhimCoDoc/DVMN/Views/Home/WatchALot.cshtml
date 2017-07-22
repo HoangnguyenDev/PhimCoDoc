@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Phim xem nhiều | Phim Cơ Đốc";
+}
+
+@using DVMN.Models.FilmViewModels
+@model IEnumerable<WatchALotFilmViewModel>
+    <div class="general_social_icons">
+        @await Html.PartialAsync("_SocialPartial")
+    </div>
+    <!-- general -->
+    <div class="general">
+        <h4 class="latest-text w3_latest_text">Đề cử phim mới</h4>
+        <div class="container">
+            <div class="agileits-news-top">
+                <ol class="breadcrumb">
+                    <li>
+                        <a asp-controller="Home" asp-action="Index">Trang chủ</a>
+                    </li>
+                    <li class="active">Phim xem nhiều</li>
+                </ol>
+            </div>
+            <!--Max 12 film-->
+            @if (!Model.Any())
+            {
+                <h3>Chưa có film nào cả</h3>
+            }
+
+            @foreach (var item in Model)
+            {
+                <div class="col-md-2 w3l-movie-gride-agile">
+                    <a asp-controller="Film" asp-action="Single" asp-route-slug="@item.Slug" class="hvr-shutter-out-horizontal">
+                        <img src="@item.Image.Pic182x268" title="@item.Image.Title" class="img-responsive" alt="@item.Image.ALT" />
+                        <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                    </a>
+                    <div class="mid-1 agileits_w3layouts_mid_1_home">
+                        <div class="w3l-movie-text">
+                            <h4><a asp-controller="Film" asp-action="Single" asp-route-slug="@item.Slug">@item.Title</a></h4>
+                        </div>
+                        <div class="mid-2 agile_mid_2_home">
+                            <p>@item.OrtherTitle </p>
+                            <i class="glyphicon glyphicon-eye-open"> </i> @item.Watch
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <label class="sub-heading-img">
+                        @item.Info
+                    </label>
+                </div>
+            }
+            <div class="clearfix"> </div>
+        </div>
+    </div>

@@ -10,11 +10,19 @@ namespace DVMN.Data
 {
     public interface IFilmRepository
     {
+        //Phim da xem
+        Task IsWatched(string slug);
+        //Phim xem nhiều
+        Task<IEnumerable<WatchALotFilmViewModel>> GetWatchALotFilm();
         Task<DownloadFilmViewModel> GetDownloadFilm(string Slug);
         Task<IEnumerable<ListSelectorFilmViewModel>> GetListSelectorFilm(string key);
         Task<IEnumerable<ListProposalFilmViewModel>> GetListProposalFilm();
+
+        // danh sach phim ngay trang dau
         Task<IEnumerable<GeneralFilmViewModel>> GetGeneralFilm();
+        //danh sách phim ngay ben duoi banner
         Task<IEnumerable<BannerBottomFilmViewModel>> GetBannerBottomFilm();
+        //danh sach phim de cu
         Task<IEnumerable<ProposalFilmViewModel>> GetProposalFilm();
         Task<IEnumerable<BannerFilmViewModel>> GetBannerFilm();
         Task<IEnumerable<SingleRightPartialFilmViewModel>> GetSingleRightFilms();

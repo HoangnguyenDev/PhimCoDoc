@@ -113,6 +113,7 @@ namespace DVMN.Data
             model.Title = film.Title;
             model.OrtherTitle = film.OrtherTitle;
             model.Info = film.Info;
+            model.IsProposed = film.IsProposed;
             model.DateofRease = film.DateofRease;
             model.Description = film.Description;
             model.DescriptionShort = film.DescriptionShort;
@@ -159,7 +160,7 @@ namespace DVMN.Data
                 .Include(f => f.Member)
                 .Include(f => f.Serie)
                 .Where(p => p.Approved == "A" && !p.IsProposed)
-                .OrderByDescending(post => post.CreateDT).Take(8).ToListAsync();
+                .OrderByDescending(post => post.CreateDT).Take(5).ToListAsync();
             int leng = listFilmDB.Capacity;
             List<BannerFilmViewModel> model = new List<BannerFilmViewModel>(leng);
             foreach (var item in listFilmDB)
@@ -236,6 +237,7 @@ namespace DVMN.Data
                 tempItem.OrtherTitle = item.OrtherTitle;
                 tempItem.Vote = item.Vote;
                 tempItem.ID = item.ID;
+                tempItem.Slug = item.Slug;
                 model.Add(tempItem);
             }
             return model;
@@ -299,7 +301,9 @@ namespace DVMN.Data
                 }
                 tempItem.Vote = item.Vote;
                 tempItem.ID = item.ID;
+                tempItem.Slug = item.Slug;
                 tempItem.DateOfRelease = item.DateofRease;
+                tempItem.VideoTrailler = item.VideoTrailer;
                 tempItem.Genres = item.Genres;
                 model.Add(tempItem);
             }
@@ -332,6 +336,37 @@ namespace DVMN.Data
                 model.Add(tempItem);
             }
             return model;
+        }
+
+        public async Task<IEnumerable<WatchALotFilmViewModel>> GetWatchALotFilm()
+        {
+            var listFilmDB = await _context.Film.Include(f => f.Image)
+                .Where(p => p.Approved == "A" && !p.IsProposed)
+                .OrderByDescending(post => post.Watch).ToListAsync();
+            int leng = listFilmDB.Capacity;
+            List<WatchALotFilmViewModel> model = new List<WatchALotFilmViewModel>(leng);
+            foreach (var item in listFilmDB)
+            {
+                WatchALotFilmViewModel tempItem = new WatchALotFilmViewModel(item.Image);
+                tempItem.Title = item.Title;
+                tempItem.OrtherTitle = item.Title;
+                tempItem.Watch = item.Watch;
+                tempItem.Slug = item.Slug;
+                tempItem.Info = item.Info;
+                model.Add(tempItem);
+            }
+            return model;
+        }
+
+        public async Task IsWatched(string slug)
+        {
+            var item = await _context.Film.SingleOrDefaultAsync(p => p.Slug == slug);
+            if (item != null)
+            {
+                item.Watch++;
+                _context.Film.Update(item);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

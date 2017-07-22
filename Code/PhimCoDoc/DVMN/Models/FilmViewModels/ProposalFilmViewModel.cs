@@ -14,10 +14,11 @@ namespace DVMN.Models.FilmViewModels
         public int ID { get; set; }
         public Images Image { get; set; }
         public string Title { get; set; }
-
+        public string Slug { get; set; }
         public string Description { get; set; }
-
         public DateTime? DateOfRelease { get; set; }
+
+        public string VideoTrailler { get; set; }
 
         public string Genres { get; set; }
         public int Vote { get; set; }
