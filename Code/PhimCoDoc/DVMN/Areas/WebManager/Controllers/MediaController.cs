@@ -13,10 +13,12 @@ using Microsoft.Extensions.FileProviders;
 using ImageSharp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DVMN.Areas.WebManager.Controllers
 {
     [Area("WebManager")]
+    [Authorize]
     public class MediaController : Controller 
     {
         public static string DIR_IMAGE = "images";

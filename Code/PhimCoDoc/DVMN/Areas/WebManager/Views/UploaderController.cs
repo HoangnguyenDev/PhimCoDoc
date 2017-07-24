@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DVMN.Areas.WebManager.Controllers
 {
@@ -13,6 +14,7 @@ namespace DVMN.Areas.WebManager.Controllers
     {
         [HttpPost("UploadImage")]
         [Route("webmanager/uploader/UploadImage")]
+        [Authorize]
         public async Task<IActionResult> Post(List<IFormFile> files)
         {
             long size = files.Sum(f => f.Length);

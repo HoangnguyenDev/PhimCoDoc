@@ -1,0 +1,38 @@
+﻿@media screen and (min-width: 320px) {
+    .fa-like-watch {
+        left: 30%;
+    }
+
+
+}
+@media screen and (min-width: 375px) {
+    .fa-like-watch {
+        left: 20%;
+    }
+}
+
+h2.latest-text {
+    border-left: 5px solid #ff8d1b;
+    font-size: 2em;
+    color: #212121;
+    text-transform: uppercase;
+    margin-bottom: 1em;
+    padding: 0.3em 0.5em;
+    margin-left: 3em;
+}
+
+@media (max-width: 1280px) {
+    h2.latest-text {
+        margin-left: 1em !important;
+    }
+}
+@media (max-width: 800px) {
+    h2.latest-text {
+        font-size: 1.7em !important;
+    }
+}
+@media (max-width: 640px) {
+    h2.latest-text {
+        margin-bottom: 1em !important;
+    }
+}

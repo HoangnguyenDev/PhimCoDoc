@@ -2,9 +2,10 @@
 @{
     IEnumerable<GeneralFilmViewModel> generalFilm = ViewData["generalFilm"] as IEnumerable<GeneralFilmViewModel>;
     WatchFilmViewModel filmDetails = ViewData["FilmDetials"] as WatchFilmViewModel;
-    IEnumerable<BannerBottomFilmViewModel> bannerBottomFilm = ViewData["bannerBottomFilm"] as IEnumerable<BannerBottomFilmViewModel>;
     IEnumerable<SingleRightPartialFilmViewModel> singleRightFilm = ViewData["SingleRightFilm"] as IEnumerable<SingleRightPartialFilmViewModel>;
     ViewData["Title"] = "Thông tin phim " + filmDetails.Title + " | Phim Cơ Đốc";
+    IEnumerable<BannerBottomFilmViewModel> bannerBottomFilm = ViewData["bannerBottomFilm"] as IEnumerable<BannerBottomFilmViewModel>;
+    ViewData["Desciption"] = filmDetails.DescriptionShort; 
 }
 
 <div class="general_social_icons">
@@ -27,14 +28,14 @@
                 <div class="col-sm-8 single-left">
                    @await Html.PartialAsync("_SingleLeftPartial", filmDetails)
                 </div>
-                <div class="col-md-4 single-right">
+                <div class="col-md-4 single-right" style="border-color: blue; border-width: 1px; border-style: solid;">
                    @await Html.PartialAsync("_SingleRightPartial", singleRightFilm)
                 </div>
                 <div class="clearfix"> </div>
             </div>
             <!-- //movie-browse-agile -->
             <!--body wrapper start-->
-            @*@await Html.PartialAsync("_BannerBottomPartial", bannerBottomFilm)*@
+            @await Html.PartialAsync("_BannerBottomPartial", bannerBottomFilm)
             <!--body wrapper end-->
         </div>
         <!-- //w3l-latest-movies-grids -->

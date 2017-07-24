@@ -1,5 +1,7 @@
 ﻿@{ 
     ViewData["Title"] = "Đề cử phim mới | Phim Cơ Đốc";
+    ViewData["Desciption"] = "Đề cử phim mới là nơi có danh sách những phim đang được mọi người" +
+                "đề cử, dựa vào số lượt like càng cao trên facebook thì sẽ ưu tiên tìm kiếm và cung cấp trước";
 }
 
 @using DVMN.Models.FilmViewModels
@@ -9,7 +11,7 @@
 </div>
 <!-- general -->
 <div class="general">
-    <h4 class="latest-text w3_latest_text">Đề cử phim mới</h4>
+    <h2 class="latest-text w3_latest_text">Đề cử phim mới</h2>
     <div class="container">
         <div class="agileits-news-top">
             <ol class="breadcrumb">
@@ -34,7 +36,7 @@
                     </a>
                     <div class="mid-1 agileits_w3layouts_mid_1_home">
                         <div class="w3l-movie-text">
-                            <h4><a>@item.Title</a></h4>
+                            <h3 style="font-size: 18px;"><a>@item.Title</a></h3>
                         </div>
                         <div class="mid-2 agile_mid_2_home">
                             <p>@item.OrtherTitle </p>
@@ -42,7 +44,7 @@
                                 string scheme = Context.Request.Scheme;
                                 string host = Context.Request.Host.Host;
                                 string port = Context.Request.Host.Port.ToString();
-                                string slug = "/xem-phim/" + item.Slug;
+                                string slug = "/phim/" + item.Slug;
                                 string url = string.Format("{0}://{1}:{2}{3}", scheme, host, port, slug);
                             }
                             <p><div class="fb-like" data-href="@url" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>

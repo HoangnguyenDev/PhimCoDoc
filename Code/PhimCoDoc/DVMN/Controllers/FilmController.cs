@@ -11,25 +11,22 @@ namespace DVMN.Controllers
     public class FilmController : Controller
     {
         private readonly IFilmRepository _repository;
-        private readonly ApplicationDbContext _context;
 
-        public FilmController(IFilmRepository repository,
-            ApplicationDbContext context)
+        public FilmController(IFilmRepository repository)
         {
             _repository = repository;
-            _context = context;
         }
 
-        [Route("/{slug}")]
+        [Route("/phim/{slug}")]
         public async Task<IActionResult> Single(string slug)
         {
-            ViewData["FilmDetials"] = await _repository.Get(slug,"1");
+            ViewData["FilmDetials"] = await _repository.Get(slug, "1");
             ViewData["SingleRightFilm"] = await _repository.GetSingleRightFilms();
-            ViewData["bannerBottomFilm"] = _repository.GetBannerBottomFilm();
+            ViewData["bannerBottomFilm"] = await _repository.GetBannerBottomFilm();
             return View();
         }
         [Route("/xem-phim/{slug}")]
-        public async Task<IActionResult> Watch(string server,string slug)
+        public async Task<IActionResult> Watch(string server, string slug)
         {
             if (String.IsNullOrEmpty(server))
                 server = "1";
@@ -38,7 +35,7 @@ namespace DVMN.Controllers
             await _repository.IsWatched(slug);
             return View();
         }
-        
+
         [Route("/tai-phim/{slug}")]
         public async Task<IActionResult> Download(string slug)
         {
@@ -47,6 +44,13 @@ namespace DVMN.Controllers
             ViewData["bannerBottomFilm"] = await _repository.GetBannerBottomFilm();
             return View();
         }
+        [Route("phim/the/{slug}")]
+        public async Task<IActionResult> Tag ( string slug)
+        {
+            ViewData["Tag"] = slug;
+            return View(await _repository.GetFilmsInTag(slug));
+        }
+
 
     }
 }

@@ -1,17 +1,4 @@
-@model DVMN.Models.Film
-
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
-</head>
-<body>
+@model DVMN.Models.FilmViewModels.CreateEditFilmViewModel
 
 <form asp-action="Edit">
     <div class="form-horizontal">
@@ -27,31 +14,78 @@
             </div>
         </div>
         <div class="form-group">
+            <label asp-for="OrtherTitle" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="OrtherTitle" class="form-control" />
+                <span asp-validation-for="OrtherTitle" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="DescriptionShort" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="DescriptionShort" class="form-control" />
+                <span asp-validation-for="DescriptionShort" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Info" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Info" class="form-control" />
+                <span asp-validation-for="Info" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Length" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Length" class="form-control" />
+                <span asp-validation-for="Length" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
             <label asp-for="Description" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="ckeditor"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="DateofRease" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="DateofRease" class="form-control" />
-                <span asp-validation-for="DateofRease" class="text-danger"></span>
+                <div class="input-group date">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <input asp-for="DateofRease" type="text" class="form-control pull-right" id="datepicker">
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="StarRating" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="StarRating" class="form-control" />
-                <span asp-validation-for="StarRating" class="text-danger"></span>
-            </div>
-        </div>
+
         <div class="form-group">
             <label asp-for="Video" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="Video" class="form-control" />
                 <span asp-validation-for="Video" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="VideoBackUp1" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="VideoBackUp1" class="form-control" />
+                <span asp-validation-for="VideoBackUp1" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="VideoBackUp2" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="VideoBackUp2" class="form-control" />
+                <span asp-validation-for="VideoBackUp2" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="VideoTrailer" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="VideoTrailer" class="form-control" />
+                <span asp-validation-for="VideoTrailer" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
@@ -62,17 +96,15 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="ImageID" class="control-label col-md-2"></label>
+            <label asp-for="ImageID" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <select asp-for="ImageID" class="form-control" asp-items="ViewBag.ImageID"></select>
-                <span asp-validation-for="ImageID" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="SerieID" class="control-label col-md-2"></label>
+            <label asp-for="SerieID" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <select asp-for="SerieID" class="form-control" asp-items="ViewBag.SerieID"></select>
-                <span asp-validation-for="SerieID" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
@@ -83,53 +115,32 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="CreateDT" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="CreateDT" class="form-control" />
-                <span asp-validation-for="CreateDT" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="UpdateDT" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="UpdateDT" class="form-control" />
-                <span asp-validation-for="UpdateDT" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="AuthorID" class="control-label col-md-2"></label>
-            <div class="col-md-10">
-                <select asp-for="AuthorID" class="form-control" asp-items="ViewBag.AuthorID"></select>
-                <span asp-validation-for="AuthorID" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Approved" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Approved" class="form-control" />
-                <span asp-validation-for="Approved" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Active" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Active" class="form-control" />
-                <span asp-validation-for="Active" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <div class="checkbox">
-                    <input asp-for="IsDeleted" />
-                    <label asp-for="IsDeleted"></label>
+                    <input asp-for="IsProposed" />
+                    <label asp-for="IsProposed"></label>
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Note" class="col-md-2 control-label"></label>
+            <label asp-for="Actor" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Note" class="form-control" />
-                <span asp-validation-for="Note" class="text-danger"></span>
+                <input asp-for="Actor" class="form-control" />
+                <span asp-validation-for="Actor" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Director" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Director" class="form-control" />
+                <span asp-validation-for="Director" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempTag" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TempTag" class="form-control" />
+                <span asp-validation-for="TempTag" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
@@ -144,5 +155,30 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-</body>
-</html>
+@section Css {
+    <link rel="stylesheet" href="~/plugins/datepicker/datepicker3.css">
+}
+@section Scripts{
+    <script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="~/plugins/iCheck/icheck.min.js"></script>
+    <script src="~/lib/ckeditor/ckeditor.js"></script>
+    <script src="~/lib/ckeditor/adapters/jquery.js"></script>
+    <script type="text/javascript">
+
+        $("#datepicker").datepicker(
+
+        );
+        $(".ckeditor").ckeditor(
+
+        );
+        //CKEDITOR.config.customConfig = "~/plugins/"
+        //$(function () {
+        //    $('input').iCheck({
+        //        checkboxClass: 'icheckbox_square-blue',
+        //        radioClass: 'iradio_square-blue',
+        //        increaseArea: '20%' // optional
+        //    });
+        //});
+    </script>
+
+}

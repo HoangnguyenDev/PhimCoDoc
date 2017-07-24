@@ -1,0 +1,9 @@
+User-agent: *
+ Disallow: /Areas
+ Disallow: /wwwroot
+
+ Allow: /wwwroot/images
+ 
+# Google Image
+ User-agent: Googlebot-Image
+ Allow: /wwwroot/images

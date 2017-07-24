@@ -15,6 +15,7 @@ using DVMN.Services;
 using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json.Serialization;
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
 namespace DVMN
 {
@@ -45,17 +46,17 @@ namespace DVMN
         {
             // Add framework services.
             services.AddMemoryCache();
-            //if (CurrentEnvironment.IsDevelopment())
-            //{
-            //    //services.AddResponseCaching();
-            //    services.AddDbContext<ApplicationDbContext>(options =>
-            //        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            //}
-            //else
-            //{
+            if (CurrentEnvironment.IsDevelopment())
+            {
+                //services.AddResponseCaching();
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            }
+            else
+            {
                 services.AddDbContext<ApplicationDbContext>(options =>
                    options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
-            //}
+            }
             services.AddIdentity<Member, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -76,6 +77,14 @@ namespace DVMN
                     });
             })
             .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            services.AddRecaptcha(new RecaptchaOptions
+            {
+                SiteKey = Configuration["6Lfd2A8UAAAAAEBsxMi4memnS3SB3IZnXnZddGMb"],
+                SecretKey = Configuration["6Lfd2A8UAAAAAMFtAvL2niwNrmFnWQktq07tSZ-t"],
+                ValidationMessage = "Bạn không phải là robot?"
+            });
+
+
             services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
             services.AddSession();
             // Add application services.
@@ -92,16 +101,21 @@ namespace DVMN
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            
+           
+            app.UseDeveloperExceptionPage();
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseStatusCodePages();
                 app.UseDatabaseErrorPage();
-              //  app.UseBrowserLink();
+                app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
+                //  app.UseBrowserLink();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
+                //app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseStaticFiles(new StaticFileOptions()

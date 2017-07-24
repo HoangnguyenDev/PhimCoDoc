@@ -8,9 +8,10 @@ using DVMN.Data;
 namespace DVMN.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170722123703_Inittable1")]
+    partial class Inittable1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -94,6 +95,8 @@ namespace DVMN.Migrations
                     b.Property<string>("Slug");
 
                     b.Property<float>("StarRating");
+
+                    b.Property<string>("TempTag");
 
                     b.Property<string>("Title");
 

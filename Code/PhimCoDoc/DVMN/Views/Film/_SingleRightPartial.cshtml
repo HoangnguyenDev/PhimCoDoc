@@ -1,0 +1,38 @@
+﻿@using DVMN.Models.FilmViewModels
+@model IEnumerable<SingleRightPartialFilmViewModel>
+
+    <h2 class="text-primary single-right-title">Phim xem nhiều</h2>
+    <style>
+        .single-right-title {
+            margin: 10px;
+        }
+
+        .single-right-grid-right a.title {
+            color: #337ab7;
+        }
+
+        .single-right h3 {
+            color: #337ab7;
+        }
+
+        .single-right-grid-right p.views {
+            color: #333;
+        }
+    </style>
+    <div class="single-grid-right">
+        @foreach (var item in Model)
+            {
+            <div class="single-right-grids">
+                <div class="col-md-4 single-right-grid-left">
+                    <a asp-controller="Film" asp-action="Single" asp-route-slug="@item.Slug"><img src="@item.Image.Pic182x268" alt="@item.Image.ALT" /></a>
+                </div>
+                <div class="col-md-8 single-right-grid-right">
+                    <a asp-controller="Film" asp-action="Single" asp-route-slug="@item.Slug" class="title"> @item.Title</a>
+                    @*<p class="author"><a href="#" class="author">John Maniya</a></p>*@
+                    <p class="views">@item.Description</p>
+                    <p class="views">Lượt xem @item.Watch</p>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        }
+    </div>

@@ -19,9 +19,57 @@ namespace DVMN.Data
             _context = context;
             _userManager = userManager;
         }
-       
+        public async Task<CreateEditFilmViewModel> GetEdit(int? Id)
+        {
+            var post = _context.Film
+                .Include(p => p.Image)
+                .Include(p => p.Serie)
+                .SingleOrDefault(p => p.ID == Id);
+            if (post != null)
+            {
+                var tags = await _context.FilmTag.
+                    Include(p => p.Tag).
+                    Where(p => p.FilmID == post.ID).
+                    ToListAsync();
+                string tempTag = "";
+                foreach (var item in tags)
+                {
+                    tempTag = tempTag+item.Tag.Title + ", ";
+                }
+                CreateEditFilmViewModel model = new CreateEditFilmViewModel
+                {
+                    Actor = post.Actor,
+                    AuthorID = post.AuthorID,
+                    DateofRease = post.DateofRease,
+                    Description = post.Description,
+                    DescriptionShort = post.DescriptionShort,
+                    Director = post.Director,
+                    ImageID = post.ImageID,
+                    Info = post.Info,
+                    IsProposed = post.IsProposed,
+                    Watch = post.Watch,
+                    Vote = post.Vote,
+                    VideoTrailer = post.VideoTrailer,
+                    VideoBackUp2 = post.VideoBackUp2,
+                    VideoBackUp1 = post.VideoBackUp1,
+                    Video = post.Video,
+                    Length = post.Length,
+                    Title = post.Title,
+                    StarRating = post.StarRating,
+                    Slug = post.Slug,
+                    SerieID = post.SerieID,
+                    OrtherTitle = post.OrtherTitle,
+                    Genres = post.Genres,
+                    TempTag = tempTag,
+                    Image = post.Image,
+                    Serie = post.Serie
+                };
+                return model;
+            }
+            return null;
+        }
 
-        public async Task Create(Film model)
+        public async Task Create(CreateEditFilmViewModel model)
         {
             var post = _context.Film.SingleOrDefault(p => p.ID == model.ID);
 
@@ -29,14 +77,135 @@ namespace DVMN.Data
             {
                 throw new ArgumentException("A post with the id of " + model.ID + " already exists.");
             }
-            model.CreateDT = DateTime.Now;
-            model.Approved = "A";
-            model.Active = "A";
-            model.IsDeleted = false;
-            model.UpdateDT = DateTime.Now;
-            _context.Film.Add(model);
+
+            Film film = new Film
+            {
+                Active = "A",
+                Actor = model.Actor,
+                Approved = "A",
+                AuthorID = model.AuthorID,
+                CreateDT = DateTime.Now,
+                IsDeleted = false,
+                UpdateDT = DateTime.Now,
+                DateofRease = model.DateofRease,
+                Description = model.Description,
+                DescriptionShort = model.DescriptionShort,
+                Director = model.Director,
+                ImageID = model.ImageID,
+                Info = model.Info,
+                IsProposed = model.IsProposed,
+                Watch = model.Watch,
+                Vote = model.Vote,
+                VideoTrailer = model.VideoTrailer,
+                VideoBackUp2 = model.VideoBackUp2,
+                VideoBackUp1 = model.VideoBackUp1,
+                Video = model.Video,
+                Length = model.Length,
+                Title = model.Title,
+                StarRating = model.StarRating,
+                Slug = model.Slug,
+                SerieID = model.SerieID,
+                OrtherTitle = model.OrtherTitle,
+                Genres = model.Genres
+            };
+            _context.Film.Add(film);
+
+            // Get and convert string to create tag
+            List<string> listString = StringExtensions.ConvertStringToListString(model.TempTag);
+            List<Tag> listTag = new List<Tag>(listString.Capacity - 1);
+
+            // Save all tag
+            foreach (var item in listString)
+            {
+                Tag tag = new Tag
+                {
+                    Title = item,
+                    Slug = StringExtensions.ConvertToUnSign3(item)
+                };
+                _context.Add(tag);
+                _context.Add(new FilmTag { TagID = tag.ID, FilmID = film.ID});
+            }
             await _context.SaveChangesAsync();
         }
+        public async Task SaveEdit(CreateEditFilmViewModel model)
+        {
+            var post = _context.Film.SingleOrDefault(p => p.ID == model.ID);
+
+            //if (post != null)
+            //{
+            //    throw new ArgumentException("A post with the id of " + model.ID + " already exists.");
+            //}
+
+            Film film = new Film
+            {
+                Active = "A",
+                Actor = model.Actor,
+                Approved = "A",
+                AuthorID = model.AuthorID,
+                CreateDT = DateTime.Now,
+                IsDeleted = false,
+                UpdateDT = DateTime.Now,
+                DateofRease = model.DateofRease,
+                Description = model.Description,
+                DescriptionShort = model.DescriptionShort,
+                Director = model.Director,
+                ImageID = model.ImageID,
+                Info = model.Info,
+                IsProposed = model.IsProposed,
+                Watch = model.Watch,
+                Vote = model.Vote,
+                VideoTrailer = model.VideoTrailer,
+                VideoBackUp2 = model.VideoBackUp2,
+                VideoBackUp1 = model.VideoBackUp1,
+                Video = model.Video,
+                Length = model.Length,
+                Title = model.Title,
+                StarRating = model.StarRating,
+                Slug = model.Slug,
+                SerieID = model.SerieID,
+                OrtherTitle = model.OrtherTitle,
+                Genres = model.Genres,
+                Note = post.Note
+                
+            };
+            _context.Film.Remove(post);
+            _context.Add(film);
+            //_context.Film.Update(film);
+
+
+            //Tim tat ca tag cu va tien hanh xoa
+            var tags = await _context.FilmTag.
+                    Include(p => p.Tag).
+                    Where(p => p.FilmID == model.ID).
+                    ToListAsync();
+            foreach (var item in tags)
+            {
+                _context.FilmTag.Remove(item);
+                var tag = await _context.Tag.SingleOrDefaultAsync(p => p.ID == item.TagID);
+                _context.Tag.Remove(tag);
+            }
+
+
+            // Get and convert string to create tag
+            List<string> listString = StringExtensions.ConvertStringToListString(model.TempTag);
+            List<Tag> listTag = new List<Tag>(listString.Capacity - 1);
+
+
+            // Save all tag
+            foreach (var item in listString)
+            {
+                Tag tag = new Tag
+                {
+                    Title = item,
+                    Slug = StringExtensions.ConvertToUnSign3(item)
+                };
+                _context.Add(tag);
+                _context.Add(new FilmTag { TagID = tag.ID, FilmID = film.ID });
+            }
+            await _context.SaveChangesAsync();
+        }
+
+
 
         public async Task Delete(int id)
         {
@@ -107,7 +276,12 @@ namespace DVMN.Data
                .Include(f => f.Image)
                .Include(f => f.Serie)
                .SingleOrDefaultAsync(post => post.Slug == slug);
-            WatchFilmViewModel model = new WatchFilmViewModel(film.Image,film.Member,film.Serie);
+
+            var tags = await _context.FilmTag
+                .Include(p => p.Film)
+                .Include(p => p.Tag)
+                .ToListAsync();
+            WatchFilmViewModel model = new WatchFilmViewModel(film.Image,film.Member,film.Serie, tags);
             model.Video = film.Video;
             model.VideoBackUp1 = film.VideoBackUp1;
             model.Title = film.Title;
@@ -167,9 +341,14 @@ namespace DVMN.Data
             {
                 BannerFilmViewModel tempItem = new BannerFilmViewModel(item.Image);
                 tempItem.Title = item.Title;
-                if(!String.IsNullOrEmpty(item.Description))
+                if(!String.IsNullOrEmpty(item.DescriptionShort))
                 { 
-                    tempItem.Descriptions = item.DescriptionShort.Substring(0, 160);
+                    if(item.DescriptionShort.Length > 160)
+                    { 
+                        tempItem.Descriptions = item.DescriptionShort.Substring(0, 160);
+                    }
+                    else
+                        tempItem.Descriptions = item.DescriptionShort.Substring(0, item.DescriptionShort.Length-1);
                 }
                 tempItem.Slug = item.Slug;
                 model.Add(tempItem);
@@ -327,9 +506,12 @@ namespace DVMN.Data
             {
                 SingleRightPartialFilmViewModel tempItem = new SingleRightPartialFilmViewModel(item.Image);
                 tempItem.Title = item.Title;
-                if (!String.IsNullOrEmpty(item.Description))
+                if (!String.IsNullOrEmpty(item.DescriptionShort))
                 {
-                    tempItem.Description = item.DescriptionShort.Substring(0, 160);
+                    if(item.DescriptionShort.Length > 160)
+                        tempItem.Description = item.DescriptionShort.Substring(0, 160);
+                    else
+                        tempItem.Description = item.DescriptionShort.Substring(0, item.DescriptionShort.Length);
                 }
                 tempItem.Watch = item.Watch;
                 tempItem.Slug = item.Slug;
@@ -358,6 +540,35 @@ namespace DVMN.Data
             return model;
         }
 
+        public async Task<IEnumerable<WatchALotFilmViewModel>> GetFilmsInTag(string slug)
+        {
+            var tagId = (await _context.Tag.SingleAsync(p => p.Slug == slug)).ID;
+            var listFilmInTag = await _context.FilmTag
+                .Where(p => p.TagID == tagId)
+                .ToListAsync();
+
+            List<WatchALotFilmViewModel> model = new List<WatchALotFilmViewModel>(listFilmInTag.Capacity - 1);
+
+            foreach (var item in listFilmInTag)
+            {
+                var film = await _context.Film
+                    .Include( p => p.Image)
+                    .SingleOrDefaultAsync(p => p.ID == item.FilmID);
+                if (film != null)
+                { 
+                    WatchALotFilmViewModel tempItem = new WatchALotFilmViewModel(film.Image);
+                    tempItem.Title = film.Title;
+                    tempItem.OrtherTitle = film.Title;
+                    tempItem.Watch = film.Watch;
+                    tempItem.Slug = film.Slug;
+                    tempItem.Info = film.Info;
+                    model.Add(tempItem);
+                }
+
+            }
+            return model;
+        }
+
         public async Task IsWatched(string slug)
         {
             var item = await _context.Film.SingleOrDefaultAsync(p => p.Slug == slug);
@@ -367,6 +578,34 @@ namespace DVMN.Data
                 _context.Film.Update(item);
                 await _context.SaveChangesAsync();
             }
+        }
+
+
+        public async Task<IEnumerable<WatchALotFilmViewModel>> GetSearchFilms(string search)
+        {
+            var listFilmDB = await _context.Film.Include(f => f.Image)
+                .Where(p => p.Approved == "A" && !p.IsProposed && p.Title.Contains(search))
+                .OrderByDescending(post => post.Watch).ToListAsync();
+            if (listFilmDB == null)
+            {
+                listFilmDB = await _context.Film.Include(f => f.Image)
+                                .Where(p => p.Approved == "A" && !p.IsProposed && p.OrtherTitle.Contains(search))
+                                .OrderByDescending(post => post.Watch).ToListAsync();
+            }
+
+            int leng = listFilmDB.Capacity;
+            List<WatchALotFilmViewModel> model = new List<WatchALotFilmViewModel>(leng);
+            foreach (var item in listFilmDB)
+            {
+                WatchALotFilmViewModel tempItem = new WatchALotFilmViewModel(item.Image);
+                tempItem.Title = item.Title;
+                tempItem.OrtherTitle = item.Title;
+                tempItem.Watch = item.Watch;
+                tempItem.Slug = item.Slug;
+                tempItem.Info = item.Info;
+                model.Add(tempItem);
+            }
+            return model;
         }
     }
 }

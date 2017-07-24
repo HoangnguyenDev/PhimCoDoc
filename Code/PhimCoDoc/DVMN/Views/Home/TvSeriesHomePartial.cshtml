@@ -1,7 +1,7 @@
 @using DVMN.Models.FilmViewModels;
 @model IEnumerable<ProposalFilmViewModel>
 
-<h4 class="latest-text w3_latest_text w3_home_popular">Đề cử phim mới</h4>
+<h2 class="latest-text w3_latest_text w3_home_popular">Đề cử phim mới</h2>
 <div class="container">
     <section class="slider">
         <div class="flexslider">
@@ -19,7 +19,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 agile_tv_series_grid_right">
-                            <a asp-controller="Film" asp-action="Single" asp-route-slug="@item.Slug"><p class="fexi_header" style="color:#337ab7;">@item.Title</p></a>
+                            <a asp-controller="Film" asp-action="Single" asp-route-slug="@item.Slug"><h3 class="fexi_header" style="color:#337ab7;">@item.Title</h3></a>
                             <p class="fexi_header_para"><span class="conjuring_w3">Nội dung<label>:</label></span> @item.Description...</p>
                             @if (item.DateOfRelease != null) {
                             <p class="fexi_header_para"><span>Ngày xuất bản<label>:</label></span> @item.DateOfRelease.Value.Date</p>
@@ -44,7 +44,7 @@
                                 string scheme = Context.Request.Scheme;
                                 string host = Context.Request.Host.Host;
                                 string port = Context.Request.Host.Port.ToString();
-                                string slug = "/xem-phim/" + item.Slug;
+                                string slug = "/phim/" + item.Slug;
                                 string url = string.Format("{0}://{1}:{2}{3}", scheme, host, port,slug);
                                 }
                                  <div class="fb-like" data-href="@url" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>

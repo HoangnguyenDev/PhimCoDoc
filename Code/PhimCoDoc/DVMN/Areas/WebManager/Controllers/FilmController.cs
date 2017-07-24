@@ -7,15 +7,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DVMN.Data;
 using DVMN.Models;
+using DVMN.Models.FilmViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DVMN.Areas.WebManager.Controllers
 {
     [Area("WebManager")]
+    [Authorize]
     public class FilmController : Controller
     {
         private readonly IFilmRepository _repository;
-        private UserManager<Member> _userManager;
+        private readonly UserManager<Member> _userManager;
 
         public FilmController(IFilmRepository repository, UserManager<Member> userManager)
         {
@@ -62,7 +65,7 @@ namespace DVMN.Areas.WebManager.Controllers
         [HttpPost]
         [Route("/quan-ly-web/phim/tao-moi")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,OrtherTitle,Description, DescriptionShort,DateofRease,Info,Length,Watch,StarRating,Video, VideoBackUp1, VideoBackUp2,VideoTrailer,Slug,ImageID,SerieID,Genres,CreateDT,UpdateDT,AuthorID,Approved,Active,IsDeleted,Note,IsProposed,Actor,Director")] Film film)
+        public async Task<IActionResult> Create([Bind("ID,Title,OrtherTitle,Description, DescriptionShort,TempTag,DateofRease,Info,Length,Watch,StarRating,Video, VideoBackUp1, VideoBackUp2,VideoTrailer,Slug,ImageID,SerieID,Genres,IsProposed,Actor,Director,TempTag")] CreateEditFilmViewModel film)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +89,7 @@ namespace DVMN.Areas.WebManager.Controllers
                 return NotFound();
             }
 
-            var film = await _repository.Get(id);
+            var film = await _repository.GetEdit(id);
             if (film == null)
             {
                 return NotFound();
@@ -103,7 +106,7 @@ namespace DVMN.Areas.WebManager.Controllers
         [HttpPost]
         [Route("/quan-ly-web/phim/chinh-sua/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,OrtherTitle,Description, DescriptionShort,DateofRease,Info,Length,Watch,StarRating,Video, VideoBackUp1, VideoBackUp2,VideoTrailer,Slug,ImageID,SerieID,Genres,CreateDT,UpdateDT,AuthorID,Approved,Active,IsDeleted,Note,IsProposed,Actor,Director")] Film film)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,OrtherTitle,Description, DescriptionShort,TempTag,DateofRease,Info,Length,Watch,StarRating,Video, VideoBackUp1, VideoBackUp2,VideoTrailer,Slug,ImageID,SerieID,Genres,IsProposed,Actor,Director,TempTag")] CreateEditFilmViewModel film)
         {
             if (id != film.ID)
             {
@@ -114,7 +117,7 @@ namespace DVMN.Areas.WebManager.Controllers
             {
                 try
                 {
-                    await _repository.Edit(id,film);
+                    await _repository.SaveEdit(film);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

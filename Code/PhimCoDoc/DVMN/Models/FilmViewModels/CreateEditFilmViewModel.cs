@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DVMN.Models
+namespace DVMN.Models.FilmViewModels
 {
-    public class Film : Base
+    public class CreateEditFilmViewModel
     {
-        private IList<string> _genres = new List<string>();
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
         public int ID { get; set; }
         [DisplayName("Tiêu đề")]
         public string Title { get; set; }
@@ -41,14 +36,12 @@ namespace DVMN.Models
         public string Slug { get; set; }
         public int? ImageID { get; set; }
         public Images Image { get; set; }
+        public string TempTag { get; set; }
         public int? SerieID { get; set; }
         public Serie Serie { get; set; }
 
-        public List<FilmTag> FilmTag{ get; set; }
+        public string AuthorID { get; set; }
 
-        public string Genres
-        {
-            get;set;
-        }
+        public string Genres { get; set; }
     }
 }

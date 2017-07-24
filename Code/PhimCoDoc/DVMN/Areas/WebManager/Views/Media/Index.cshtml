@@ -1,53 +1,60 @@
 @model IEnumerable<DVMN.Models.Images>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pic182x268)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Member.FullName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ID)
-                </td>
-                <td>
-                    <img src="@Html.DisplayFor(modelItem => item.Pic182x268)" class="img-responsive" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Member.FullName)
-                </td>
-                <td>
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-
-</table>
 <div class="box box-primary">
     <div class="box-header">
-        <h2 class="box-title">Ghi chú</h2>
+        <h2 class="box-title">
+            Danh sách hình ảnh
+        </h2>
+        <a asp-action="Create" class="pull-right">Create New</a>
     </div>
     <div class="box-body">
-        <p>Hiện tại có kích thước hình ảnh tương ứng với đường dẫn</p>
-        <p>/images</p>
-        <p>/images/1300x500</p>
-        <p>/images/182x268</p>
-        <p>/images/115x175</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Pic182x268)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Member.FullName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID)
+                        </td>
+                        <td>
+                            <img src="@Html.DisplayFor(modelItem => item.Pic182x268)" width="40px;" height="55px;" class="img-responsive" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Member.FullName)
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+        <div class="box box-primary">
+            <div class="box-header">
+                <h2 class="box-title">Ghi chú</h2>
+            </div>
+            <div class="box-body">
+                <p>Hiện tại có kích thước hình ảnh tương ứng với đường dẫn</p>
+                <p>/images</p>
+                <p>/images/1300x500</p>
+                <p>/images/182x268</p>
+                <p>/images/115x175</p>
+            </div>
+        </div>
     </div>
 </div>

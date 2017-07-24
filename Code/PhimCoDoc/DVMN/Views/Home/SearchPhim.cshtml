@@ -1,8 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "Phim xem nhiều | Phim Cơ Đốc";
-    ViewData["Desciption"] = "Phim xem nhiều là nơi hiển thị tất cả các bộ phim có lượt xem cao nhất cho đến thời điểm hiện tại được" +
-                "sắp xếp từ trên xuống dưới để bạn dễ dàng chọn lựa phim cần xem";
+    ViewData["Title"] = "Tìm kiếm phim theo từ khóa "+ ViewData["Search"] +" | Phim Cơ Đốc";
+    ViewData["Desciption"] = "Nơi tìm kiếm những bộ phim Cơ Đốc thông qua từ khóa. Hiện nay website hỗ trợ tìm" +
+                "thông qua tên phim";
 }
+
 @using DVMN.Models.FilmViewModels
 @model IEnumerable<WatchALotFilmViewModel>
     <div class="general_social_icons">
@@ -10,20 +11,20 @@
     </div>
     <!-- general -->
     <div class="general">
-        <h2 class="latest-text w3_latest_text">Đề cử phim mới</h2>
+        <h2 class="latest-text w3_latest_text">Tìm kiếm phim: @ViewData["Search"]</h2>
         <div class="container">
             <div class="agileits-news-top">
                 <ol class="breadcrumb">
                     <li>
                         <a asp-controller="Home" asp-action="Index">Trang chủ</a>
                     </li>
-                    <li class="active">Phim xem nhiều</li>
+                    <li class="active">Tìm kiếm phim</li>
                 </ol>
             </div>
             <!--Max 12 film-->
             @if (!Model.Any())
             {
-                <h3>Chưa có film nào cả</h3>
+                <h3>Không tìm thấy phim nào</h3>
             }
 
             @foreach (var item in Model)

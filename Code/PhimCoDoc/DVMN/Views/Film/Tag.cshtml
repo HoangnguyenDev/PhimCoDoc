@@ -1,8 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "Phim xem nhiều | Phim Cơ Đốc";
-    ViewData["Desciption"] = "Phim xem nhiều là nơi hiển thị tất cả các bộ phim có lượt xem cao nhất cho đến thời điểm hiện tại được" +
-                "sắp xếp từ trên xuống dưới để bạn dễ dàng chọn lựa phim cần xem";
+    ViewData["Title"] = "Phim theo thẻ " + ViewData["Tag"] + " | Phim Cơ Đốc";
+    ViewData["Desciption"] = "Tất cả phim Cơ Đốc nằm trong thẻ " + ViewData["Tag"] + " điều hiển thị tại đây";
 }
+
 @using DVMN.Models.FilmViewModels
 @model IEnumerable<WatchALotFilmViewModel>
     <div class="general_social_icons">
@@ -10,7 +10,7 @@
     </div>
     <!-- general -->
     <div class="general">
-        <h2 class="latest-text w3_latest_text">Đề cử phim mới</h2>
+        <h4 class="latest-text w3_latest_text">Đề cử phim mới</h4>
         <div class="container">
             <div class="agileits-news-top">
                 <ol class="breadcrumb">
@@ -35,7 +35,7 @@
                     </a>
                     <div class="mid-1 agileits_w3layouts_mid_1_home">
                         <div class="w3l-movie-text">
-                            <h3 style="font-size: 18px; "><a asp-controller="Film" asp-action="Single" asp-route-slug="@item.Slug">@item.Title</a></h3>
+                            <h4><a asp-controller="Film" asp-action="Single" asp-route-slug="@item.Slug">@item.Title</a></h4>
                         </div>
                         <div class="mid-2 agile_mid_2_home">
                             <p>@item.OrtherTitle </p>

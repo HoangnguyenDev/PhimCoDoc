@@ -1,4 +1,4 @@
-@model DVMN.Models.Film
+@model DVMN.Models.FilmViewModels.CreateEditFilmViewModel
 
 <div class="box box-success">
     <div class="box-header with-border">
@@ -124,8 +124,7 @@
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <div class="checkbox">
-                        <input asp-for="IsProposed" />
-                        <label asp-for="IsProposed"></label>
+                        <label asp-for="IsProposed"><input type="checkbox" asp-for="IsProposed" /></label>
                     </div>
                 </div>
             </div>
@@ -144,10 +143,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Note" class="col-md-2 control-label"></label>
+                <label asp-for="TempTag" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
-                    <input asp-for="Note" class="form-control" />
-                    <span asp-validation-for="Note" class="text-danger"></span>
+                    <input asp-for="TempTag" class="form-control" />
+                    <span asp-validation-for="TempTag" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -161,7 +160,7 @@
 }
 @section Scripts{
 <script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="~/plugins/iCheck/icheck.min.js"></script>
+    @*<script src="~/plugins/iCheck/icheck.min.js"></script>*@
     <script src="~/lib/ckeditor/ckeditor.js"></script>
     <script src="~/lib/ckeditor/adapters/jquery.js"></script>
     <script type="text/javascript">
@@ -173,13 +172,13 @@
 
         );
         //CKEDITOR.config.customConfig = "~/plugins/"
-        $(function () {
-            $('input').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue',
-                increaseArea: '20%' // optional
-            });
-        });
+        //$(function () {
+        //    $('input').iCheck({
+        //        checkboxClass: 'icheckbox_square-blue',
+        //        radioClass: 'iradio_square-blue',
+        //        increaseArea: '20%' // optional
+        //    });
+        //});
     </script>
 
 }

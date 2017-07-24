@@ -3,8 +3,8 @@
         <a asp-controller="Home" asp-action="Index"><h1>Phim<span>Cơ Đốc</span></h1></a>
     </div>
     <div class="w3_search">
-        <form action="#" method="post">
-            <input type="text" name="Search" placeholder="Tìm kiếm" required="">
+        <form asp-controller="Home" asp-action="SearchPhim" method="post">
+            <input lang="vi" type="text" name="Search" placeholder="Tìm kiếm" required="">
             <input type="submit" value="Go">
         </form>
     </div>

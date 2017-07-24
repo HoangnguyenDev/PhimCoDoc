@@ -10,13 +10,17 @@ namespace DVMN.Models.FilmViewModels
 {
     public class WatchFilmViewModel : Base
     {
-        public WatchFilmViewModel(Images image, Member member, Serie serie)
+        public WatchFilmViewModel(Images image, Member member, Serie serie, IEnumerable<FilmTag> tags)
         {
             this.Image = image;
             this.Member = member;
             this.Serie = serie;
+            this.Tags = tags;
+
         }
         private IList<string> _genres = new List<string>();
+
+        public IEnumerable<FilmTag> Tags { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int ID { get; set; }

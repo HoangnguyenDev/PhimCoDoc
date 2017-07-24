@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DVMN.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Diagnostics;
+using System.Text;
 
 namespace DVMN.Controllers
 {
@@ -44,9 +46,18 @@ namespace DVMN.Controllers
             return View();
         }
 
-        public IActionResult Error()
+        public IActionResult Error(int statusCode)
         {
-            return View();
+            if (statusCode == 404)
+            {
+                var statusFeature = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
+                if (statusFeature != null)
+                {
+                    //Log.LogWarning("handled 404 for url: {OriginalPath}", statusFeature.OriginalPath);
+                }
+                return View(statusCode);
+            }
+            return View(statusCode);
         }
         [Route("/danh-sach-phim")]
         public async Task<IActionResult> List()
@@ -93,5 +104,32 @@ namespace DVMN.Controllers
         {
             return View(await _repository.GetListProposalFilm());
         }
+
+        [Route("robots.txt", Name = "GetRobotsText")]
+        public ContentResult RobotsText()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.AppendLine("user-agent: *");
+            stringBuilder.AppendLine("disallow: /error/");
+            stringBuilder.AppendLine("allow: /error/foo");
+            return this.Content(stringBuilder.ToString(), "text/plain", Encoding.UTF8);
+        }
+        [Route("/tim-kiem/")]
+        public async Task<IActionResult> SearchPhim(string Search)
+        {
+            ViewData["Search"] = Search;
+
+            return View(await _repository.GetSearchFilms(Search));
+        }
+
+        //public IActionResult NotFound()
+        //{
+        //    return View();
+        //}
+        //public IActionResult Unauthorized()
+        //{
+        //    return View();
+        //}
     }
 }

@@ -11,7 +11,6 @@ namespace DVMN.Models.FilmViewModels
         {
             this.Image = image;
         }
-
         public Images Image { get; set; }
         public string Slug { get; set; }
         public string Description { get; set; }

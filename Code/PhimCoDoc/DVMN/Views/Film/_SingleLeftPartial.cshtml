@@ -1,0 +1,236 @@
+@using Kendo.Mvc.UI
+@using DVMN.Models.FilmViewModels;
+@model WatchFilmViewModel
+
+@{
+    string scheme = Context.Request.Scheme;
+    string host = Context.Request.Host.Host;
+    string port = Context.Request.Host.Port.ToString();
+    string slug = "/phim/" + Model.Slug;
+    string url = string.Format("{0}://{1}:{2}{3}", scheme, host, port, slug);
+}
+<div class="panel panel-primary">
+    @*<div class="panel-heading" style="padding: 10px 15px">
+        <h4 class="panel-title">Thông tin phim</h4>
+    </div>*@
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-5">
+                <img src="@Model.Image.Pic268x268" class="img-responsive" />
+                <div>
+                   
+                </div>
+            </div>
+            <div class="col-md-7" style="color: black" >
+                <h3 class="text-primary">@Model.Title</h3>
+                <p class=""><strong>@Model.OrtherTitle</strong></p>
+                <p><strong>Trạng thái:</strong> @Model.Info</p>
+                <p><strong>Thời lượng:</strong> @Model.Length</p>
+                <p><strong>Lượt xem:</strong> @Model.Watch</p>
+                <p><strong>Đạo diễn:</strong> </p>
+                <p><strong>Năm xuất bản:</strong> @Model.DateofRease.Value.Year</p>
+                @if(!String.IsNullOrEmpty(Model.AuthorID))
+                { 
+                <p>Đăng bởi: @Model.Member.FullName</p>
+                }
+               
+                <div class="fb-like" data-href="@url" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                @if (!Model.IsProposed)
+                {
+                    @*<style type="text/css">
+                        .sub-heading-img-left {
+                            position: absolute;
+                            font-size: 15px;
+                            bottom: 2%;
+                            left: 7%;
+                            font-weight: normal;
+                        }
+
+                        .sub-heading-img-right {
+                            position: absolute;
+                            font-size: 15px;
+                            bottom: 2%;
+                            right: 7%;
+                            font-weight: normal;
+                        }
+                    </style>*@
+                    <div class="" style="margin-top: 10px;">
+                        <a asp-action="watch" asp-controller="film" asp-route-slug="@Model.Slug" class="btn btn-success sub-heading-img-left" style="margin-right: 10px;"><i class="fa fa-file-movie-o"></i> Xem phim</a>
+                        <a asp-action="download" asp-controller="film" asp-route-slug="@Model.Slug" class="btn btn-danger sub-heading-img-right"><i class="fa fa-download"></i> Tải về</a>
+                    </div>
+                }
+                
+            </div>
+        </div>
+      
+        
+    </div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading bg-success" style="padding: 10px 15px">
+        <h2 class="panel-title"><i class="fa fa-info"></i> Nội dung phim</h2>
+    </div>
+    <div class="panel-body" style="color:black; text-align: justify;">
+        @Html.Raw(Model.Description)
+    </div>
+    <script type="text/javascript">
+        $("img").addClass("img-responsive");
+
+
+        //var imgs = $document.getElementsByTagName('img');
+        //foreach(imgs as $img) {           
+        //    img.setAttribute('class', 'img-responsive');
+        //}
+
+    </script>
+</div>
+@if (!String.IsNullOrEmpty(Model.VideoTrailer))
+{ 
+<div class="panel panel-primary">
+    <div class="panel-heading" style="padding: 10px 15px">
+            <h2 class="panel-title"><i class="fa fa-video-camera"></i> Xem Trailer </h2>
+     </div>
+    <div class="panel-body">
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe src="@Model.VideoTrailer" frameborder="0" allowfullscreen="1"></iframe>
+        </div>
+    </div>
+</div>
+}
+@if(Model.Tags.Any())
+{ 
+<div class="panel panel-primary">
+    <div class="panel-heading" style="padding: 10px 15px">
+        <h2 class="panel-title"><i class="fa fa-tags"></i> Tags: </h2>
+    </div>
+    <div class="panel-body">
+    <style>
+        /* Css3 tags */
+        .tags a {
+            display: inline-block;
+            height: 24px;
+            line-height: 23px;
+            position: relative;
+            margin: 0 12px 8px 0;
+            padding: 0 12px 0 10px;
+            background: #777;
+            -moz-border-radius-bottomleft: 5px;
+            -webkit-border-bottom-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            -moz-border-radius-topleft: 5px;
+            -webkit-border-top-left-radius: 5px;
+            border-top-left-radius: 5px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            color: #fff;
+            font-size: 12px;
+            font-family: "Lucida Grande","Lucida Sans Unicode",Verdana,sans-serif;
+            text-decoration: none;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            font-weight: bold;
+        }
+            .tags a:before {
+                content: "";
+                position: absolute;
+                top: 10px;
+                right: 1px;
+                float: left;
+                width: 5px;
+                height: 5px;
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+                background: #fff;
+                -moz-box-shadow: -1px -1px 2px rgba(0,0,0,0.4);
+                -webkit-box-shadow: -1px -1px 2px rgba(0,0,0,0.4);
+                box-shadow: -1px -1px 2px rgba(0,0,0,0.4);
+            }
+            .tags a:after {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: -12px;
+                width: 0;
+                height: 0;
+                border-color: transparent transparent transparent #777;
+                border-style: solid;
+                border-width: 12px 0 12px 12px;
+            }
+            .tags a.color-1 {
+                background: #f58220;
+            }
+                .tags a.color-1:after {
+                    border-color: transparent transparent transparent #f58220
+                }
+            .tags a.color-2 {
+                background: #97c224;
+            }
+                .tags a.color-2:after {
+                    border-color: transparent transparent transparent #97c224
+                }
+            .tags a.color-3 {
+                background: #de3f3e;
+            }
+                .tags a.color-3:after {
+                    border-color: transparent transparent transparent #de3f3e
+                }
+            .tags a.color-4 {
+                background: #ec008c;
+            }
+                .tags a.color-4:after {
+                    border-color: transparent transparent transparent #ec008c
+                }
+            .tags a.color-5 {
+                background: #00a6df;
+            }
+                .tags a.color-5:after {
+                    border-color: transparent transparent transparent #00a6df
+                }
+            .tags a:hover {
+                background: #222 !important
+            }
+                .tags a:hover:after {
+                    border-color: transparent transparent transparent #222 !important
+                }
+        .small a {
+            height: 21px;
+            line-height: 21px;
+            float: none;
+            font-size: 11px;
+        }
+            .small a:before {
+                right: 0;
+                top: 8px;
+                border-width: 10px 0 10px 10px;
+            }
+            .small a:after {
+                right: -11px;
+                top: 0;
+                border-width: 11px 0 11px 11px;
+            }
+    </style>
+    <div class="tags">
+        <p>
+            @{
+                int color = 1;
+            }
+            @foreach(var item in Model.Tags)
+            {
+                color++;
+                if (!String.IsNullOrEmpty(item.Tag.Title))
+                {
+               
+                <a title="@item.Tag.Title" asp-controller="Film" asp-action="Tag" asp-route-slug="@item.Tag.Slug" class="color-@color">@item.Tag.Title</a>
+                }
+                if (color > 5)
+                {
+                    color = 1;
+                }
+            }
+        </p>
+    </div>
+    </div>
+</div>
+}
+@section Style {
+
+}

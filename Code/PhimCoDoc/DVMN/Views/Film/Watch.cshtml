@@ -5,9 +5,10 @@
     string scheme = Context.Request.Scheme;
     string host = Context.Request.Host.Host;
     string port = Context.Request.Host.Port.ToString();
-    string path = Context.Request.Path;
-    string url = string.Format("{0}://{1}:{2}{3}", scheme, host, port, Context.Request.Path);
+    string path = "/phim/" +item.Slug;
+    string url = string.Format("{0}://{1}:{2}{3}", scheme, host, port, path);
     ViewData["Title"] = "Xem phim " + item.Title + " | Phim cơ đốc";
+    ViewData["Desciption"] = item.DescriptionShort;
 }
 
 <div class="general_social_icons">
@@ -60,24 +61,23 @@
                                             }
             <br />
             <div class="like-share-video-backup">
-                <div class="pull-left">
+                <div class="pull-left" style="margin-bottom: 5px;">
                     @if (!String.IsNullOrEmpty(item.Video))
                     {
-                        <a asp-action="Watch" class="btn btn-default" asp-controller="Film" asp-route-server="1"><i class="icon glyphicon-move"></i> VIP1 @item.Info</a>
+                        <a asp-action="Watch" class="btn btn-default" asp-controller="Film" asp-route-server="1"><i class="glyphicon glyphicon-film"></i> VIP1 @item.Info</a>
                     }
                     @if (!String.IsNullOrEmpty(item.VideoBackUp1))
                     {
-                        <a asp-action="Watch" asp-controller="Film" class="btn btn-success" asp-route-server="2"><i class="icon glyphicon-move"></i> VIP2 @item.Info</a>
+                        <a asp-action="Watch" asp-controller="Film" class="btn btn-success" asp-route-server="2"><i class="glyphicon glyphicon-film"></i> VIP2 @item.Info</a>
                     }
                     @if (!String.IsNullOrEmpty(item.VideoBackUp2))
                     {
-
-                        <a asp-action="Watch" asp-controller="Film" class="btn btn-primary" asp-route-server="3"><i class="icon glyphicon-move"></i> VIP3 @item.Info</a>
+                        <a asp-action="Watch" asp-controller="Film" class="btn btn-primary" asp-route-server="3"><i class="glyphicon glyphicon-film"></i> VIP3 @item.Info</a>
                     }
                     <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#reportTranslate"><i class="fa fa-smile-o"></i> Góp ý bản dịch & đề xuất film</a>
                 </div>
                 <div class="pull-right">
-                    <div class="fb-like" data-href="@string.Format("{0}",@url)" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                    <div class="fb-like fa-like-watch" data-href="@string.Format("{0}",@url)" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
                 </div>
             </div>
             <br /><br />
@@ -103,8 +103,8 @@
 </div>
 @Html.Partial("_ReportTranslatePopupPartial")
 @section Scripts {
-<script src="~/lib/ckeditor/ckeditor.js"></script>
-<script src="~/lib/ckeditor/adapters/jquery.js"></script>
+    <script src="~/lib/ckeditor/ckeditor.js"></script>
+    <script src="~/lib/ckeditor/adapters/jquery.js"></script>
     <script src="~/plugins/timepicker/bootstrap-timepicker.js"></script>
     <script>
         //function onClose() {
@@ -141,7 +141,7 @@
                 url: "@(Url.Action("Send", "FeedBackTranslate"))",
                 data: {
                     slug: slug, name: name, timeError: timeError
-                    },
+                },
                 dataType: "json",
                 success: function () {
                     //$('#name').hide();
@@ -163,21 +163,22 @@
                         $('#success').hide();
                         $(".sendingFeedBackTranslate").show();
                     }, 10000);
-                    }
+                }
             });
-            $(".sendingProposals").click(function (e) { // changed.
-        e.preventDefault();
-        var pName = $('#pName').val();
-        var pReson = $('#pReson').val();
+        });
+        $(".sendingProposals").click(function (e) { // changed.
+            e.preventDefault();
+            var pName = $('#pName').val();
+            var pReson = $('#pReson').val();
             $.ajax({
                 type: "POST",
                 url: "@(Url.Action("Send", "ProposalsFilm"))",
                 data: {
                     name: pName, reson: pReson
-                    },
+                },
                 dataType: "json",
                 success: function () {
-                    
+
                     $('.Proposals').hide();
                     $(".sendingProposals").hide();
                     $('#success1').show();
@@ -191,16 +192,14 @@
                         $('#success1').hide();
                         $(".sendingProposals").show();
                     }, 10000);
-                    }
+                }
             });
-            
-
-    });
+        });
     </script>
 }
 @section Style {
     <link href="~/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet" />
-
+<link href="~/site.css" rel="stylesheet" />
     @*<link rel="stylesheet" href="~/lib/kendo-ui/styles/kendo.common-nova.min.css" />
         <link rel="stylesheet" href="~/lib/kendo-ui/styles/kendo.nova.min.css" />
         <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>

@@ -10,6 +10,15 @@ namespace DVMN.Data
 {
     public interface IFilmRepository
     {
+        //Tim kiem phim
+        Task<IEnumerable<WatchALotFilmViewModel>> GetSearchFilms(string search);
+
+        //Lay thong tin de chinh sua phim
+        Task<CreateEditFilmViewModel> GetEdit(int? Id);
+        Task SaveEdit(CreateEditFilmViewModel model);
+
+        //Phim trong the 
+        Task<IEnumerable<WatchALotFilmViewModel>> GetFilmsInTag(string slug);
         //Phim da xem
         Task IsWatched(string slug);
         //Phim xem nhiều
@@ -29,7 +38,7 @@ namespace DVMN.Data
         Task<Film> Get(int? id);
         Task<WatchFilmViewModel> Get(string slug, string server);
         Task Edit(int id, Film updatedItem);
-        Task Create(Film model);
+        Task Create(CreateEditFilmViewModel model);
         Task Delete(int id);
         Task<IEnumerable<Film>> GetAll();
         DbSet<Member> GetMembers();

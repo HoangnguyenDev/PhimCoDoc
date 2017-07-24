@@ -21,22 +21,15 @@ namespace DVMN.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
-
+            builder.Entity<FilmTag>().HasKey(t => new { t.FilmID, t.TagID });
         }
 
         public DbSet<Film> Film { get; set; }
-
+        public DbSet<FilmTag> FilmTag { get; set; }
+        public DbSet<Tag> Tag { get; set; }
         public DbSet<Serie> Serie { get; set; }
-
         public DbSet<FeedbackTranslate> FeedbackTranslate { get; set; }
-
         public DbSet<Images> Images { get; set; }
-
         public DbSet<ProposalsFilm> ProposalsFilm { get; set; }
-
-
-
-
-
     }
 }

@@ -5,7 +5,14 @@
     DownloadFilmViewModel filmDetails = ViewData["FilmDetials"] as DownloadFilmViewModel;
     IEnumerable<BannerBottomFilmViewModel> bannerBottomFilm = ViewData["bannerBottomFilm"] as IEnumerable<BannerBottomFilmViewModel>;
     IEnumerable<SingleRightPartialFilmViewModel> singleRightFilm = ViewData["SingleRightFilm"] as IEnumerable<SingleRightPartialFilmViewModel>;
-    ViewData["Title"] = "Thông tin phim " + filmDetails.Title + " | Phim Cơ Đốc";
+    ViewData["Title"] = "Tải " + filmDetails.Title + " | Phim Cơ Đốc";
+    ViewData["Desciption"] = "Nơi download phim " + filmDetails.Title + " . Tất cả liên kết tải về phim Cơ Đốc điều nằm ở đây";
+    string scheme = Context.Request.Scheme;
+    string host = Context.Request.Host.Host;
+    string port = Context.Request.Host.Port.ToString();
+    string path = "/phim/" + filmDetails.Slug;
+    string url = string.Format("{0}://{1}:{2}{3}", scheme, host, port, path);
+
 }
 
 <div class="general_social_icons">
@@ -35,23 +42,89 @@
                                 </div>
                                 <div class="col-md-7" style="color: black">
                                     <h3 class="text-primary">@filmDetails.Title</h3>
-                                    <p class="">@filmDetails.OrtherTitle</p>
+                                    <p class=""><strong>@filmDetails.OrtherTitle</strong></p>
                                     <p>@filmDetails.DescriptionShort</p>
+
+                                    <div class="fb-like" data-href="@url" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                                    <div class="" style="margin-top: 10px;">
+                                        <a asp-action="watch" asp-controller="film" asp-route-slug="@filmDetails.Slug" class="btn btn-success sub-heading-img-left" style="margin-right: 10px;"><i class="fa fa-file-movie-o"></i> Xem phim</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <p>
-                                @{
-                                    var Video = "https://drive.google.com/uc?export=download&id=";
-                                    Video += filmDetails.Video;
-                                }
-                                <label> Sever 1</label>
-                                <a href="@Video" class="btn btn-success"><i class="fa fa-download"></i> Tải về</a>
-                            </p>
-                           </div>
+                            <div class="form-group" id="validate">
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Yêu cầu xác thực</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p style="margin-bottom: 5px;"><strong>Vui lòng xác thực để download phim này: </strong></p>
+                                        <div class="g-recaptcha text-center" data-sitekey="6Lfd2A8UAAAAAEBsxMi4memnS3SB3IZnXnZddGMb" data-callback='doSomething'></div>
+                                        <span class="text-danger" id="recaptchaErrorMessage"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary" id="download" style="display:none">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Tải về</h3>
+                                </div>
+                                <div class="panel-body" style="color: black">
+                                    <table class="table table-bordered table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>Thông tin sever</th>
+                                                <th>Liên kết tải</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                int sequence = 0;
+                                            }
+                                            @if (!String.IsNullOrEmpty(filmDetails.Video))
+                                            {
+                                                sequence++;
+                                                <tr>
+                                                    @{
+                                                        var Video = "https://drive.google.com/uc?export=download&id=";
+                                                        Video += filmDetails.Video;
+                                                    }
+                                                    <th> Sever @sequence</th>
+                                                    <th><a href="@Video" class="btn btn-success"><i class="fa fa-download"></i> Tải về</a></th>
+                                                </tr>
+                                                        }
+                                            @if (!String.IsNullOrEmpty(filmDetails.VideoBackUp1))
+                                            {
+                                                sequence++;
+                                                <tr>
+                                                    @{
+                                                        var Video = "https://drive.google.com/uc?export=download&id=";
+                                                        Video += filmDetails.VideoBackUp1;
+                                                    }
+                                                    <th> Sever @sequence</th>
+                                                    <th><a href="@Video" class="btn btn-primary"><i class="fa fa-download"></i> Tải về</a></th>
+                                                </tr>
+                                                        }
+                                            @if (!String.IsNullOrEmpty(filmDetails.VideoBackUp2))
+                                            {
+                                                sequence++;
+                                                <tr>
+                                                    @{
+                                                        var Video = "https://drive.google.com/uc?export=download&id=";
+                                                        Video += filmDetails.VideoBackUp2;
+                                                    }
+                                                    <th> Sever @sequence</th>
+                                                    <th><a href="@Video" class="btn btn-danger"><i class="fa fa-download"></i> Tải về</a></th>
+                                                </tr>
+                                                        }
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4 single-right">
@@ -69,12 +142,32 @@
 </div>
 @section Style {
     @*<link rel="stylesheet" href="~/lib/kendo-ui/styles/kendo.common-nova.min.css" />
-    <link rel="stylesheet" href="~/lib/kendo-ui/styles/kendo.nova.min.css" />
-    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jquery.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.aspnetmvc.min.js"></script>*@
+        <link rel="stylesheet" href="~/lib/kendo-ui/styles/kendo.nova.min.css" />
+        <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jquery.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.aspnetmvc.min.js"></script>*@
 }
 @section Scripts {
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script type="text/javascript" language="javascript">
+        function doSomething() {
+            var isCaptchaValidated = false;
+            var response = grecaptcha.getResponse();
+            if (response.length == 0) {
+                isCaptchaValidated = false;
+                alert('vui lòng xác th?c b?n không là robot');
+            } else {
+                isCaptchaValidated = true;
+            }
 
+
+            if (isCaptchaValidated) {
+                document.getElementById('download').style.display = 'block';
+                document.getElementById('validate').style.display = 'none';
+                //you can now submit your form
+            }
+        }
+
+    </script>
 }
