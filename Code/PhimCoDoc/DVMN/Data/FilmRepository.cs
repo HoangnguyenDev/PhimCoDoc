@@ -6,18 +6,21 @@ using DVMN.Models;
 using Microsoft.EntityFrameworkCore;
 using DVMN.Models.FilmViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace DVMN.Data
 {
     public class FilmRepository : IFilmRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<Member> _userManager; 
+        private readonly UserManager<Member> _userManager;
+        private readonly ILogger _logger;
 
-        public FilmRepository(ApplicationDbContext context, UserManager<Member> userManager)
+        public FilmRepository(ApplicationDbContext context, UserManager<Member> userManager, ILogger<FilmRepository> logger)
         {
             _context = context;
             _userManager = userManager;
+            _logger = logger;
         }
         public async Task<CreateEditFilmViewModel> GetEdit(int? Id)
         {
@@ -583,29 +586,37 @@ namespace DVMN.Data
 
         public async Task<IEnumerable<WatchALotFilmViewModel>> GetSearchFilms(string search)
         {
-            var listFilmDB = await _context.Film.Include(f => f.Image)
-                .Where(p => p.Approved == "A" && !p.IsProposed && p.Title.Contains(search))
-                .OrderByDescending(post => post.Watch).ToListAsync();
-            if (listFilmDB == null)
+            try
             {
-                listFilmDB = await _context.Film.Include(f => f.Image)
-                                .Where(p => p.Approved == "A" && !p.IsProposed && p.OrtherTitle.Contains(search))
-                                .OrderByDescending(post => post.Watch).ToListAsync();
-            }
+                var listFilmDB = await _context.Film.Include(f => f.Image)
+                    .Where(p => p.Approved == "A" && !p.IsProposed && p.Title.Contains(search))
+                    .OrderByDescending(post => post.Watch).ToListAsync();
+                if (listFilmDB == null)
+                {
+                    listFilmDB = await _context.Film.Include(f => f.Image)
+                                    .Where(p => p.Approved == "A" && !p.IsProposed && p.OrtherTitle.Contains(search))
+                                    .OrderByDescending(post => post.Watch).ToListAsync();
+                }
 
-            int leng = listFilmDB.Capacity;
-            List<WatchALotFilmViewModel> model = new List<WatchALotFilmViewModel>(leng);
-            foreach (var item in listFilmDB)
-            {
-                WatchALotFilmViewModel tempItem = new WatchALotFilmViewModel(item.Image);
-                tempItem.Title = item.Title;
-                tempItem.OrtherTitle = item.Title;
-                tempItem.Watch = item.Watch;
-                tempItem.Slug = item.Slug;
-                tempItem.Info = item.Info;
-                model.Add(tempItem);
+                int leng = listFilmDB.Capacity;
+                List<WatchALotFilmViewModel> model = new List<WatchALotFilmViewModel>(leng);
+                foreach (var item in listFilmDB)
+                {
+                    WatchALotFilmViewModel tempItem = new WatchALotFilmViewModel(item.Image);
+                    tempItem.Title = item.Title;
+                    tempItem.OrtherTitle = item.Title;
+                    tempItem.Watch = item.Watch;
+                    tempItem.Slug = item.Slug;
+                    tempItem.Info = item.Info;
+                    model.Add(tempItem);
+                }
+                return model;
             }
-            return model;
+            catch (Exception e)
+            {
+                _logger.LogError(e.StackTrace, null);
+                return null;
+            }
         }
     }
 }

@@ -4,9 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DVMN.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DVMN.Areas.WebManager.Controllers
 {
+    [Authorize(Roles = "Admin")]
+    [Area("webmanager")]
     public class GenreController : Controller
     {
         private readonly IGenreRepository _repository;

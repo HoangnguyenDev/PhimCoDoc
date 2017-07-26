@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DVMN.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -38,6 +38,20 @@ namespace DVMN.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tag",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Slug = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tag", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -342,6 +356,30 @@ namespace DVMN.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "FilmTag",
+                columns: table => new
+                {
+                    FilmID = table.Column<int>(nullable: false),
+                    TagID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FilmTag", x => new { x.FilmID, x.TagID });
+                    table.ForeignKey(
+                        name: "FK_FilmTag_Film_FilmID",
+                        column: x => x.FilmID,
+                        principalTable: "Film",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FilmTag_Tag_TagID",
+                        column: x => x.TagID,
+                        principalTable: "Tag",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_FeedbackTranslate_AuthorID",
                 table: "FeedbackTranslate",
@@ -366,6 +404,11 @@ namespace DVMN.Migrations
                 name: "IX_Film_SerieID",
                 table: "Film",
                 column: "SerieID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FilmTag_TagID",
+                table: "FilmTag",
+                column: "TagID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Images_AuthorID",
@@ -431,6 +474,9 @@ namespace DVMN.Migrations
                 name: "FeedbackTranslate");
 
             migrationBuilder.DropTable(
+                name: "FilmTag");
+
+            migrationBuilder.DropTable(
                 name: "ProposalsFilm");
 
             migrationBuilder.DropTable(
@@ -450,6 +496,9 @@ namespace DVMN.Migrations
 
             migrationBuilder.DropTable(
                 name: "Film");
+
+            migrationBuilder.DropTable(
+                name: "Tag");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

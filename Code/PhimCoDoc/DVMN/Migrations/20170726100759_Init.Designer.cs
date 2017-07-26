@@ -8,8 +8,8 @@ using DVMN.Data;
 namespace DVMN.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170722124317_Inittable12")]
-    partial class Inittable12
+    [Migration("20170726100759_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace DVMN.Areas.Admin.Controllers
 {
     [Area("WebManager")]
-    [Authorize(Roles = "Admins")]
+    [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         private RoleManager<IdentityRole> _roleManager;

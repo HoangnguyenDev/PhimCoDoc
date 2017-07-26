@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace DVMN.Areas.WebManager.Controllers
 {
     [Area("WebManager")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class MediaController : Controller 
     {
         public static string DIR_IMAGE = "images";

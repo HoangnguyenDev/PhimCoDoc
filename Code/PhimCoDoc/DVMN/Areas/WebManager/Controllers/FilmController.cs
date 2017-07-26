@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace DVMN.Areas.WebManager.Controllers
 {
     [Area("WebManager")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class FilmController : Controller
     {
         private readonly IFilmRepository _repository;

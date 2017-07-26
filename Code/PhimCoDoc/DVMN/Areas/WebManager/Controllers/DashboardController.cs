@@ -13,7 +13,7 @@ using ImageSharp;
 namespace DVMN.Areas.Admin.Controllers
 {
     [Area("webmanager")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class DashboardController : Controller
     {
         [Route("/quan-ly-web/")]

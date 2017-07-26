@@ -56,10 +56,7 @@
         @if(User.IsInRole("Admin"))
         {
         <li class="header">Quản lý</li>
-        <li><a asp-area="manager" asp-controller="bookcategory" asp-action="index"><i class="fa fa-book text-primary"></i> <span>Danh mục sách</span></a></li>
-        <li><a asp-area="manager" asp-controller="bookchappter" asp-action="index"><i class="fa fa-paragraph text-success"></i> <span>Chương sách</span></a></li>
-        <li><a asp-area="manager" asp-controller="role" asp-action="index"><i class="fa fa-level-up text-danger"></i> <span>Phân quyền</span></a></li>
-        <li><a asp-area="manager" asp-controller="score" asp-action="index"><i class="fa fa-money text-yellow"></i> <span>Điểm số</span></a></li>
+        <li><a asp-area="webmanager" asp-controller="role" asp-action="index"><i class="fa fa-level-up text-danger"></i> <span>Phân quyền</span></a></li>
         }
     </ul>
     <!-- /.sidebar-menu -->

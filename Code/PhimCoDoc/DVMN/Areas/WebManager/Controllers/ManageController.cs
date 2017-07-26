@@ -13,7 +13,7 @@ using DVMN.Services;
 
 namespace DVMN.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [Area("webmanager")]
     public class ManageController : Controller
     {

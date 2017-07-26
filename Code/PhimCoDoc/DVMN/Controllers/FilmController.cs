@@ -23,6 +23,7 @@ namespace DVMN.Controllers
             ViewData["FilmDetials"] = await _repository.Get(slug, "1");
             ViewData["SingleRightFilm"] = await _repository.GetSingleRightFilms();
             ViewData["bannerBottomFilm"] = await _repository.GetBannerBottomFilm();
+            await _repository.IsWatched(slug);
             return View();
         }
         [Route("/xem-phim/{slug}")]
@@ -32,7 +33,6 @@ namespace DVMN.Controllers
                 server = "1";
             ViewData["FilmDetials"] = await _repository.Get(slug, server);
             ViewData["bannerBottomFilm"] = await _repository.GetBannerBottomFilm();
-            await _repository.IsWatched(slug);
             return View();
         }
 

@@ -46,17 +46,17 @@ namespace DVMN
         {
             // Add framework services.
             services.AddMemoryCache();
-            if (CurrentEnvironment.IsDevelopment())
-            {
-                //services.AddResponseCaching();
+            //if (CurrentEnvironment.IsDevelopment())
+            //{
+            //    //services.AddResponseCaching();
+            //    services.AddDbContext<ApplicationDbContext>(options =>
+            //        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //}
+            //else
+            //{
                 services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            }
-            else
-            {
-                services.AddDbContext<ApplicationDbContext>(options =>
-                   options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
-            }
+                   options.UseSqlServer(Configuration.GetConnectionString("VPSConnection")));
+            //}
             services.AddIdentity<Member, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -103,10 +103,11 @@ namespace DVMN
             loggerFactory.AddDebug();
             
            
-            app.UseDeveloperExceptionPage();
+            
 
             if (env.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
                 //app.UseStatusCodePages();
                 app.UseDatabaseErrorPage();
                 app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");

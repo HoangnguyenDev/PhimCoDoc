@@ -111,8 +111,7 @@ namespace DVMN.Controllers
             StringBuilder stringBuilder = new StringBuilder();
 
             stringBuilder.AppendLine("user-agent: *");
-            stringBuilder.AppendLine("disallow: /error/");
-            stringBuilder.AppendLine("allow: /error/foo");
+            stringBuilder.AppendLine("disallow: /Areas/");
             return this.Content(stringBuilder.ToString(), "text/plain", Encoding.UTF8);
         }
         [Route("/tim-kiem/")]
