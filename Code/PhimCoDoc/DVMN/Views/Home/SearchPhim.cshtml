@@ -31,7 +31,7 @@
             {
                 <div class="col-md-2 w3l-movie-gride-agile">
                     <a asp-controller="Film" asp-action="Single" asp-route-slug="@item.Slug" class="hvr-shutter-out-horizontal">
-                        <img src="@item.Image.Pic182x268" title="@item.Image.Title" class="img-responsive" alt="@item.Image.ALT" />
+                        <img asp-append-version="true" src="@item.Image.Pic182x268" title="@item.Image.Title" class="img-responsive" alt="@item.Image.ALT" />
                         <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
                     </a>
                     <div class="mid-1 agileits_w3layouts_mid_1_home">

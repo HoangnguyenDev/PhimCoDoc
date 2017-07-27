@@ -33,7 +33,7 @@
                     <td>@STT</td>
                     <td class="w3-list-img">
                         <a asp-controller="film" asp-action="single" asp-route-slug="@item.Slug">
-                            <img src="@item.Image.Pic115x175" alt="@item.Image.ALT" /> <span>@item.Title</span>
+                            <img src="@item.Image.Pic115x175" alt="@item.Image.ALT" title="@item.Image.Title" asp-append-version="true"/> <span>@item.Title</span>
                         </a>
                     </td>
                     <td class="w3-list-info">

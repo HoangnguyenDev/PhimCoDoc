@@ -4,7 +4,7 @@
 <ul>
     @foreach(var item in Model)
     { 
-        <li><img src="~/images/1300x500/@item.Image.Name" alt=" "><p class='title'><a style="color: white" asp-controller="Film" asp-action="Single" asp-route-slug="@item.Slug">@item.Title</a></p><p class='description'>@item.Descriptions...</p></li>
+        <li><img asp-append-version="true" src="~/images/1300x500/@item.Image.Name" alt="@item.Image.ALT" title="@item.Image.Title"><p class='title'><a style="color: white" asp-controller="Film" asp-action="Single" asp-route-slug="@item.Slug">@item.Title</a></p><p class='description'>@item.Descriptions...</p></li>
     }
 </ul> 
 	

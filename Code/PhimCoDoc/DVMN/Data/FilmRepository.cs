@@ -283,6 +283,7 @@ namespace DVMN.Data
             var tags = await _context.FilmTag
                 .Include(p => p.Film)
                 .Include(p => p.Tag)
+                .Where(p => p.FilmID == film.ID)
                 .ToListAsync();
             WatchFilmViewModel model = new WatchFilmViewModel(film.Image,film.Member,film.Serie, tags);
             model.Video = film.Video;

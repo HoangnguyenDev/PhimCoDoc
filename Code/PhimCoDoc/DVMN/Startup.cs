@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json.Serialization;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
+
 namespace DVMN
 {
     public class Startup
@@ -54,7 +55,7 @@ namespace DVMN
             //}
             //else
             //{
-                services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
                    options.UseSqlServer(Configuration.GetConnectionString("VPSConnection")));
             //}
             services.AddIdentity<Member, IdentityRole>()
@@ -101,9 +102,6 @@ namespace DVMN
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            
-           
-            
 
             if (env.IsDevelopment())
             {
@@ -126,7 +124,7 @@ namespace DVMN
                     var headers = context.Context.Response.GetTypedHeaders();
                     headers.CacheControl = new CacheControlHeaderValue()
                     {
-                        MaxAge = TimeSpan.FromSeconds(120),
+                        MaxAge = TimeSpan.FromSeconds(2592000),
                         
 
                     };

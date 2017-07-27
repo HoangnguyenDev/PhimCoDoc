@@ -30,19 +30,17 @@ namespace DVMN.Controllers
             return View();
         }
 
-
+        [Route("/ve-chung-toi")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
-
             return View();
         }
         [ResponseCache(Duration = 60)]
-
+        [Route("/lien-he")]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
@@ -111,7 +109,11 @@ namespace DVMN.Controllers
             StringBuilder stringBuilder = new StringBuilder();
 
             stringBuilder.AppendLine("user-agent: *");
-            stringBuilder.AppendLine("disallow: /Areas/");
+            stringBuilder.AppendLine("Disallow: /Areas");
+            stringBuilder.AppendLine("Disallow: /wwwroot");
+            stringBuilder.AppendLine("disallow: /WebManager/");
+            stringBuilder.AppendLine("User-agent: Googlebot-Image");
+            stringBuilder.AppendLine("Allow: /wwwroot/images");    
             return this.Content(stringBuilder.ToString(), "text/plain", Encoding.UTF8);
         }
         [Route("/tim-kiem/")]

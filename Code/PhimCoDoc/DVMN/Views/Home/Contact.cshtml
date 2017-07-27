@@ -1,94 +1,75 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    <link rel="stylesheet" href="/styles/kendo.common.min.css" />
-    <link rel="stylesheet" href="/styles/kendo.default.min.css" />
-    <link rel="stylesheet" href="/styles/kendo.default.mobile.min.css" />
+﻿@{ 
+    ViewData["Title"] = "Liên hệ chúng tôi | Phim Cơ Đốc";
+    ViewData["Desciption"] = "Bạn có thể liên hệ với chúng tôi bằng những thôn tin dưới đây";
+}
 
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/kendo.all.min.js"></script>
-</head>
-<body>
-    <div id="example">
 
-        <div class="box wide">
-            <p>Allowed file types for the Image browser are: jpg, jpeg, gif, png</p>
-            <p>Allowed file types for the File browser for this demo are: txt, doc, docx, xls, xlsx, ppt, pptx, zip, rar, jpg, jpeg, gif, png</p>
+<div class="contact-agile">
+    <div id="map"></div>
+    <div class="faq">
+        <h4 class="latest-text w3_latest_text">Liên hệ</h4>
+        <div class="container">
+            <div class="col-md-3 location-agileinfo">
+                <div class="icon-w3">
+                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                </div>
+                <h3>Địa chỉ</h3>
+                <h4>Sẽ cập nhật sau.</h4>
+            </div>
+            <div class="col-md-3 call-agileits">
+                <div class="icon-w3">
+                    <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+                </div>
+                <h3>Điện thoại</h3>
+                <h4>Sẽ cập nhật sau</h4>
+            </div>
+            <div class="col-md-3 mail-wthree">
+                <div class="icon-w3">
+                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                </div>
+                <h3>Email</h3>
+                <h4><a href="mailto:info@example.com">sẽ cập nhật sau</a></h4>
+            </div>
+            <div class="col-md-3 social-w3l">
+                <div class="icon-w3">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                </div>
+                <h3>Social media</h3>
+                <ul>
+                    <li><a href="https://www.facebook.com/phimcodocviet/"><i class="fa fa-facebook" aria-hidden="true"></i><span class="text">Facebook</span></a></li>
+                    @*<li class="twt"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i><span class="text">Twitter</span></a></li>*@
+                    @*<li class="ggp"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i><span class="text">Google+</span></a></li>*@
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+            <form action="#" method="post">
+                <input type="text" name="your name" placeholder="HỌ" required="">
+                <input type="text" name="your name" placeholder="TÊN" required="">
+                <input type="text" name="your email" placeholder="EMAIL" required="">
+                <input type="text" name="subject" placeholder="TIÊU ĐỀ" required="">
+                <textarea name="your message" placeholder="THÔNG ĐIỆP CỦA BẠN" required=""></textarea>
+                <input type="submit" value="GỬI">
+            </form>
         </div>
-
-        <textarea id="editor" rows="10" cols="30" style="height:440px">
-                    &lt;p&gt;&lt;img src=&quot;../content/web/editor/kendo-ui-web.png&quot; alt=&quot;Editor for ASP.NET MVC logo&quot; style=&quot;display:block;margin-left:auto;margin-right:auto;&quot; /&gt;&lt;/p&gt;
-                    &lt;p&gt;
-                        Kendo UI Editor allows your users to edit HTML in a familiar, user-friendly way.&lt;br /&gt;
-                        In this version, the Editor provides the core HTML editing engine, which includes basic text formatting, hyperlinks, lists,
-                        and image handling. The widget &lt;strong&gt;outputs identical HTML&lt;/strong&gt; across all major browsers, follows
-                        accessibility standards and provides API for content manipulation.
-                    &lt;/p&gt;
-                    &lt;p&gt;Features include:&lt;/p&gt;
-                    &lt;ul&gt;
-                        &lt;li&gt;Text formatting &amp; alignment&lt;/li&gt;
-                        &lt;li&gt;Bulleted and numbered lists&lt;/li&gt;
-                        &lt;li&gt;Hyperlink and image dialogs&lt;/li&gt;
-                        &lt;li&gt;Cross-browser support&lt;/li&gt;
-                        &lt;li&gt;Identical HTML output across browsers&lt;/li&gt;
-                        &lt;li&gt;Gracefully degrades to a &lt;code&gt;textarea&lt;/code&gt; when JavaScript is turned off&lt;/li&gt;
-                    &lt;/ul&gt;
-                    &lt;p&gt;
-                        Read &lt;a href=&quot;http://docs.telerik.com/kendo-ui&quot;&gt;more details&lt;/a&gt; or send us your
-                        &lt;a href=&quot;http://www.telerik.com/forums&quot;&gt;feedback&lt;/a&gt;!
-                    &lt;/p&gt;
-                </textarea>
-        <script>
-                $(document).ready(function() {
-                    // create Editor from textarea HTML element with default set of tools
-                    $("#editor").kendoEditor({
-                        tools: [
-                            "insertImage",
-                            "insertFile"
-                        ],
-                        imageBrowser: {
-                           messages: {
-                            dropFilesHere: "Drop files here"
-                           },
-                           transport: {
-                                read: "/kendo-ui/service/ImageBrowser/Read",
-                                destroy: {
-                                    url: "/kendo-ui/service/ImageBrowser/Destroy",
-                                    type: "POST"
-                                },
-                                create: {
-                                    url: "/kendo-ui/service/ImageBrowser/Create",
-                                    type: "POST"
-                                },
-                                thumbnailUrl: "/kendo-ui/service/ImageBrowser/Thumbnail",
-                                uploadUrl: "/kendo-ui/service/ImageBrowser/Upload",
-                                imageUrl: "/kendo-ui/service/ImageBrowser/Image?path={0}"
-                           }
-                        },
-                        fileBrowser: {
-                            messages: {
-                                dropFilesHere: "Drop files here"
-                            },
-                            transport: {
-                                read: "/kendo-ui/service/FileBrowser/Read",
-                                destroy: {
-                                    url: "/kendo-ui/service/FileBrowser/Destroy",
-                                    type: "POST"
-                                },
-                                create: {
-                                    url: "/kendo-ui/service/FileBrowser/Create",
-                                    type: "POST"
-                                },
-                                uploadUrl: "/kendo-ui/service/FileBrowser/Upload",
-                                fileUrl: "/kendo-ui/service/FileBrowser/File?fileName={0}"
-                            }
-                        }
-                    });
-                });
-        </script>
     </div>
-
-
-</body>
-</html>
+</div>
+<!-- Map-JavaScript -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+<script type="text/javascript">
+    google.maps.event.addDomListener(window, 'load', init);
+    function init() {
+        var mapOptions = {
+            zoom: 11,
+            center: new google.maps.LatLng(10.882819, 106.781899),
+            styles: [{ "featureType": "all", "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#000000" }, { "lightness": 40 }] }, { "featureType": "all", "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#000000" }, { "lightness": 16 }] }, { "featureType": "all", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#000000" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#000000" }, { "lightness": 17 }, { "weight": 1.2 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#000000" }, { "lightness": 20 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#000000" }, { "lightness": 21 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#000000" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#000000" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#000000" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#000000" }, { "lightness": 16 }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#000000" }, { "lightness": 19 }] }, { "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#000000" }, { "lightness": 17 }] }]
+        };
+        var mapElement = document.getElementById('map');
+        var map = new google.maps.Map(mapElement, mapOptions);
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(40.6700, -73.9400),
+            map: map,
+        });
+    }
+</script>
+<!-- //Map-JavaScript -->
+<!-- //contact -->
